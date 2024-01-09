@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url("../src/assets/fonts/stylesheet.css");
+
+* {
+  @apply font-global;
+}
+/* 
+h1 {
+  @apply text-32 md:text-36 xxl:text-3.5;
+}
+
+h2 {
+  @apply text-28 md:text-30 xxl:text-3;
+}
+
+h3 {
+  @apply text-26 md:text-28 xxl:text-2.5;
+} 
+
+h4 {
+  @apply text-22 md:text-26 xxl:text-2;
+}
+
+h5 {
+  @apply text-20 md:text-22 xxl:text-1.5;
+}
+
+h6 {
+  @apply text-18 md:text-20 xxl:text-1;
+}
+
+p {
+  @apply text-16 xxl:text-1;
+} */
+
+html {
+  background: white;
+}
+
+.container {
+  @apply max-w-full xxl:w-[1340px] 3xl:w-[1480px];
+}
+
+
+.gradient{
+  background-image: linear-gradient(
+    270deg,
+    rgba(209, 35, 225, 0.192) 0%,
+  rgba(208, 138, 234, 0.256) 26%,
+  rgba(208, 194, 244, 0.266) 39%,
+  rgba(206, 236, 253, 0.347) 50%,
+  rgba(169, 200, 244, 0.395) 61%,
+  rgba(123, 158, 234, 0.344) 74%,
+  rgba(35, 98, 225, 0.337) 100%
+  );
+  filter: blur(125px);
+}
