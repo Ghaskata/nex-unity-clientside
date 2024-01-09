@@ -6,13 +6,12 @@ import { IconButton } from "../../components/ui/IconButton";
 import IcnCloseEye from "../../components/svg/IcnCloseEye";
 import IcnOpenEye from "../../components/svg/IcnOpenEye";
 import Input from "../../components/ui/Input";
-import { ToastCon } from "../../components/common/Toast";
 import { toast } from "react-toastify";
 
-const Login = () => {
+const Login = ({ setloginModalOpen }) => {
   const [IsshowPassword, setIsshowPassword] = useState(false);
   const [user, setUser] = useState({ name: "", password: "" });
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const onLogin = (e) => {
     e.preventDefault();
@@ -29,10 +28,10 @@ const Login = () => {
   };
 
   return (
-    <div className="login_wrapper flex items-center justify-center min-h-screen p-5">
-      <div className="bg-white dark:bg-black/90 text-black dark:text-white p-4 md:p-8 rounded-2xl w-full max-w-md shadow z-50">
+    <div className="login_wrapper flex items-center justify-center">
+      <div className="bg-white dark:bg-black/90 text-black dark:text-white p-2 md:p-4 rounded-2xl w-full max-w-md shadow z-50">
         <div className="flex items-end justify-end">
-          <IconButton onClick={() => navigate("/", { replace: true })}>
+          <IconButton onClick={() => setloginModalOpen(false)}>
             <IcnClose />
           </IconButton>
         </div>
@@ -85,7 +84,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <ToastCon />
     </div>
   );
 };

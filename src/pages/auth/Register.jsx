@@ -9,8 +9,8 @@ import Input from "../../components/ui/Input";
 import { ToastCon } from "../../components/common/Toast";
 import { toast } from "react-toastify";
 
-const Register = () => {
-  const navigate = useNavigate();
+const Register = ({ setregisterModalOpen }) => {
+  // const navigate = useNavigate();
   const [IsshowPassword, setIsshowPassword] = useState(false);
   const [IsshowConformPass, setIsshowConformPass] = useState(false);
   const [terms, setTerms] = useState(false);
@@ -58,10 +58,10 @@ const Register = () => {
   };
 
   return (
-    <div className="register_wrapper flex items-center justify-center p-5">
-      <div className="bg-white dark:bg-black/90 text-black dark:text-white p-4 md:p-8 rounded-2xl w-full max-w-lg shadow z-50">
+    <div className="register_wrapper flex items-center justify-center">
+      <div className="bg-white dark:bg-black/90 text-black dark:text-white p-2 md:p-4 rounded-2xl w-full max-w-lg shadow z-50">
         <div className="flex items-end justify-end">
-          <IconButton onClick={() => navigate("/", { replace: true })}>
+          <IconButton onClick={() => setregisterModalOpen(false)}>
             <IcnClose />
           </IconButton>
         </div>

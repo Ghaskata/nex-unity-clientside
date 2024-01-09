@@ -15,10 +15,9 @@ const BackDrop = lazy(() => import("../components/common/BackDrop"));
 const DashMaster = lazy(() => import("../layouts/dashboard/DashMaster"));
 const DashboardHome = lazy(() => import("../pages/dash/DashboardHome"));
 const DashSettings = lazy(() => import("../pages/dash/DashSettings"));
-const User = lazy(() => import('../pages/dash/Users'))
-const CommunityManagers = lazy(() => import('../pages/dash/CommunityManagers'))
-const CommunityPage=lazy(()=>import('../pages/dash/CommunityPage'))
-
+const User = lazy(() => import("../pages/dash/Users"));
+const CommunityManagers = lazy(() => import("../pages/dash/CommunityManagers"));
+const CommunityPage = lazy(() => import("../pages/dash/CommunityPage"));
 
 //front
 const FrontMaster = lazy(() => import("../layouts/front/FrontMaster"));
@@ -36,8 +35,7 @@ const AuthGaurd = ({ children }) => {
   const navigate = useNavigate();
   useEffect(() => {
     if (!isAuth) {
-      navigate("/auth", { replace: true });
-
+      navigate("/", { replace: true });
     }
   });
   return children;
@@ -74,17 +72,18 @@ export default function Router() {
     },
     //for front
     {
-      path: "/auth",
+      path: "/",
       element: <AuthMaster />,
     },
     {
-      path: '/',
-      element: <AuthGaurd>
-        <FrontMaster />
-      </AuthGaurd>,
+      path: "/home",
+      element: (
+        <AuthGaurd>
+          <FrontMaster />
+        </AuthGaurd>
+      ),
       children: [{ index: true, element: <LandingPage /> }],
-
-    }
+    },
   ]);
 
   //   const routes = createBrowserRouter(
