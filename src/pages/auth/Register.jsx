@@ -50,7 +50,7 @@ const Register = ({ setregisterModalOpen }) => {
       return;
     }
     toast.success("succesfully registred");
-    console.log("register user on post >>> ", user);
+    console.log("register user on post /register >>> ", user);
   };
 
   const handleChange = (e) => {
@@ -68,7 +68,7 @@ const Register = ({ setregisterModalOpen }) => {
         <h1 className="text-center uppercase text-3xl">Sign up</h1>
         <div className="p-3">
           <form
-            action=""
+            action="register"
             method="post"
             className="login_form"
             onSubmit={onRegister}
@@ -168,15 +168,14 @@ const Register = ({ setregisterModalOpen }) => {
             </div>
             <Button className="my-5">Sign Up</Button>
           </form>
-          <div className="text-center">
+          {/* <div className="text-center">
             <span className="text-gray-500">
               I have an Already an account?{" "}
             </span>
             <Link to={"/login"}>Sign in</Link>
-          </div>
+          </div> */}
         </div>
       </div>
-      <ToastCon />
     </div>
   );
 };

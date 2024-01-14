@@ -73,7 +73,7 @@ export default function Router() {
     //for front
     {
       path: "/",
-      element: <AuthMaster />,
+      element: <AuthMaster/>,
     },
     {
       path: "/home",

@@ -11,6 +11,8 @@ import { toast } from "react-toastify";
 const Login = ({ setloginModalOpen }) => {
   const [IsshowPassword, setIsshowPassword] = useState(false);
   const [user, setUser] = useState({ name: "", password: "" });
+  const [ForgotPasswordOpen, setForgotPasswordOpen] = useState(false);
+
   // const navigate = useNavigate();
 
   const onLogin = (e) => {
@@ -20,7 +22,7 @@ const Login = ({ setloginModalOpen }) => {
       toast.warning("fill all the fields", { hideProgressBar: true });
       return;
     }
-    console.log("login user on post >>> ", user);
+    console.log("login user on post /login >>> ", user);
   };
 
   const handleChange = (e) => {
@@ -38,7 +40,7 @@ const Login = ({ setloginModalOpen }) => {
         <h1 className="text-center uppercase text-3xl">Login</h1>
         <div className="p-3">
           <form
-            action=""
+            action="login"
             method="post"
             className="login_form"
             onSubmit={onLogin}
@@ -74,16 +76,23 @@ const Login = ({ setloginModalOpen }) => {
               </span>
             </div>
             <span className="flex justify-end text-sm">
-              <Link to="/forgetPassword">Forgot password?</Link>
+              <Link role="button" onClick={() => setForgotPasswordOpen(true)}>
+                Forgot password?
+              </Link>
             </span>
             <Button className={"my-5"}>Login</Button>
           </form>
-          <div className="text-center">
+          {/* <div className="text-center">
             <span className="text-gray-500">Don’t have an account? </span>
             <Link to={"/register"}>Sign Up</Link>
-          </div>
+          </div> */}
         </div>
       </div>
+
+      <ForgotPasswordOpen
+        ForgotPasswordOpen={ForgotPasswordOpen}
+        setForgotPasswordOpen={setForgotPasswordOpen}
+      />
     </div>
   );
 };

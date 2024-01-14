@@ -1,14 +1,14 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import Login from "./Login";
+import Register from "../../../../pages/auth/Register";
 
-const LoginModal = ({ loginModalOpen, setloginModalOpen }) => {
+const RegisterModal = ({ registerModalOpen, setregisterModalOpen }) => {
   return (
-    <Transition appear show={loginModalOpen} as={Fragment}>
+    <Transition appear show={registerModalOpen} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-50"
-        onClose={() => setloginModalOpen(false)}
+        onClose={() => setregisterModalOpen(false)}
       >
         <Transition.Child
           as={Fragment}
@@ -33,7 +33,7 @@ const LoginModal = ({ loginModalOpen, setloginModalOpen }) => {
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white dark:bg-black/50  shadow-xl transition-all">
-                <Login setloginModalOpen={setloginModalOpen} />
+                <Register setregisterModalOpen={setregisterModalOpen} />
               </Dialog.Panel>
             </Transition.Child>
           </div>
@@ -43,4 +43,4 @@ const LoginModal = ({ loginModalOpen, setloginModalOpen }) => {
   );
 };
 
-export default LoginModal;
+export default RegisterModal;

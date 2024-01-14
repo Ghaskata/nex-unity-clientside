@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
-import logoutLight from '../../../assets/images/Logout.png'
-import { Button } from '../../ui/Button'
+import logoutLight from '../../../../assets/images/Logout.png'
+import { Button } from '../../../ui/Button'
 
 const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
     return (

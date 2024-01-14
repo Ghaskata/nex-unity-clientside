@@ -4,9 +4,9 @@ import IcnGoogle from "../../components/svg/IcnGoogle";
 import { Buttonvariants } from "../../components/ui/Button";
 import { cn } from "../../lib/utils";
 import { Link } from "react-router-dom";
-import LoginModal from "../../pages/auth/LoginModal";
+import LoginModal from "../../components/dash/modal/comman/LoginModal";
 import { ToastCon } from "../../components/common/Toast";
-import RegisterModal from "../../pages/auth/RegisterModal";
+import RegisterModal from "../../components/dash/modal/comman/RegisterModal";
 
 const AuthMaster = () => {
   const [loginModalOpen, setloginModalOpen] = useState(false);
@@ -80,7 +80,7 @@ const AuthMaster = () => {
         registerModalOpen={registerModalOpen}
         setregisterModalOpen={setregisterModalOpen}
       />
-      <ToastCon />
+      <ToastCon/>
     </>
   );
 };
