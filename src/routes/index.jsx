@@ -30,6 +30,9 @@ const Login = lazy(() => import("../pages/auth/Login"));
 //register
 const Register = lazy(() => import("../pages/auth/Register"));
 
+//Notfound page
+const NotFoundPage = lazy(() => import("../components/common/NotFoundPage"));
+
 const AuthGaurd = ({ children }) => {
   const isAuth = true;
   const navigate = useNavigate();
@@ -73,7 +76,7 @@ export default function Router() {
     //for front
     {
       path: "/",
-      element: <AuthMaster/>,
+      element: <AuthMaster />,
     },
     {
       path: "/home",
@@ -83,6 +86,10 @@ export default function Router() {
         </AuthGaurd>
       ),
       children: [{ index: true, element: <LandingPage /> }],
+    },
+    {
+      path: "*",
+      element: <NotFoundPage />,
     },
   ]);
 
