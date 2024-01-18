@@ -1,4 +1,7 @@
 import React from 'react'
+import ApexChartCompo from '../../components/dash/ApexChartCompo'
+import Icn404 from '../../components/svg/Icn404'
+
 
 const DashboardHome = () => {
   return (
@@ -26,6 +29,7 @@ const DashboardHome = () => {
             <span className='text-base text-gray-500'>1878</span>
         </div>
       </div>
+        <ApexChartCompo/>
     </div>
   )
 }
