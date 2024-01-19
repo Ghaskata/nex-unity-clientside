@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  darkMode: 'class',
+  darkMode: "class",
   theme: {
     screens: {
       xsm: "420px",
@@ -21,8 +21,10 @@ module.exports = {
     },
     fontFamily: {
       global: ["Merienda"],
+      jost: ["Jost"],
+      ledger: ["Ledger"],
     },
-    
+
     // colors: {
     //   // light mode color
     //   light:{

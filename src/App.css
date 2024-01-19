@@ -5,7 +5,7 @@
 
 * {
   /* @apply font-global; */
-  @apply font-global
+  @apply font-global;
 }
 
 @layer utilities {
@@ -19,12 +19,22 @@
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
+    height: 10px;
     border-radius: 100vh;
     background: rgba(30, 64, 175, 0.5);
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
     /* background: #c0a0b9; */
+  }
+
+  .dark .scrollbar::-webkit-scrollbar-track {
+    background: black;
+  }
+  .dark .scrollbar::-webkit-scrollbar-thumb {
+    height: 10px;
+    border-radius: 100vh;
+    background: white;
   }
 }
 
