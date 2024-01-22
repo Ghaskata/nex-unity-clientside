@@ -9,7 +9,7 @@ import profile from '../../assets/images/frontHero/home header3.jpg'
 const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
   return (
     <div className="dash_header bg-white dark:bg-black dark:text-white w-full fixed top-0 start-0 z-50 shadow h-[78px]">
-      <div className="header_wrapper flex justify-between items-center px-5 py-4">
+      <div className="header_wrapper flex justify-between items-center px-5 py-4 w-full">
         <div className="logo-part flex justify-center items-center md:px-5">
           <button
             className="sidebar_button block md:hidden me-4"

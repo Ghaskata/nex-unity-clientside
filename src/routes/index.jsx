@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from "react";
+import React, { useState, useEffect, lazy, Suspense } from "react";
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -9,7 +9,7 @@ import {
   useRoutes,
 } from "react-router-dom";
 import Loader from "../components/common/Loader";
-import { useEffect } from "react";
+
 const BackDrop = lazy(() => import("../components/common/BackDrop"));
 //dashboard
 const DashMaster = lazy(() => import("../layouts/dashboard/DashMaster"));
@@ -108,5 +108,17 @@ export default function Router() {
   //       </Route>
   //     )
   //   );
-  return <Suspense fallback={<Loader />}>{routes}</Suspense>;
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      setLoading(false);
+    }, 5000);
+    return () => clearTimeout(timeoutId);
+  }, []);
+
+  return (
+    <Suspense fallback={<Loader />}>{loading ? <Loader /> : routes}</Suspense>
+  );
 }

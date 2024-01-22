@@ -14,14 +14,14 @@ const AuthMaster = () => {
 
   return (
     <>
-      <div className="w-full bg-white dark:bg-black text-dark dark:text-white grid grid-cols-1 md:grid-cols-3 lg:grid-cols-2 min-h-screen">
+      <div className="w-full bg-white dark:bg-black text-dark dark:text-white grid grid-cols-1 md:grid-cols-2 min-h-screen">
         <div className="w-full hidden md:flex md:justify-center md:items-center col-span-1">
-          <div className="image_wrapper md:m-10 max-w-lg overflow-hidden rounded-2xl">
-            <img src={img} className="object-cover w-full" alt="Logo" />
+          <div className="image_wrapper h-full w-full overflow-hidden">
+            <img src={img} className="object-cover h-full w-full" alt="Logo" />
           </div>
         </div>
 
-        <div className="w-full flex flex-col justify-center items-center md:items-start px-0 sm:px-4 gap-8 col-span-2 lg:col-span-1">
+        <div className="w-full flex flex-col justify-center items-center text-center px-0 sm:px-4 gap-8 col-span-2 md:col-span-1">
           <h1 className="capitalize text-4xl sm:text-5xl">Happening now</h1>
           <h4 className="text-2xl sm:text-3xl">Join today.</h4>
           <div className="w-full sm:w-1/2 md:3/4 p-4 sm:p-0">
@@ -33,7 +33,7 @@ const AuthMaster = () => {
               onClick={() => console.log("sign Up with google")}
             >
               <IcnGoogle className="h-5 w-5 md:h-6 md:w-6" />
-              <span className="text-sm text-gray-500">Sign Up With Google</span>
+              <span className="text-sm text-gray-400">Sign Up With Google</span>
             </button>
             <div className="flex flex-row justify-center items-center my-3 mx-5">
               <hr className="w-full border-[1px] border-gray-500/20" />

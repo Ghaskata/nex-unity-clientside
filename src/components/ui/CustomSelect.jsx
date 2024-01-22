@@ -1,21 +1,33 @@
-import { Fragment, useEffect, useState } from 'react'
-import { Listbox, Transition } from '@headlessui/react'
+import { Fragment, useEffect, useState } from "react";
+import { Listbox, Transition } from "@headlessui/react";
+import { cn } from "../../lib/utils";
 
-
-export default function CustomSelect({ list, props, setValue }) {
-  const [selected, setSelected] = useState(list[0])
+export default function CustomSelect({
+  className,
+  buttonClassName,
+  listClassName,
+  optionClassname,
+  list,
+  props,
+  setValue,
+}) {
+  const [selected, setSelected] = useState(list[0]);
 
   useEffect(() => {
-    setValue(selected)
-  }, [selected])
+    setValue(selected);
+  }, [selected]);
 
   return (
-    <div {...props}>
+    <div className={cn("", className)} {...props}>
       <Listbox value={selected} onChange={setSelected}>
         <div className="relative">
-          <Listbox.Button className="relative w-full cursor-default bg-white h-[40px] pl-3 pr-10 text-left rounded-lg shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-sm">
+          <Listbox.Button
+            className={cn(
+              "relative w-full cursor-default bg-white h-[40px] pl-3 pr-10 text-left rounded-lg shadow-md focus:outline-none text-sm md:text-base",
+              buttonClassName
+            )}
+          >
             <span className="block truncate">{selected}</span>
-
           </Listbox.Button>
           <Transition
             as={Fragment}
@@ -23,25 +35,36 @@ export default function CustomSelect({ list, props, setValue }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm">
+            <Listbox.Options
+              className={cn(
+                "absolute mt-1 max-h-60 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black/5 focus:outline-none sm:text-sm",
+                listClassName
+              )}
+            >
               {list.map((iteam, iteamIdx) => (
                 <Listbox.Option
                   key={iteamIdx}
                   className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-blue-500/50 text-blue-800' : 'text-gray-900'
-                    }`
+                    cn(
+                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                        active
+                          ? "bg-blue-500/50 text-blue-800"
+                          : "text-gray-900"
+                      }`,
+                      optionClassname
+                    )
                   }
                   value={iteam}
                 >
                   {({ selected }) => (
                     <>
                       <span
-                        className={`block truncate ${selected ? 'font-medium' : 'font-normal'
-                          }`}
+                        className={`block truncate ${
+                          selected ? "font-medium" : "font-normal"
+                        }`}
                       >
                         {iteam}
                       </span>
-
                     </>
                   )}
                 </Listbox.Option>
@@ -51,5 +74,5 @@ export default function CustomSelect({ list, props, setValue }) {
         </div>
       </Listbox>
     </div>
-  )
+  );
 }

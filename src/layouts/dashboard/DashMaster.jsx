@@ -13,7 +13,7 @@ const DashMaster = () => {
   }, [pathname]);
 
   return (
-    <div>
+    <>
       <Sidebar
         toggleSidebar={toggleSidebar}
         settoggleSidebar={settoggleSidebar}
@@ -30,7 +30,7 @@ const DashMaster = () => {
       <div className="main_layout_container main ms-0 md:ms-[256px] mt-[78px] transition-all duration-200 ease-in-out">
         <Outlet />
       </div>
-    </div>
+    </>
   );
 };
 

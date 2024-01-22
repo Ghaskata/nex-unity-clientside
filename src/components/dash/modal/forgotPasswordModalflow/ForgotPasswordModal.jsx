@@ -6,8 +6,8 @@ import Input from "../../../ui/Input";
 import { Import } from "lucide-react";
 import IcnClose from "../../../svg/IcnClose";
 import { IconButton } from "../../../ui/IconButton";
-import ForgotPasswordModalFirstStep from "./steps/ForgotPasswordModalFirstStep";
-import ForgotPasswordModalSecoundStep from "./steps/ForgotPasswordModalSecoundStep";
+import FirstStep from "./steps/FirstStep";
+import SecoundStep from "./steps/SecoundStep";
 
 const ForgotPasswordModal = ({ ForgotPasswordOpen, setForgotPasswordOpen }) => {
   const [step, setStep] = useState(1);
@@ -61,18 +61,11 @@ const ForgotPasswordModal = ({ ForgotPasswordOpen, setForgotPasswordOpen }) => {
                     </h4>
                   </div>
                   <div className="diagol-body">
-                    {step === 1 && (
-                      <ForgotPasswordModalFirstStep
-                        modalclose={handleClose}
-                        setStep={setStep}
-                      />
-                    )}
-                    {step === 2 && (
-                      <ForgotPasswordModalSecoundStep
-                        modalclose={handleClose}
-                        setStep={setStep}
-                      />
-                    )}
+                    
+                      <FirstStep step={step} setStep={setStep} isActiveStep={step===1}/>
+                    
+                      <SecoundStep step={step} setStep={setStep} isActiveStep={step===2}/>
+                    
                   </div>
                 </div>
               </Dialog.Panel>

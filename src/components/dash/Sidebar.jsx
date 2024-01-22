@@ -44,9 +44,9 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           </li>
           <li className="px-3 mb-5">
             <Link
-              to={"/dashboard/logout"}
+              to={"/dashboard/jobs"}
               className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("logout")
+                pathname.includes("jobs")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
               }`}
@@ -59,9 +59,9 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           </li>
           <li className="px-3 mb-5">
             <Link
-              to={"/dashboard/logout"}
+              to={"/dashboard/roles"}
               className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("logout")
+                pathname.includes("roles")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
               }`}
@@ -119,9 +119,9 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           </li>
           <li className="px-3 mb-5">
             <Link
-              to={"/dashboard/subadmin"}
+              to={"/dashboard/request"}
               className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("subadmin")
+                pathname.includes("request")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
               }`}
@@ -134,7 +134,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           </li>
           <li className="px-3 mb-5">
             <Link
-              to={"/dashboard/community"}
+              to={"/dashboard/events"}
               className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname.includes("events")
                   ? "active bg-blue-800 text-white"
