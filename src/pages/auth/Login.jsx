@@ -32,14 +32,14 @@ const Login = () => {
   };
   return (
     <>
-      <div className="w-full bg-white dark:bg-black text-dark dark:text-white grid grid-cols-1 md:grid-cols-2 min-h-screen">
-        <div className="w-full hidden md:flex md:justify-center md:items-center col-span-1">
+      <div className="w-full bg-backgroundv2 text-textPrimary grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+        <div className="w-full hidden lg:flex md:justify-center md:items-center col-span-1">
           <div className="image_wrapper h-full w-full overflow-hidden">
             <img src={img} className="object-cover h-full w-full" alt="Logo" />
           </div>
         </div>
-        <div className="login_wrapper flex items-center justify-center">
-          <div className="bg-white dark:bg-black/90 text-black dark:text-white p-2 md:p-4 rounded-2xl w-full max-w-md">
+        <div className="login_wrapper flex items-center justify-center mx-2">
+          <div className="bg-backgroundv1 text-textPrimary px-2 md:px-5 py-10 rounded-2xl w-full max-w-md shadow">
             <h1 className="text-center uppercase text-3xl">Login</h1>
             <div className="p-3">
               <form

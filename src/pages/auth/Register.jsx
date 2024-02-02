@@ -60,17 +60,17 @@ const Register = ({ setregisterModalOpen }) => {
 
   return (
     <>
-      <div className="w-full h-screen bg-white dark:bg-black text-dark dark:text-white grid grid-cols-1 md:grid-cols-2">
-        <div className="w-full flex-1 h-screen hidden md:flex md:justify-center md:items-center col-span-1">
+      <div className="w-full h-screen bg-backgroundv2 text-textPrimary grid grid-cols-1 lg:grid-cols-2">
+        <div className="w-full flex-1 h-screen hidden lg:flex md:justify-center md:items-center col-span-1">
           <div className="image_wrapper h-dvh w-screen overflow-hidden">
             <img src={img} className="object-cover h-full w-full" alt="Logo" />
           </div>
         </div>
         <div className="register_wrapper flex-1 flex items-center justify-center">
-          <div className="bg-white dark:bg-black/90 text-black dark:text-white p-2 md:p-4 rounded-2xl w-full max-w-lg">
+          <div className="bg-backgroundv1 text-textPrimary px-2 md:px-4 py-6 rounded-2xl w-full max-w-lg">
             <h1 className="text-center uppercase text-3xl">Sign up</h1>
             <div className="p-3">
-              <form
+              {/* <form
                 action="register"
                 method="post"
                 className="login_form"
@@ -176,7 +176,7 @@ const Register = ({ setregisterModalOpen }) => {
                   I have an Already an account?{" "}
                 </span>
                 <Link to={"/login"}>Sign in</Link>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
