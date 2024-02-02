@@ -7,7 +7,7 @@ const IcnSun = (props) => {
       height="32"
       viewBox="0 0 16 16"
       fill="currentcolor"
-      class="bi bi-sun-fill"
+      className="bi bi-sun-fill"
       {...props}
     >
       <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
