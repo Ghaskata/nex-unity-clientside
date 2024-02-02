@@ -38,7 +38,13 @@ module.exports = {
     //     secondary:"#edf2f8",
     //   },
     // },
-    extend: {},
+    extend: {
+      colors:{
+        backgroundv1:"var(--background-v1)",
+        backgroundv2:"var(--background-v2)",
+        textPrimary:"var(--color-text-primary)"
+      }
+    },
   },
   veriants: {
     extends: {},

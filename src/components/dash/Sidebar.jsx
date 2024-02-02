@@ -30,7 +30,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           <li className="px-3 mb-5">
             <Link
               to={"/dashboard"}
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
+              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname === "/dashboard"
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
@@ -45,7 +45,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           <li className="px-3 mb-5">
             <Link
               to={"/dashboard/jobs"}
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
+              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname.includes("jobs")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
@@ -60,7 +60,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           <li className="px-3 mb-5">
             <Link
               to={"/dashboard/roles"}
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
+              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname.includes("roles")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
@@ -75,7 +75,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           <li className="px-3 mb-5">
             <Link
               to={"/dashboard/users"}
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
+              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname.includes("users")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
@@ -90,7 +90,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           <li className="px-3 mb-5">
             <Link
               to={"/dashboard/community"}
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
+              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname.includes("community")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
@@ -105,7 +105,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           <li className="px-3 mb-5">
             <Link
               to={"/dashboard/subadmin"}
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
+              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname.includes("subadmin")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
@@ -120,7 +120,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           <li className="px-3 mb-5">
             <Link
               to={"/dashboard/request"}
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
+              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname.includes("request")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
@@ -135,7 +135,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           <li className="px-3 mb-5">
             <Link
               to={"/dashboard/events"}
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
+              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname.includes("events")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"
@@ -150,7 +150,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
           <li className="px-3 mb-5">
             <Link
               to={"/dashboard/settings"}
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
+              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
                 pathname.includes("settings")
                   ? "active bg-blue-800 text-white"
                   : "hover:bg-gray-200/50"

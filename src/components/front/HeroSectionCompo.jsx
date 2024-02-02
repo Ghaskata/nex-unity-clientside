@@ -6,10 +6,10 @@ import OrangeLine from '../../assets/images/frontHero/home loader orange line.sv
 
 const HeroSectionCompo = () => {
   return (
-    <div className="hero_wrraper p-[50px] bg-white dark:bg-black/75">
+    <div className="hero_wrraper p-[50px] bg-backgroundv1">
       <div className="relative h-[500px] flex justify-center items-center">
         <div className='w-[150px] sm:w-[300px] md:w-[400px] lg-w-[500px] flex flex-col gap-5 '>
-          <h1 className='text-3xl md:text-5xl dark:text-white'>
+          <h1 className='text-3xl md:text-5xl text-textPrimary'>
             Find your work and your people
           </h1>
           <p className='text-sm md:text-base text-gray-500'>Become a member of the best community and and work global company.</p>

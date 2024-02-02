@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const FrontFooter = () => {
   return (
-    <footer className="footer fototer_warraper bg-white shadow-md dark:bg-gray-900">
+    <footer className="footer fototer_warraper bg-backgroundv2">
       <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
         <Link
           to="/"
