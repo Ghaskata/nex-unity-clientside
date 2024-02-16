@@ -1,187 +1,116 @@
 import React, { useState } from "react";
 import img from "../../assets/images/frontHero/home header3.jpg";
 import IcnClose from "../../components/svg/IcnClose";
-import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/Button";
 import { IconButton } from "../../components/ui/IconButton";
 import IcnCloseEye from "../../components/svg/IcnCloseEye";
 import IcnOpenEye from "../../components/svg/IcnOpenEye";
 import Input from "../../components/ui/Input";
-import { ToastCon } from "../../components/common/Toast";
 import { toast } from "react-toastify";
+import Step1 from "../../components/dash/modal/registerSteps/Step1";
+import Step2 from "../../components/dash/modal/registerSteps/Step2";
+import Step3 from "../../components/dash/modal/registerSteps/Step3";
+import { CheckCheck } from "lucide-react";
 
 const Register = ({ setregisterModalOpen }) => {
   // const navigate = useNavigate();
-  const [IsshowPassword, setIsshowPassword] = useState(false);
-  const [IsshowConformPass, setIsshowConformPass] = useState(false);
-  const [terms, setTerms] = useState(false);
-  const [user, setUser] = useState({
-    name: "",
-    email: "",
-    userName: "",
-    password: "",
-    confirmPass: "",
-  });
+  // const [IsshowPassword, setIsshowPassword] = useState(false);
+  // const [IsshowConformPass, setIsshowConformPass] = useState(false);
+  // const [terms, setTerms] = useState(false);
+  // const [user, setUser] = useState({
+  //   name: "",
+  //   email: "",
+  //   userName: "",
+  //   password: "",
+  //   confirmPass: "",
+  // });
 
-  const onRegister = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
+  // const onRegister = (e) => {
+  //   e.preventDefault();
+  //   e.stopPropagation();
 
-    if (!terms) {
-      toast.info("Accept Our Privacy policy and terms & condition", {
-        hideProgressBar: true,
-      });
-      return;
-    }
+  //   if (!terms) {
+  //     toast.info("Accept Our Privacy policy and terms & condition", {
+  //       hideProgressBar: true,
+  //     });
+  //     return;
+  //   }
 
-    if (
-      !user.name ||
-      !user.userName ||
-      !user.password ||
-      !user.email ||
-      !user.confirmPass
-    ) {
-      toast.warning("fill all the fields", { hideProgressBar: true });
-      return;
-    }
-    if (user.password !== user.confirmPass) {
-      toast.warning("password are not same", {
-        hideProgressBar: true,
-      });
-      return;
-    }
-    toast.success("succesfully registred");
-    console.log("register user on post /register >>> ", user);
-  };
+  //   if (
+  //     !user.name ||
+  //     !user.userName ||
+  //     !user.password ||
+  //     !user.email ||
+  //     !user.confirmPass
+  //   ) {
+  //     toast.warning("fill all the fields", { hideProgressBar: true });
+  //     return;
+  //   }
+  //   if (user.password !== user.confirmPass) {
+  //     toast.warning("password are not same", {
+  //       hideProgressBar: true,
+  //     });
+  //     return;
+  //   }
+  //   toast.success("succesfully registred");
+  //   console.log("register user on post /register >>> ", user);
+  // };
 
-  const handleChange = (e) => {
-    setUser({ ...user, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setUser({ ...user, [e.target.name]: e.target.value });
+  // };
+
+  const [step, setstep] = useState(1);
 
   return (
     <>
-      <div className="w-full h-screen bg-backgroundv2 text-textPrimary grid grid-cols-1 lg:grid-cols-2">
-        <div className="w-full flex-1 h-screen hidden lg:flex md:justify-center md:items-center col-span-1">
-          <div className="image_wrapper h-dvh w-screen overflow-hidden">
-            <img src={img} className="object-cover h-full w-full" alt="Logo" />
+      <div className="register_wrapper w-full min-h-screen bg-backgroundv2 text-textPrimary flex-1 flex items-center justify-center">
+        <div className="bg-backgroundv1 text-textPrimary px-2 md:px-4 py-7 rounded-2xl w-full max-w-xl mx-3 my-3">
+          <h1 className="text-center uppercase text-3xl">Sign up</h1>
+          <div className="sign_up_step_header w-full flex justify-center items-center py-5">
+            <ul className="w-full max-w-[600px] flex items-center justify-center">
+              <li className={`flex-grow w-full ${step===1 && "active"} ${step > 1 && "done"} group relative before:absolute before:top-5 before:sm:top-6 before:start-[calc(50%+20px)] before:sm:start-[calc(50%+25px)] before:w-[calc(100%-40px)] before:sm:w-[calc(100%-50px)] before:h-[2px] ${step > 1 ? "before:bg-green-600":"before:bg-gray-300"} before:last:hidden before:transition-all before:duration-700 before:ease-in transition-all duration-500 ease-linear`} onClick={()=>setstep(1)}>
+                <div className="flex flex-col justify-center items-center gap-1 w-full">
+                  <div className="w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full border group-[.active]:text-textPrimary group-[.active]:font-semibold group-[.active]:bg-backgroundv2 group-[.active]:border-2 group-[.active]:border-textPrimary group-[.done]:border-2 group-[.done]:border-green-800 group-[.done]:bg-green-400/50 text-gray-400 flex justify-center items-center">
+                    <span className="group-[.done]:hidden">1</span>
+                    <span className="hidden group-[.done]:block text-green-800"><CheckCheck/></span>
+                  </div>
+                  <h2 className="text-gray-400 group-[.active]:text-textPrimary group-[.active]:font-semibold text-xs sm:text-sm md:text-base group-[.done]:text-green-800 group-[.done]:font-semibold">
+                    Email
+                  </h2>
+                </div>
+              </li>
+              <li className={`flex-grow w-full ${step===2 && "active"} ${step > 2 && "done"} group relative before:absolute before:top-5 before:sm:top-6 before:start-[calc(50%+20px)] before:sm:start-[calc(50%+25px)] before:w-[calc(100%-40px)] before:sm:w-[calc(100%-50px)] before:h-[2px] ${step > 2 ? "before:bg-green-600":"before:bg-gray-300"} before:last:hidden before:transition-all before:duration-700 before:ease-in transition-all duration-500 ease-linear`} onClick={()=>setstep(2)}>
+                <div className="flex flex-col justify-center items-center gap-1 w-full">
+                  <div className="w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full border group-[.active]:text-textPrimary group-[.active]:font-semibold group-[.active]:bg-backgroundv2 group-[.active]:border-2 group-[.active]:border-textPrimary group-[.done]:border-2 group-[.done]:border-green-800 group-[.done]:bg-green-400/50 text-gray-400 flex justify-center items-center">
+                    <span className="group-[.done]:hidden">2</span>
+                    <span className="hidden group-[.done]:block text-green-800"><CheckCheck/></span>
+                  </div>
+                  <h2 className="text-gray-400 group-[.active]:text-textPrimary group-[.active]:font-semibold text-xs sm:text-sm md:text-base group-[.done]:text-green-800 group-[.done]:font-semibold">
+                    Pesonal details
+                  </h2>
+                </div>
+              </li>
+              <li className={`flex-grow w-full ${step===3 && "active"} ${step > 3 && "done"} group relative before:absolute before:top-5 before:sm:top-6 before:start-[calc(50%+20px)] before:sm:start-[calc(50%+25px)] before:w-[calc(100%-40px)] before:sm:w-[calc(100%-50px)] before:h-[2px] ${step > 3 ? "before:bg-green-600":"before:bg-gray-300"} before:last:hidden before:transition-all before:duration-700 before:ease-in transition-all duration-500 ease-linear`} onClick={()=>setstep(3)}>
+                <div className="flex flex-col justify-center items-center gap-1 w-full">
+                  <div className="w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full border group-[.active]:text-textPrimary group-[.active]:font-semibold group-[.active]:bg-backgroundv2 group-[.active]:border-2 group-[.active]:border-textPrimary group-[.done]:border-2 group-[.done]:border-green-800 group-[.done]:bg-green-400/50 text-gray-400 flex justify-center items-center">
+                    <span className="group-[.done]:hidden">3</span>
+                    <span className="hidden group-[.done]:block text-green-800"><CheckCheck/></span>
+                  </div>
+                  <h2 className="text-gray-400 group-[.active]:text-textPrimary group-[.active]:font-semibold text-xs sm:text-sm md:text-base group-[.done]:text-green-800 group-[.done]:font-semibold">
+                    Family Tree
+                  </h2>
+                </div>
+              </li>
+            </ul>
           </div>
-        </div>
-        <div className="register_wrapper flex-1 flex items-center justify-center">
-          <div className="bg-backgroundv1 text-textPrimary px-2 md:px-4 py-6 rounded-2xl w-full max-w-lg">
-            <h1 className="text-center uppercase text-3xl">Sign up</h1>
-            <div className="p-3">
-              {/* <form
-                action="register"
-                method="post"
-                className="login_form"
-                onSubmit={onRegister}
-              >
-                <div className="form-group mt-5">
-                  <Input
-                    lable={"Name"}
-                    type={"text"}
-                    name={"name"}
-                    placeholder={"Enter Full Name"}
-                    value={user.name}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group mt-5">
-                  <Input
-                    lable={"Email"}
-                    type={"email"}
-                    name={"email"}
-                    placeholder={"Enter Email Addredss"}
-                    value={user.email}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="form-group mt-5">
-                  <Input
-                    lable={"User Name"}
-                    type={"text"}
-                    name={"userName"}
-                    placeholder={"Enter User Name"}
-                    value={user.userName}
-                    onChange={handleChange}
-                  />
-                </div>
-                <div className="relative form-group mt-5">
-                  <Input
-                    lable={"Password"}
-                    type={IsshowPassword ? "text" : "password"}
-                    name={"password"}
-                    placeholder={"Enter Password"}
-                    value={user.password}
-                    onChange={handleChange}
-                  />
-                  <span
-                    className="absolute top-12 end-3"
-                    onClick={() => setIsshowPassword(!IsshowPassword)}
-                  >
-                    {IsshowPassword ? (
-                      <IcnCloseEye className="h-5 w-5 text-gray-500" />
-                    ) : (
-                      <IcnOpenEye className="h-5 w-5 text-gray-500" />
-                    )}
-                  </span>
-                </div>
-                <div className="relative form-group mt-5">
-                  <Input
-                    lable={"Confirm Password"}
-                    type={IsshowConformPass ? "text" : "password"}
-                    name={"confirmPass"}
-                    placeholder={"Confirm Password"}
-                    value={user.confirmPass}
-                    onChange={handleChange}
-                  />
-                  <span
-                    className="absolute top-12 end-3"
-                    onClick={() => setIsshowConformPass(!IsshowConformPass)}
-                  >
-                    {IsshowConformPass ? (
-                      <IcnCloseEye className="h-5 w-5 text-gray-500" />
-                    ) : (
-                      <IcnOpenEye className="h-5 w-5 text-gray-500" />
-                    )}
-                  </span>
-                </div>
-                <div className="form-group mt-5">
-                  <input
-                    type="checkbox"
-                    name="terms"
-                    id="terms"
-                    className="size-4"
-                    value={terms}
-                    onChange={() => setTerms(!terms)}
-                  />
-                  <label htmlFor="terms" className="text-sm text-gray-500 ms-2">
-                    By click on Signup you accept our{" "}
-                    <span className="text-black dark:text-white font-semibold">
-                      {" "}
-                      privacy policy{" "}
-                    </span>{" "}
-                    and{" "}
-                    <span className="text-black dark:text-white font-semibold">
-                      {" "}
-                      terms & condition{" "}
-                    </span>
-                    .
-                  </label>
-                </div>
-                <Button variant={"blue"} className="my-5 rounded-none " >Sign Up</Button>
-              </form>
-              <div className="text-center">
-                <span className="text-gray-500">
-                  I have an Already an account?{" "}
-                </span>
-                <Link to={"/login"}>Sign in</Link>
-              </div> */}
-            </div>
+          <div className="p-3 md:px-10">
+            <Step1 step={step} setstep={setstep} isActive={step === 1} />
+            <Step2 step={step} setstep={setstep} isActive={step === 2} />
+            <Step3 step={step} setstep={setstep} isActive={step === 3} />
           </div>
         </div>
       </div>
-      <ToastCon />
     </>
   );
 };

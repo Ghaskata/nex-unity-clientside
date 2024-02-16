@@ -8,9 +8,8 @@ import IcnCloseEye from "../../components/svg/IcnCloseEye";
 import IcnOpenEye from "../../components/svg/IcnOpenEye";
 import Input from "../../components/ui/Input";
 import { toast } from "react-toastify";
-import { ToastCon } from "../../components/common/Toast";
 import ForgotPasswordModal from "../../components/dash/modal/forgotPasswordModalflow/ForgotPasswordModal";
-
+import { CircleUserRound } from "lucide-react";
 
 const Login = () => {
   const [IsshowPassword, setIsshowPassword] = useState(false);
@@ -39,13 +38,16 @@ const Login = () => {
           </div>
         </div>
         <div className="login_wrapper flex items-center justify-center mx-2">
-          <div className="bg-backgroundv1 text-textPrimary px-2 md:px-5 py-10 rounded-2xl w-full max-w-md shadow">
-            <h1 className="text-center uppercase text-3xl">Login</h1>
-            <div className="p-3">
+          <div className="bg-backgroundv1 text-textPrimary px-2 md:px-5 py-5 rounded-2xl w-full max-w-md shadow">
+            <div className="flex flex-col w-full gap-y-2 justify-center items-center">
+              <CircleUserRound size={100} strokeWidth={1} className="mx-auto"/>
+              <h1 className="text-center uppercase text-3xl">Login</h1>
+            </div>
+            <div className="p-3 pt-0">
               <form
                 action="login"
                 method="post"
-                className="login_form"
+                className="login_form "
                 onSubmit={handleLogin}
               >
                 <div className="form-group mt-5">
@@ -106,7 +108,6 @@ const Login = () => {
         ForgotPasswordOpen={ForgotPasswordOpen}
         setForgotPasswordOpen={setForgotPasswordOpen}
       />
-      <ToastCon />
     </>
   );
 };
