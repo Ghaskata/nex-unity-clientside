@@ -22,7 +22,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
     <>
       <div
         className={cn(
-          "dash_sidebar w-[256px] h-full fixed top-[78px]  -start-[256px] md:start-0 transition-all duration-500 ease-in-out dark:text-white bg-white dark:bg-black z-20 shadow flex flex-col",
+          "dash_sidebar w-[300px] h-full fixed top-[78px]  -start-[300px] md:start-0 transition-all duration-500 ease-in-out  z-20 shadow flex flex-col bg-backgroundv1",
           className
         )}
       >
@@ -37,7 +37,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               }`}
             >
               <span className="icon">
-                <HomeIcon className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <HomeIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Home
             </Link>
@@ -52,7 +52,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               }`}
             >
               <span className="icon">
-                <BriefcaseIcon className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <BriefcaseIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Jobs
             </Link>
@@ -67,7 +67,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               }`}
             >
               <span className="icon">
-                <ShieldPlusIcon className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <ShieldPlusIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Roles / Permission
             </Link>
@@ -82,7 +82,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               }`}
             >
               <span className="icon">
-                <UsersRoundIcon className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <UsersRoundIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Users
             </Link>
@@ -97,7 +97,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               }`}
             >
               <span className="icon">
-                <GroupIcon className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <GroupIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Communites
             </Link>
@@ -112,7 +112,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               }`}
             >
               <span className="icon">
-                <UserRoundCog className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <UserRoundCog className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Community Managers
             </Link>
@@ -127,7 +127,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               }`}
             >
               <span className="icon">
-                <MapPinnedIcon className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <MapPinnedIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Trace Request
             </Link>
@@ -142,7 +142,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               }`}
             >
               <span className="icon">
-                <CalendarCheck2Icon className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <CalendarCheck2Icon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Events
             </Link>
@@ -157,7 +157,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               }`}
             >
               <span className="icon">
-                <SettingsIcon className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <SettingsIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Settings
             </Link>
@@ -169,7 +169,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
               onClick={() => setLogoutModalOpen(true)}
             >
               <span className="icon">
-                <LogOutIcon className="w-[20px] h-[20px] text-black dark:text-gray-500 group-[.active]/card:text-white" />
+                <LogOutIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
               </span>
               Logout
             </Link>
