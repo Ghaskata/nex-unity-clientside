@@ -5,7 +5,7 @@ import Sidebar from "../../components/dash/Sidebar";
 
 const DashMaster = () => {
   const [toggleSidebar, settoggleSidebar] = useState(false);
-  console.log("toggle sidebar >>> ",toggleSidebar);
+  console.log("toggle sidebar >>> ", toggleSidebar);
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -18,16 +18,13 @@ const DashMaster = () => {
         toggleSidebar={toggleSidebar}
         settoggleSidebar={settoggleSidebar}
       />
-      {toggleSidebar && (
-        <div className="w-full fixed z-50 top-0 start-0 transition-all duration-500 ease-in h-full">
-          <Sidebar className="absolute start-0 z-50 transition-all duration-500 ease-in" />
-        </div>
-      )}
+      <Sidebar className={`${toggleSidebar ? "start-0" : "-start-[300px]"}`} />
+
       <DashHeader
         toggleSidebar={toggleSidebar}
         settoggleSidebar={settoggleSidebar}
       />
-      <div className="main_layout_container main ps-0 md:ps-[256px] pt-[78px] transition-all duration-500 ease-in-out">
+      <div className="main_layout_container main ps-0 md:ps-[300px] pt-[78px] transition-all duration-500 ease-in-out">
         <Outlet />
       </div>
     </>
