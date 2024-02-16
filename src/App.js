@@ -1,15 +1,16 @@
 import { useState } from "react";
 import "./App.css";
 import Router from "./routes";
+import { ThemeProvider } from "./context/ThemeContext";
+import { ToastCon } from "./components/common/Toast";
 
 function App() {
-  const [showModal, setShowModal] = useState(true);
-
-  const toggleModal = () => {
-    setShowModal(!showModal);
-  };
-
-  return <Router />;
+  return (
+    <ThemeProvider>
+      <Router />
+      <ToastCon />
+    </ThemeProvider>
+  );
 }
 
 {
