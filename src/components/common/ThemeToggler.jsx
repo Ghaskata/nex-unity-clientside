@@ -1,34 +1,27 @@
 // Toggler.js
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import IcnSun from "../svg/IcnSun";
 import IcnMoon from "../svg/IcnMoon";
 import { IconButton } from "../ui/IconButton";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const ThemeToggler = () => {
-  const [isDarkMode, setIsDarkMode] = useState(false);
-
+  const { isDarkMode, toggleTheme } = useContext(ThemeContext);
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDarkMode);
   }, [isDarkMode]);
-
-  const toggleDarkMode = () => {
-    setIsDarkMode((prevMode) => !prevMode);
-  };
-
-  // const toggleToDarkMode = () => setIsDarkMode(true);
-  // const toggleToLightMode = () => setIsDarkMode(false);
 
   return (
     <>
       <button
         className="text-black dark:text-white p-2 rounded-full"
-        onClick={toggleDarkMode}
+        onClick={toggleTheme}
       >
         {isDarkMode ? (
-          <IcnSun className="h-[24px] w-[24px] md:h-[32px] md:w-[32px]" />
+          <IcnSun className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px]" />
         ) : (
-          <IcnMoon className="h-[24px] w-[24px] md:h-[32px] md:w-[32px]" />
+          <IcnMoon className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px]" />
         )}
       </button>
       {/* <div className="theme_toggle">

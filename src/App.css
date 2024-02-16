@@ -10,8 +10,8 @@
     --color-text-primary: black;
   }
   .dark {
-    --background-v1: black;
-    --background-v2: rgba(0, 0, 0, 0.5);
+    --background-v1: #020d1c;
+    --background-v2: black;
     --color-text-primary: white;
   }
 }
@@ -23,6 +23,11 @@
 body {
   margin: 0;
   padding: 0;
+  overflow-x: hidden;
+}
+
+.component{
+  @apply py-10 md:py-20
 }
 
 @layer utilities {
@@ -85,5 +90,19 @@ body {
       rgba(123, 158, 234, 0.344) 74%,
       rgba(35, 98, 225, 0.337) 100%
     );
+  }
+}
+
+
+@layer base {
+  .text-gradient {
+    -webkit-text-fill-color: transparent !important;
+    -webkit-background-clip: text !important;
+    background-clip: text !important;
+  }
+}
+@layer components {
+  .text-blue-lg {
+    background: linear-gradient(150deg, #339ada 0%,#1258b4 50%, #063168 100%);
   }
 }
