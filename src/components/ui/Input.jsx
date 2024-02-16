@@ -2,13 +2,14 @@ import React from "react";
 import { cn } from "../../lib/utils";
 
 const Input = ({
-  lable,
+  lable = "",
   type,
   name,
   placeholder,
   className,
   value,
   onChange,
+  ref,
   ...props
 }) => {
   return (
@@ -23,6 +24,7 @@ const Input = ({
         value={value}
         name={name}
         onChange={onChange}
+        ref={ref}
       />
     </div>
   );
