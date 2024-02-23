@@ -3,57 +3,60 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
-    screens: {
-      xsm: "420px",
-      sm: "576px",
-      md: "768px",
-      lg: "992px",
-      xl: "1200px",
-      xxl: "1400px",
-      "3xl": "1640px",
-    },
-    container: {
-      center: true,
-      padding: {
-        DEFAULT: 12,
-        sm: 16,
-      },
-    },
     fontFamily: {
       global: ["Merienda"],
       jost: ["Jost"],
       ledger: ["Ledger"],
+      playfair: ["Playfair Display"],
+      cormorant:["Cormorant Garamond"]
     },
 
-    
     extend: {
-      colors:{
-        backgroundv1:"var(--background-v1)",
-        backgroundv2:"var(--background-v2)",
-        textPrimary:"var(--color-text-primary)"
+      screens: {
+        xxsm: "320px",
+        xsm: "420px",
+        sm: "576px",
+        md: "768px",
+        lg: "992px",
+        xl: "1200px",
+        xxl: "1400px",
+        "3xl": "1640px",
       },
-      fontSize:{
-        10:'10px',
-        12:'12px',
-        14:'14px',
-        16:'16px',
-        18:'18px',
-        20:'20px',
-        22:'22px',
-        24:'24px',
-        26:'26px',
-        28:'28px',
-        30:'30px',
-        32:'32px',
-        34:'34px',
-        36:'36px',
-        42:'42px',
-        44:'44px',
-        46:'46px',
-        52:'52px',
-        64:'64px',
-        74:'74px',
-      }
+
+      colors: {
+        backgroundv1: "var(--background-v1)",
+        backgroundv2: "var(--background-v2)",
+        textPrimary: "var(--color-text-primary)",
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: 12,
+          sm: 16,
+        },
+      },
+      fontSize: {
+        10: "10px",
+        12: "12px",
+        14: "14px",
+        16: "16px",
+        18: "18px",
+        20: "20px",
+        22: "22px",
+        24: "24px",
+        26: "26px",
+        28: "28px",
+        30: "30px",
+        32: "32px",
+        34: "34px",
+        36: "36px",
+        42: "42px",
+        44: "44px",
+        46: "46px",
+        52: "52px",
+        64: "64px",
+        74: "74px",
+      },
     },
   },
   veriants: {
