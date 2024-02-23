@@ -4,10 +4,10 @@ import TopBestSectionCompo from "../../components/front/TopBestSectionCompo";
 
 const LandingPage = () => {
   return (
-    <div>
+    <>
       <HeroSectionCompo />
       <TopBestSectionCompo/>
-    </div>
+    </>
   );
 };
 

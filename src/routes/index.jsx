@@ -71,7 +71,6 @@ export default function Router() {
         { path: "settings", element: <DashSettings /> },
         { path: "users", element: <User /> },
         { path: "subadmin", element: <CommunityManagers /> },
-        { path: "*", element: <NotFoundPage /> },
       ],
     },
     //for front
