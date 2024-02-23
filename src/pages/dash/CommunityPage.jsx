@@ -4,9 +4,9 @@ import { PlusIcon } from 'lucide-react'
 
 const CommunityPage = () => {
     return (
-        <div className="dash min-h-screen bg-backgroundv2 p-8 transition-all duration-200 ease-in-out">
-            <h3 className='text-xl md:text-2xl text-textPrimary'>Dashboard</h3>
-            <div className='dash_home md:py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-8 lg:gap-10'>
+        <div className="dash h-full min-h-screen w-full bg-backgroundv2 p-8 transition-all duration-200 ease-in-out">
+            <h3 className='text-28 lg:text-32 text-textPrimary'>Dashboard</h3>
+            <div className='dash_home md:py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-8'>
                 {
                     communityData.map((community) => (
                         <div className="shadow-md rounded-2xl p-5 bg-white">

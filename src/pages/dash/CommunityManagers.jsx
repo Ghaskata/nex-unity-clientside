@@ -24,8 +24,8 @@ const CommunityManagers = () => {
   console.log(searchData);
 
   return (
-    <div className="dash min-h-screen bg-backgroundv2 p-8 transition-all duration-200 ease-out">
-      <h3 className="text-xl md:text-2xl text-textPrimary">
+    <div className="dash h-full w-full bg-backgroundv2 p-8 transition-all duration-200 ease-out">
+      <h3 className="text-28 lg:text-32  text-textPrimary">
         Community Managers
       </h3>
       <form
