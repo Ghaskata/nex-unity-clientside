@@ -64,12 +64,12 @@ const Register = ({ setregisterModalOpen }) => {
 
   return (
     <>
-      <div className="register_wrapper w-full min-h-screen bg-backgroundv2 text-textPrimary flex-1 flex items-center justify-center">
-        <div className="bg-backgroundv1 text-textPrimary px-2 md:px-4 py-7 rounded-2xl w-full max-w-xl mx-3 my-3">
-          <h1 className="text-center uppercase text-3xl">Sign up</h1>
-          <div className="sign_up_step_header w-full flex justify-center items-center py-5">
+      <div className="register_wrapper w-full h-screen bg-backgroundv2 text-textPrimary flex-1 flex items-center justify-center py-5">
+        <div className="bg-backgroundv1 h-full flex flex-col max-h-[700px] text-textPrimary px-2 md:px-4 py-7 rounded-2xl w-full max-w-xl mx-3 my-3">
+          <h1 className="text-center uppercase flex-shrink-0 text-3xl">Sign up</h1>
+          <div className="sign_up_step_header flex-shrink-0 w-full flex justify-center items-center py-5">
             <ul className="w-full max-w-[600px] flex items-center justify-center">
-              <li className={`flex-grow w-full ${step===1 && "active"} ${step > 1 && "done"} group relative before:absolute before:top-5 before:sm:top-6 before:start-[calc(50%+20px)] before:sm:start-[calc(50%+25px)] before:w-[calc(100%-40px)] before:sm:w-[calc(100%-50px)] before:h-[2px] ${step > 1 ? "before:bg-green-600":"before:bg-gray-300"} before:last:hidden before:transition-all before:duration-700 before:ease-in transition-all duration-500 ease-linear`} onClick={()=>setstep(1)}>
+              <li className={`flex-grow w-full ${step===1 && "active"} ${step > 1 && "done"} group relative before:absolute before:top-5 before:sm:top-6 before:start-[calc(50%+20px)] before:sm:start-[calc(50%+25px)] before:w-[calc(100%-40px)] before:sm:w-[calc(100%-50px)] before:h-[2px] ${step > 1 ? "before:bg-green-600":"before:bg-gray-300"} before:last:hidden before:transition-all before:duration-500 before:ease-in transition-all duration-500 ease-linear`} onClick={()=>setstep(1)}>
                 <div className="flex flex-col justify-center items-center gap-1 w-full">
                   <div className="w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full border group-[.active]:text-textPrimary group-[.active]:font-semibold group-[.active]:bg-backgroundv2 group-[.active]:border-2 group-[.active]:border-textPrimary group-[.done]:border-2 group-[.done]:border-green-800 group-[.done]:bg-green-400/50 text-gray-400 flex justify-center items-center">
                     <span className="group-[.done]:hidden">1</span>
@@ -80,7 +80,7 @@ const Register = ({ setregisterModalOpen }) => {
                   </h2>
                 </div>
               </li>
-              <li className={`flex-grow w-full ${step===2 && "active"} ${step > 2 && "done"} group relative before:absolute before:top-5 before:sm:top-6 before:start-[calc(50%+20px)] before:sm:start-[calc(50%+25px)] before:w-[calc(100%-40px)] before:sm:w-[calc(100%-50px)] before:h-[2px] ${step > 2 ? "before:bg-green-600":"before:bg-gray-300"} before:last:hidden before:transition-all before:duration-700 before:ease-in transition-all duration-500 ease-linear`} onClick={()=>setstep(2)}>
+              <li className={`flex-grow w-full ${step===2 && "active"} ${step > 2 && "done"} group relative before:absolute before:top-5 before:sm:top-6 before:start-[calc(50%+20px)] before:sm:start-[calc(50%+25px)] before:w-[calc(100%-40px)] before:sm:w-[calc(100%-50px)] before:h-[2px] ${step > 2 ? "before:bg-green-600":"before:bg-gray-300"} before:last:hidden before:transition-all before:duration-500 before:ease-in transition-all duration-500 ease-linear`} onClick={()=>setstep(2)}>
                 <div className="flex flex-col justify-center items-center gap-1 w-full">
                   <div className="w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full border group-[.active]:text-textPrimary group-[.active]:font-semibold group-[.active]:bg-backgroundv2 group-[.active]:border-2 group-[.active]:border-textPrimary group-[.done]:border-2 group-[.done]:border-green-800 group-[.done]:bg-green-400/50 text-gray-400 flex justify-center items-center">
                     <span className="group-[.done]:hidden">2</span>
@@ -91,7 +91,7 @@ const Register = ({ setregisterModalOpen }) => {
                   </h2>
                 </div>
               </li>
-              <li className={`flex-grow w-full ${step===3 && "active"} ${step > 3 && "done"} group relative before:absolute before:top-5 before:sm:top-6 before:start-[calc(50%+20px)] before:sm:start-[calc(50%+25px)] before:w-[calc(100%-40px)] before:sm:w-[calc(100%-50px)] before:h-[2px] ${step > 3 ? "before:bg-green-600":"before:bg-gray-300"} before:last:hidden before:transition-all before:duration-700 before:ease-in transition-all duration-500 ease-linear`} onClick={()=>setstep(3)}>
+              <li className={`flex-grow w-full ${step===3 && "active"} ${step > 3 && "done"} group relative before:absolute before:top-5 before:sm:top-6 before:start-[calc(50%+20px)] before:sm:start-[calc(50%+25px)] before:w-[calc(100%-40px)] before:sm:w-[calc(100%-50px)] before:h-[2px] ${step > 3 ? "before:bg-green-600":"before:bg-gray-300"} before:last:hidden before:transition-all before:duration-500 before:ease-in transition-all duration-500 ease-linear`} onClick={()=>setstep(3)}>
                 <div className="flex flex-col justify-center items-center gap-1 w-full">
                   <div className="w-[40px] h-[40px] sm:w-[50px] sm:h-[50px] rounded-full border group-[.active]:text-textPrimary group-[.active]:font-semibold group-[.active]:bg-backgroundv2 group-[.active]:border-2 group-[.active]:border-textPrimary group-[.done]:border-2 group-[.done]:border-green-800 group-[.done]:bg-green-400/50 text-gray-400 flex justify-center items-center">
                     <span className="group-[.done]:hidden">3</span>
@@ -104,7 +104,7 @@ const Register = ({ setregisterModalOpen }) => {
               </li>
             </ul>
           </div>
-          <div className="p-3 md:px-10">
+          <div className="p-3 md:px-10 flex-grow">
             <Step1 step={step} setstep={setstep} isActive={step === 1} />
             <Step2 step={step} setstep={setstep} isActive={step === 2} />
             <Step3 step={step} setstep={setstep} isActive={step === 3} />
