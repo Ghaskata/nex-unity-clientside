@@ -55,25 +55,6 @@ const DashboardHome = () => {
         </div>
         <div className="shadow-md rounded-2xl bg-white w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative">
           <div className="flex gap-3 items-start">
-            <div className="h-[60px] w-[60px] flex-shrink-0 xl:h-[70px] xl:w-[70px] xxl:h-[80px] xxl:w-[80px] rounded-full overflow-hidden bg-[#07bc0c]/30 text-[#07bc0c] flex items-center justify-center">
-              <User2 className="h-8 w-8 xl:h-9 xl:w-9 xxl:h-10 xxl:w-10" />
-            </div>
-            <div>
-              <h3 className="text-24 xl:text-26 xxl:text-30 mb-1 xxl:mb-2">
-                Community Manager
-              </h3>
-              <span className="text-14 lg:text-16 xl:text-18 xxl:text-20 text-gray-500">
-                1878
-              </span>
-            </div>
-          </div>
-
-          <div className="absolute -end-3 -bottom-4 w-[110%] h-full">
-            <ChartCompo color={"#07bc0c"} />
-          </div>
-        </div>
-        <div className="shadow-md rounded-2xl bg-white w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative">
-          <div className="flex gap-3 items-start">
             <div className="h-[60px] w-[60px] flex-shrink-0 xl:h-[70px] xl:w-[70px] xxl:h-[80px] xxl:w-[80px] rounded-full overflow-hidden bg-[#007aff]/30 text-[#007aff] flex items-center justify-center">
               <Blocks className="h-8 w-8 xl:h-9 xl:w-9 xxl:h-10 xxl:w-10" />
             </div>
@@ -93,7 +74,27 @@ const DashboardHome = () => {
         </div>
         <div className="shadow-md rounded-2xl bg-white w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative">
           <div className="flex gap-3 items-start">
-            <div className="h-[60px] w-[60px] flex-shrink-0 xl:h-[70px] xl:w-[70px] xxl:h-[80px] xxl:w-[80px] rounded-full overflow-hidden bg-[#e74c3c]/30 text-[#e74c3c] flex items-center justify-center">
+            <div className="h-[60px] w-[60px] flex-shrink-0 xl:h-[70px] xl:w-[70px] xxl:h-[80px] xxl:w-[80px] rounded-full overflow-hidden bg-[#07bc0c]/30 text-[#07bc0c] flex items-center justify-center">
+              <User2 className="h-8 w-8 xl:h-9 xl:w-9 xxl:h-10 xxl:w-10" />
+            </div>
+            <div>
+              <h3 className="text-24 xl:text-26 xxl:text-30 mb-1 xxl:mb-2">
+                Community Manager
+              </h3>
+              <span className="text-14 lg:text-16 xl:text-18 xxl:text-20 text-gray-500">
+                1878
+              </span>
+            </div>
+          </div>
+
+          <div className="absolute -end-3 -bottom-4 w-[110%] h-full">
+            <ChartCompo color={"#07bc0c"} />
+          </div>
+        </div>
+
+        <div className="shadow-md rounded-2xl bg-white w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative">
+          <div className="flex gap-3 items-start">
+            <div className="h-[60px] w-[60px] flex-shrink-0 xl:h-[70px] xl:w-[70px] xxl:h-[80px] xxl:w-[80px] rounded-full overflow-hidden bg-[#bb86fc]/30 text-[#bb86fc] flex items-center justify-center">
               <Briefcase className="h-8 w-8 xl:h-9 xl:w-9 xxl:h-10 xxl:w-10" />
             </div>
             <div>
@@ -107,12 +108,12 @@ const DashboardHome = () => {
           </div>
 
           <div className="absolute -end-3 -bottom-4 w-[110%] h-full">
-            <ChartCompo color={"#e74c3c"} />
+            <ChartCompo color={"#bb86fc"} />
           </div>
         </div>
         <div className="shadow-md rounded-2xl bg-white w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative">
           <div className="flex gap-3 items-start">
-            <div className="h-[60px] w-[60px] flex-shrink-0 xl:h-[70px] xl:w-[70px] xxl:h-[80px] xxl:w-[80px] rounded-full overflow-hidden bg-[#bb86fc]/30 text-[#bb86fc] flex items-center justify-center">
+            <div className="h-[60px] w-[60px] flex-shrink-0 xl:h-[70px] xl:w-[70px] xxl:h-[80px] xxl:w-[80px] rounded-full overflow-hidden bg-[#e74c3c]/30 text-[#e74c3c] flex items-center justify-center">
               <MapPinned className="h-8 w-8 xl:h-9 xl:w-9 xxl:h-10 xxl:w-10" />
             </div>
             <div>
@@ -126,7 +127,7 @@ const DashboardHome = () => {
           </div>
 
           <div className="absolute -end-3 -bottom-4 w-[110%] h-full">
-            <ChartCompo color={"#bb86fc"} />
+            <ChartCompo color={"#e74c3c"} />
           </div>
         </div>
 
