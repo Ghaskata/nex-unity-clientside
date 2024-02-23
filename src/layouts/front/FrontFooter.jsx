@@ -1,51 +1,74 @@
-import React from "react";
+import { FacebookIcon, InstagramIcon, TwitterIcon } from "lucide-react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import darkLogo from "../../assets/images/darkLogo.jpeg";
+import lightLogo from "../../assets/images/whiteLogo.png";
+
+import { ThemeContext } from "../../context/ThemeContext";
 
 const FrontFooter = () => {
+  const { isDarkMode } = useContext(ThemeContext);
   return (
-    <footer className="footer fototer_warraper bg-backgroundv2">
-      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8 container">
-        <Link
-          to="/"
-          className="flex justify-center items-center mb-4 sm:mb-0 space-x-3 rtl:space-x-reverse"
-        >
-          <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">
-            NexUnity
-          </span>
-        </Link>
-        <ul className="flex flex-wrap justify-center items-center m-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
-          <li>
-            <Link to="/" className="hover:underline me-4 md:me-6">
-              About
-            </Link>
-          </li>
-          <li>
-            <Link to="/" className="hover:underline me-4 md:me-6">
-              Privacy Policy
-            </Link>
-          </li>
-          <li>
-            <Link to="/" className="hover:underline me-4 md:me-6">
-              Licensing
-            </Link>
-          </li>
-          <li>
-            <Link to="/" className="hover:underline">
-              Contact
-            </Link>
-          </li>
-        </ul>
-        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-        <span className="block text-sm text-gray-500 text-center dark:text-gray-400">
-          © 2023{" "}
-          <a href="" className="hover:underline underline-offset-4">
-            Flowbite™
-          </a>
-          . All Rights Reserved.
-        </span>
-      </div>
-    </footer>
-    
+    <>
+      <footer className="mx-auto  w-screen border-t text-textPrimary py-3 pt-6 xsm:pt-8 sm:pt-10 md:pt-12 lg:pt-16 bg-backgroundv1">
+        <div className="container w-full ">
+          <div className="flex-none xsm:flex justify-between items-center mb-4 gap-4 sm:gap-0">
+            <div className="mb-3 md:mb-0">
+              {/* <img src={logo} alt="" className="h-12 w-44" /> */}
+              {isDarkMode ? (
+                <img src={darkLogo} alt="dark logo" className="h-44 w-44" />
+              ) : (
+                <img src={lightLogo} alt="light logo" className="h-44 w-44" />
+              )}
+            </div>
+            <div className='flex gap-2 sm:justify-center'>
+              <div className=''>
+                <Link to={"/"}><img src={require("../../assets/images/play.png")} alt=""  className='h-10 w-36' /></Link>
+              </div>
+              <div className=''>
+                <Link to={"/"}><img src={require("../../assets/images/AppStore.png")} alt=""  className='h-10 w-36' /></Link>
+              </div>
+            </div>
+          </div>
+          <div className="flex-none md:flex justify-between items-center">
+            <div className="flex flex-col items-start sm:flex-row sm:items-center justify-between gap-3 lg:gap-5 xl:gap-8 mb-5 md:mb-0">
+              <Link>Home</Link>
+              <Link>About Oppipay</Link>
+              <Link>Features</Link>
+              <Link>Help & Support</Link>
+            </div>
+            <div className="md:flex gap-5 hidden">
+              <span className="bg-blue-700 text-white rounded-full p-2 pt-[10px]">
+                <FacebookIcon className={"h-4 w-5"} />
+              </span>
+              <span className="bg-black text-white rounded-full p-2">
+                <InstagramIcon className={"h-5 w-5"} />
+              </span>
+              <span className="bg-black text-white rounded-full p-2">
+                <TwitterIcon className={"h-5 w-5"} />
+              </span>
+            </div>
+          </div>
+          <hr className="mt-5 mb-5 bg-textPrimary h-[2px]" />
+          <div className="xsm:flex justify-between items-center">
+            <div className="mb-5 xsm:mb-0">
+              <p className="text-textPrimary">© NexUnity. All Rights Reserved.</p>
+            </div>
+            <div className="flex gap-x-5 md:hidden">
+              <span className="bg-theme rounded-full p-2 pt-[10px]">
+                <FacebookIcon className={"h-4 w-5"} />
+              </span>
+              <span className="bg-blue-700 text-white rounded-full p-2">
+                <InstagramIcon className={"h-5 w-5"} />
+              </span>
+              <span className="bg-blue-700 text-white rounded-full p-2">
+                <TwitterIcon className={"h-5 w-5"} />
+              </span>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </>
   );
 };
 

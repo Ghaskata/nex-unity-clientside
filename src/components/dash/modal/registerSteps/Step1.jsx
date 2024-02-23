@@ -20,19 +20,19 @@ const Step1 = ({ step, setstep, isActive }) => {
   };
 
   const handleSubmit = () => {
-    if (!user.email || !user.password || !user.conformPass) {
-      toast.warning("All fields are required");
-    } else if (!user.email.endsWith("gmail.com") || user.email.length < 12) {
-      toast.error("invalid email address");
-    } else if (user.password !== user.conformPass) {
-      toast.warning("password should be same");
-    } else {
-      setstep(2);
-    }
+    // if (!user.email || !user.password || !user.conformPass) {
+    //   toast.warning("All fields are required");
+    // } else if (!user.email.endsWith("gmail.com") || user.email.length < 12) {
+    //   toast.error("invalid email address");
+    // } else if (user.password !== user.conformPass) {
+    //   toast.warning("password should be same");
+    // } else {
+    setstep(2);
+    // }
   };
   return (
-    <div className={`${isActive ? "block" : "hidden"}`}>
-      <div>
+    <div className={`${isActive ? "block" : "hidden"} h-full w-full flex flex-col justify-between`}>
+      <div className="">
         <div className="form-group">
           <Input
             lable={"Email"}
@@ -83,11 +83,11 @@ const Step1 = ({ step, setstep, isActive }) => {
             )}
           </span>
         </div>
-        <div className="py-3">
-          <Button variant={"blue"} className={"rounded"} onClick={handleSubmit}>
-            Sign Up
-          </Button>
-        </div>
+      </div>
+      <div className="">
+        <Button variant={"blueV1"} className={"rounded-lg"} onClick={handleSubmit}>
+          Verify Now
+        </Button>
       </div>
     </div>
   );

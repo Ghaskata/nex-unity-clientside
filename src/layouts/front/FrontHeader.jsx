@@ -36,7 +36,7 @@ const FrontHeader = () => {
   });
 
   return (
-    <header className="header__wrapper h-[120px] bg-transparent p-1 z-50  fixed fixed-top w-full shadow-none transition-all duration-500 ease-linear flex justify-center items-center">
+    <header className="header__wrapper h-[120px] bg-transparent   p-1 z-50  fixed fixed-top w-full shadow-none transition-all duration-500 ease-linear flex justify-center items-center">
       <div className="flex justify-between items-center px-5 py-2 container">
         <div className="logo">
           <div className="img_container h-[62px] w-[70px]">
@@ -66,7 +66,7 @@ const FrontHeader = () => {
         </div>
         <div className="flex gap-2 sm:gap-3 md:gap-5 justify-between items-center">
           <ThemeToggler />
-          <Menu className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px]"/>
+          <Menu className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px] text-textPrimary"/>
         </div>
       </div>
     </header>

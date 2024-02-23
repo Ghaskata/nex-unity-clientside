@@ -2,8 +2,8 @@ import React from 'react'
 
 const TopBestSectionCompo = () => {
     return (
-        <div className='TopBestSection_wrapper justify-between items-center mx-auto py-2 px-0'>
-            <div className='w-full shadow flex justify-between items-center gap-2 sm:gap-10 lg:gap-5   py-[50px] md:py-[200px]'>
+        <div className='TopBestSection_wrapper justify-between items-center mx-auto px-0 container'>
+            <div className='w-full flex justify-between items-center gap-2 sm:gap-10 lg:gap-5   py-[50px] md:py-[200px]'>
                 <div className='flex flex-col w-full'>
                     <span className='text-base md:text-lg lg:text-2xl text-start'>we connect top </span>
                     <h3 className='text-lg sm:text-3xl md:text-4xl lg:text-5xl text-end md:text-center'>Polish <span className="text-orange-400">People</span> </h3>
