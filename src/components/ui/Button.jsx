@@ -11,7 +11,11 @@ const Buttonvariants = cva(
         black:
           "bg-black w-full text-white hover:bg-black/60 rounded-full border-[1px] border-gray-500",
         blue: "bg-blue-800 w-full text-white hover:bg-blue-500/80 rounded-full",
+        blueV1:
+          "bg-blue-800 w-full text-white relative overflow-hidden z-10 before:absolute before:start-0 before:h-full before:w-full before:bg-black before:-top-full before:-z-10 hover:before:top-0  before:transition-all before:duration-300 before:ease-linear",
         white: "bg-white text-black hover:bg-black rounded-full",
+        outline:
+          "bg-transparent border-2 border-black text-black rounded-lg hover:bg-gray-200",
         ghost:
           "relative rounded-lg border border-blue-800 bg-transparent border text-lg text-gray-500 transition-colors before:absolute before:left-0 before:top-0 before:h-full before:w-full before:-z-10 before:origin-top-left before:scale-y-0 before:bg-blue-800 before:transition-transform before:duration-300 before:content-[''] before:rounded-lg hover:text-white before:hover:scale-y-100",
       },

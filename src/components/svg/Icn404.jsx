@@ -8,8 +8,8 @@ const Icn404 = (props) => {
       height="253"
       preserveAspectRatio="xMidYMid meet"
       style={{
-        width: "20%",
-        height: "20%",
+        width: "10%",
+        height: "10%",
         transform: "translate3d(0px, 0px, 0px)",
         contentVisibility: "visible",
       }}

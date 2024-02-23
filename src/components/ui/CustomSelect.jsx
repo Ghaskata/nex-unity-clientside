@@ -46,7 +46,7 @@ export default function CustomSelect({
                   key={iteamIdx}
                   className={({ active }) =>
                     cn(
-                      `relative cursor-default select-none py-2 pl-10 pr-4 ${
+                      `relative cursor-default select-none py-2 ps-3 pr-4 ${
                         active
                           ? "bg-blue-500/50 text-blue-800"
                           : "text-gray-900"
