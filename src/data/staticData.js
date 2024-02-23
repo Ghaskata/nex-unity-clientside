@@ -1,9 +1,3 @@
-export const userTableFields = [
-    "username",
-    "firstname",
-    "lastname",
-    "email",
-]
 
 export const subAdminTableFields = [
     "username",
@@ -21,6 +15,10 @@ export const userTable = [
     { id: 7, image: "home header3.jpg", username: "abc", email: "abc.xyz@gmial.com", lastname: 'Clifford', firstname: 'Ferrara', emailVerified: false, phoneVerified: false, createdAt: "29/06/2089", mobileno: 4489234590 },
     { id: 8, image: "home header3.jpg", username: "abc", email: "abc.xyz@gmial.com", lastname: 'Frances', firstname: 'Rossini', emailVerified: true, phoneVerified: false, createdAt: "29/06/2089", mobileno: 3689234590 },
     { id: 9, image: "home header3.jpg", username: "abc", email: "abc.xyz@gmial.com", lastname: 'Roxie', firstname: 'Harvey', emailVerified: false, phoneVerified: true, createdAt: "29/06/2089", mobileno: 6589234590 },
+    { id: 10, image: "home header3.jpg", username: "abc", email: "abc.xyz@gmial.com", lastname: 'Melisandre', firstname: "", emailVerified: false, phoneVerified: false, createdAt: "29/06/2089", mobileno: 15892345900 },
+    { id: 11, image: "home header3.jpg", username: "abc", email: "abc.xyz@gmial.com", lastname: 'Clifford', firstname: 'Ferrara', emailVerified: false, phoneVerified: false, createdAt: "29/06/2089", mobileno: 4489234590 },
+    { id: 12, image: "home header3.jpg", username: "abc", email: "abc.xyz@gmial.com", lastname: 'Frances', firstname: 'Rossini', emailVerified: true, phoneVerified: false, createdAt: "29/06/2089", mobileno: 3689234590 },
+    { id: 13, image: "home header3.jpg", username: "abc", email: "abc.xyz@gmial.com", lastname: 'Roxie', firstname: 'Harvey', emailVerified: false, phoneVerified: true, createdAt: "29/06/2089", mobileno: 6589234590 },
 ];
 
 export const subAdminTable = [
