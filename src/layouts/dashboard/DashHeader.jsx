@@ -49,9 +49,9 @@ const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
             </Link>
           </div>
         </div>
-        <div className="group of functions flex justify-center items-center gap-1 md:gap-3">
+        <div className="group of functions flex justify-center items-center gap-1 xl:gap-3">
           <IconButton>
-            <BellPlusIcon className=" h-[24px] w-[24px] md:h-[32px] md:w-[32px]" />
+            <BellPlusIcon className=" h-[24px] w-[24px] xl:h-[32px] xl:w-[32px]" />
           </IconButton>
           <ThemeToggler />
           <button className="h-[42px] w-[42px] overflow-hidden rounded-full">
