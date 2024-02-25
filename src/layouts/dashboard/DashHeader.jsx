@@ -12,7 +12,7 @@ import { ThemeContext } from "../../context/ThemeContext";
 const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
   const { isDarkMode } = useContext(ThemeContext);
   return (
-    <div className="dash_header bg-backgroundv1 text-textPrimary w-full fixed top-0 start-0 z-50 shadow h-[78px]">
+    <div className="dash_header bg-backgroundv1 border border-backgroundv3 text-textPrimary w-full fixed top-0 start-0 z-50 shadow h-[78px]">
       <div className="header_wrapper flex justify-between items-center px-5 py-2 w-full">
         <div className="logo-part flex justify-center items-center md:px-5">
           <button

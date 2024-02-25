@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Chart from "react-apexcharts";
 
 const ChartCompo = ({ color }) => {
-  const options = {
+  const [options, setoptions] = useState({
     chart: {
       toolbar: {
         show: false, // Hide chart toolbar
+      },
+      animations: {
+        enabled: true,
+        dynamicAnimation: {
+          speed: 500, // Set the speed of the animation
+        },
       },
     },
     offsetY: 0,
@@ -43,17 +49,30 @@ const ChartCompo = ({ color }) => {
     },
     // colors: ["#FF69B4"],
     colors: [color || "#FF69B4"],
-  };
-
-  const series = [
+  });
+  const [series, setseries] = useState([
     {
       name: "Sample Series",
       // data: [20, 21, 22, 24 , 25],
       data: [31, 40, 38, 51],
     },
-  ];
+  ]);
+
+
+  const handleHover = () => {
+    // Update options for hover animation
+   
+  };
+
+  const handleMouseLeave = () => {
+    // Reset options to default after hover
+  
+  };
+
+
   return (
-    <div className="chart m-0 p-0 h-full w-full">
+    <div className="chart m-0 p-0 h-full w-full hover:scale-125 transition-all duration-300 ease-linear" onMouseEnter={handleHover}
+    onMouseLeave={handleMouseLeave}>
       <Chart
         options={options}
         series={series}

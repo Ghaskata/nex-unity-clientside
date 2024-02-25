@@ -6,14 +6,19 @@ import {
   BriefcaseIcon,
   CalendarCheck2Icon,
   GroupIcon,
-  HomeIcon,
   LogOutIcon,
   MapPinnedIcon,
   SettingsIcon,
   ShieldPlusIcon,
   UserRoundCog,
+  Users2,
   UsersRoundIcon,
 } from "lucide-react";
+import { HiUserGroup } from "react-icons/hi2";
+import { FaHome, FaUsers } from "react-icons/fa";
+import { RiBriefcase2Fill } from "react-icons/ri";
+import { MdSettings } from "react-icons/md";
+import { DashbordNavlinkList } from "../../data/data";
 const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
@@ -22,154 +27,34 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
     <>
       <div
         className={cn(
-          "dash_sidebar w-[300px] h-full fixed top-[78px]  -start-[300px] md:start-0 transition-all duration-500 ease-in-out  z-20 shadow flex flex-col bg-backgroundv1",
+          "dash_sidebar w-[270px] xxl:w-[300px] h-full fixed top-[78px]  -start-[300px] md:start-0 transition-all duration-500 ease-in-out  z-20 shadow flex flex-col bg-backgroundv1",
           className
         )}
       >
-        <ul className="w-full flex-grow py-5 space-y-5 h-full overflow-y-scroll scrollbar mb-20">
-          <li className="px-3 mb-5">
-            <Link
-              to={"/dashboard"}
-              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname === "/dashboard"
-                  ? "active bg-blue-800 text-white"
-                  : "hover:bg-gray-200/50"
-              }`}
-            >
-              <span className="icon">
-                <HomeIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
-              </span>
-              Home
-            </Link>
-          </li>
-          <li className="px-3 mb-5">
-            <Link
-              to={"/dashboard/jobs"}
-              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("jobs")
-                  ? "active bg-blue-800 text-white"
-                  : "hover:bg-gray-200/50"
-              }`}
-            >
-              <span className="icon">
-                <BriefcaseIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
-              </span>
-              Jobs
-            </Link>
-          </li>
-          <li className="px-3 mb-5">
-            <Link
-              to={"/dashboard/roles"}
-              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("roles")
-                  ? "active bg-blue-800 text-white"
-                  : "hover:bg-gray-200/50"
-              }`}
-            >
-              <span className="icon">
-                <ShieldPlusIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
-              </span>
-              Roles / Permission
-            </Link>
-          </li>
-          <li className="px-3 mb-5">
-            <Link
-              to={"/dashboard/users"}
-              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("users")
-                  ? "active bg-blue-800 text-white"
-                  : "hover:bg-gray-200/50"
-              }`}
-            >
-              <span className="icon">
-                <UsersRoundIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
-              </span>
-              Users
-            </Link>
-          </li>
-          <li className="px-3 mb-5">
-            <Link
-              to={"/dashboard/community"}
-              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("community")
-                  ? "active bg-blue-800 text-white"
-                  : "hover:bg-gray-200/50"
-              }`}
-            >
-              <span className="icon">
-                <GroupIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
-              </span>
-              Communites
-            </Link>
-          </li>
-          <li className="px-3 mb-5">
-            <Link
-              to={"/dashboard/subadmin"}
-              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("subadmin")
-                  ? "active bg-blue-800 text-white"
-                  : "hover:bg-gray-200/50"
-              }`}
-            >
-              <span className="icon">
-                <UserRoundCog className="w-[20px] h-[20px] group-[.active]/card:text-white" />
-              </span>
-              Community Managers
-            </Link>
-          </li>
-          <li className="px-3 mb-5">
-            <Link
-              to={"/dashboard/request"}
-              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("request")
-                  ? "active bg-blue-800 text-white"
-                  : "hover:bg-gray-200/50"
-              }`}
-            >
-              <span className="icon">
-                <MapPinnedIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
-              </span>
-              Trace Request
-            </Link>
-          </li>
-          <li className="px-3 mb-5">
-            <Link
-              to={"/dashboard/events"}
-              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("events")
-                  ? "active bg-blue-800 text-white"
-                  : "hover:bg-gray-200/50"
-              }`}
-            >
-              <span className="icon">
-                <CalendarCheck2Icon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
-              </span>
-              Events
-            </Link>
-          </li>
-          <li className="px-3 mb-5">
-            <Link
-              to={"/dashboard/settings"}
-              className={`text-textPrimary text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card ${
-                pathname.includes("settings")
-                  ? "active bg-blue-800 text-white"
-                  : "hover:bg-gray-200/50"
-              }`}
-            >
-              <span className="icon">
-                <SettingsIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
-              </span>
-              Settings
-            </Link>
-          </li>
-          <li className="px-3 mb-5">
+        <ul className="w-full flex-grow py-5 flex flex-col gap-3 h-full overflow-y-scroll scrollbar mb-20">
+          {DashbordNavlinkList.map((navLinkItem, index) => (
+            <li className="px-3 " key={navLinkItem}>
+              <Link
+                to={navLinkItem.href}
+                className={`text-base text-textPrimary md:text-lg flex items-center justify-start px-5 py-3 rounded gap-3 group/card ${
+                  pathname === navLinkItem.href
+                    ? "active bg-backgroundv3 !text-blueMain"
+                    : "hover:bg-backgroundv3"
+                }`}
+              >
+                <span className="icon">{navLinkItem.icon}</span>
+                {navLinkItem.name}
+              </Link>
+            </li>
+          ))}
+          <li className="px-3">
             <Link
               role="button"
-              className={`text-base md:text-lg flex items-center justify-start px-5 py-3 rounded-lg gap-3 group/card hover:bg-gray-200/50`}
+              className={`text-base text-textPrimary hover:bg-backgroundv3 md:text-lg flex items-center justify-start px-5 py-3 rounded gap-3 group/card `}
               onClick={() => setLogoutModalOpen(true)}
             >
               <span className="icon">
-                <LogOutIcon className="w-[20px] h-[20px] group-[.active]/card:text-white" />
+                <LogOutIcon className="w-[24px] h-[24px] group-[.active]/card:text-white" />
               </span>
               Logout
             </Link>

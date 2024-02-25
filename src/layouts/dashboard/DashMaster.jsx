@@ -24,7 +24,7 @@ const DashMaster = () => {
         toggleSidebar={toggleSidebar}
         settoggleSidebar={settoggleSidebar}
       />
-      <div className="main_layout_container main ps-0 md:ps-[300px] pt-[78px] transition-all duration-500 ease-in-out min-h-[100vh] w-screen">
+      <div className="main_layout_container transition-all duration-500 ease-linear  bg-backgroundv2 main ps-0 md:ps-[270px] xxl:ps-[300px] pt-[78px]  min-h-screen w-screen">
         <Outlet />
       </div>
     </>
