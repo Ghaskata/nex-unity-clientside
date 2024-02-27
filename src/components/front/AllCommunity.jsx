@@ -3,7 +3,7 @@ import CommunityCard from "./CommunityCard";
 import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { Button } from "../ui/Button";
 import { useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { getAllCommunity } from "../../utils/community";
 import DataLoadingCompo from "../common/DataLoadingCompo";
 import { toast } from "react-toastify";

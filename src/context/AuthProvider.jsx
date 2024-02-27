@@ -18,13 +18,21 @@ const AuthProvider = ({ children }) => {
   const [role, setrole] = useState(false);
 
   // Placeholder login function (replace with your actual login logic)
-  const login = (userData, sessionId, token) => {
+  const login = (userData, token) => {
     setIsAuthenticated(true);
     setUserData(userData);
     setToken(token);
     setrole(userData.role);
-    sessionStorage.setItem("user", userData);
+    sessionStorage.setItem("user", JSON.stringify(userData));
     sessionStorage.setItem("token", token);
+
+
+    if (userData.role===1) {
+      window.location.href="/dashboard"
+    }
+    else{
+      window.location.href="/"
+    }
   };
 
   const logout = () => {
@@ -36,6 +44,7 @@ const AuthProvider = ({ children }) => {
     sessionStorage.removeItem("token");
   };
 
+  
   return (
     <AuthContex.Provider
       value={{ isAuthenticated, userData, role, token, login, logout }}

@@ -9,9 +9,14 @@ import {
   useRoutes,
 } from "react-router-dom";
 import Loader from "../components/common/Loader";
-import { isAuthenticated } from "../reducers/authSlice";
-import { useSelector } from "react-redux";
-import { useAuth } from "../context/AuthProvider";
+// import { useAuth } from "../context/AuthProvider";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  login,
+  selectIsAuthenticated,
+  selectRole,
+  selectUserData,
+} from "../reducers/authSlice";
 
 const BackDrop = lazy(() => import("../components/common/BackDrop"));
 //dashboard
@@ -50,10 +55,17 @@ const Register = lazy(() => import("../pages/auth/Register"));
 const NotFoundPage = lazy(() => import("../components/common/NotFoundPage"));
 
 const AuthGaurd = ({ children }) => {
-  // const isAuth = useSelector(isAuthenticated);
-  const { isAuthenticated } = useAuth();
-  console.log("is Auth", isAuthenticated);
-  if (isAuthenticated) {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const userData = useSelector(selectUserData);
+  if (isAuthenticated && userData.role === 2) {
+    return children;
+  }
+  return <AuthMaster />;
+};
+const AdminAuthGaurd = ({ children }) => {
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const userData = useSelector(selectUserData);
+  if (isAuthenticated && userData.role === 1) {
     return children;
   }
   return <AuthMaster />;
@@ -80,9 +92,9 @@ export default function Router() {
     {
       path: "/dashboard",
       element: (
-        <AuthGaurd>
+        <AdminAuthGaurd>
           <DashMaster />
-        </AuthGaurd>
+        </AdminAuthGaurd>
       ),
       children: [
         { path: "", element: <DashboardHome /> },

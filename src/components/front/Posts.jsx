@@ -7,7 +7,7 @@ import HomeCategoriesSec from "./HomeCategoriesSec";
 import { useLocation } from "react-router-dom";
 import { getAllPost } from "../../utils/post";
 import DataLoadingCompo from "../common/DataLoadingCompo";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "react-query";
 import { toast } from "react-toastify";
 
 const Posts = () => {

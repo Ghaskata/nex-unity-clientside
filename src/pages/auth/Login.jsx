@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import img from "../../assets/images/frontHero/home header3.jpg";
 import IcnClose from "../../components/svg/IcnClose";
 import { Link, useNavigate } from "react-router-dom";
@@ -15,14 +15,21 @@ import { useMemo } from "react";
 import { useMutation } from "react-query";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { AUTH_API_URL } from "../../security/axios";
-import { useAuth } from "../../context/AuthProvider";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  login,
+  selectIsAuthenticated,
+  selectRole,
+} from "../../reducers/authSlice";
 
 const Login = () => {
   const [IsshowPassword, setIsshowPassword] = useState(false);
   const [user, setUser] = useState({ email: "", password: "" });
   const [ForgotPasswordOpen, setForgotPasswordOpen] = useState(false);
   const axiosPrivate = useAxiosPrivate();
-  const { login, userData, sessionId, token } = useAuth();
+  const dispatch = useDispatch();
+  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const role = useSelector(selectRole);
 
   const { mutateAsync: loginApi } = useMutation(
     async (data) => {
@@ -33,7 +40,15 @@ const Login = () => {
         toast.success(res.data.message); // Adjust based on your API response structure
         let user = res.data.data.user;
         let token = res.data.data.token;
-        login(user, token);
+        dispatch(login({ user: user, token: token }));
+        sessionStorage.setItem("user", JSON.stringify(user));
+        sessionStorage.setItem("token", JSON.stringify(token));
+
+        if (user.role === 1) {
+          window.location.href = "/dashboard";
+        } else {
+          window.location.href = "/";
+        }
       },
       onError: (error) => {
         console.error("Error:", error);
@@ -47,6 +62,7 @@ const Login = () => {
     }
   );
 
+  
   const handleLogin = (e) => {
     e.preventDefault();
     e.stopPropagation();
@@ -60,9 +76,8 @@ const Login = () => {
     // console.log("session >>> ",JSON.parse(sessionStorage.getItem("user")))
   };
 
-  console.log("userdata >>>>> ", userData);
-  console.log("token >>>>> ", token);
-  console.log("session >>>>> ", sessionId);
+  // console.log("userdata >>>>> ", userData);
+  // console.log("token >>>>> ", token);
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };

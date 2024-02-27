@@ -19,13 +19,13 @@ const queryClient = new QueryClient({
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.Fragment>
-    {/* <Provider store={store}> */}
+    <Provider store={store}>
       <QueryClientProvider client={queryClient}>
         <BrowserRouter>
           <App />
         </BrowserRouter>
       </QueryClientProvider>
-    {/* </Provider> */}
+    </Provider>
   </React.Fragment>
 );
 
