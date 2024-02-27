@@ -1,33 +1,19 @@
 import React from "react";
-import { cn } from "../../lib/utils";
+import { cn }from '../../lib/utils'
 
-const Input = ({
-  lable = "",
-  type,
-  name,
-  placeholder,
-  className,
-  value,
-  onChange,
-  ref,
-  ...props
-}) => {
+const Input = React.forwardRef(({ className, type, ...props }, ref) => {
   return (
-    <div className={cn("input_wrappe w-full", className)} {...props}>
-      <label htmlFor={name} className="text-base">
-        {lable}
-      </label>
-      <input
-        type={type}
-        className="w-full bg-[#F5F5F5] text-black p-3 rounded-lg my-2 outline-none"
-        placeholder={placeholder ? placeholder : ""}
-        value={value}
-        name={name}
-        onChange={onChange}
-        ref={ref}
-      />
-    </div>
+    <input
+      type={type}
+      className={cn(
+        "flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50",
+        className
+      )}
+      ref={ref}
+      {...props}
+    />
   );
-};
+});
+Input.displayName = "Input";
 
-export default Input;
+export default Input ;

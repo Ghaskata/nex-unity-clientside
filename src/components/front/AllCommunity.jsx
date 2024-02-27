@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import CommunityCard from "./CommunityCard";
 import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { Button } from "../ui/Button";
@@ -7,6 +7,8 @@ import { useQuery } from "react-query";
 import { getAllCommunity } from "../../utils/community";
 import DataLoadingCompo from "../common/DataLoadingCompo";
 import { toast } from "react-toastify";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { COMMUNITY_API_URL } from "../../security/axios";
 
 const allCommunity = [
   {
@@ -69,12 +71,25 @@ const allCommunity = [
 ];
 
 const AllCommunity = () => {
+  const axiosPrivate = useAxiosPrivate();
+  const queryKey = useMemo(() => ["communities"], []);
+
   const {
     data: communities,
     isLoading,
     isError,
     error,
-  } = useQuery({ queryKey: "communities", queryFn: getAllCommunity });
+  } = useQuery(
+    queryKey,
+    async () => {
+      const response = await axiosPrivate.get(COMMUNITY_API_URL.getAll);
+      return response.data.data;
+    },
+    {
+      enabled: true,
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const [search, setsearch] = useState("");
   const [page, setpage] = useState(1);
@@ -102,9 +117,9 @@ const AllCommunity = () => {
     }
   }, [search, setsearch]);
 
-  console.log("all communities",communities)
+  console.log("all communities", communities);
   if (isError) {
-    toast.error(error.message)
+    toast.error(error.message);
   }
   return (
     <div className="w-full container component text-textPrimary">

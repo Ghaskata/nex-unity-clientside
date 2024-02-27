@@ -28,4 +28,14 @@ const AUTH_API_URL = {
   verifyOtp: path(ROOTS_AUTH_ADMIN, "/verify_otp"),
 };
 
-export { axiosPrivate, AUTH_API_URL };
+
+const ROOT_COMMUNITY_API=BASE_URL+"/community"
+const COMMUNITY_API_URL={
+  getAll:path(ROOT_COMMUNITY_API,"/ge"),
+  create:path(ROOT_COMMUNITY_API,"/create"),
+  update:path(ROOT_COMMUNITY_API,"/update"),
+  delete:path(ROOT_COMMUNITY_API,"/delete"),
+  leftCommmunity:path(ROOT_COMMUNITY_API,"/left_community"),
+  joinCommmunity:path(ROOT_COMMUNITY_API,"/join_community"),
+}
+export { axiosPrivate, AUTH_API_URL,COMMUNITY_API_URL };

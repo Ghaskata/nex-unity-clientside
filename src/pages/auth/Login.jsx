@@ -43,12 +43,13 @@ const Login = () => {
         dispatch(login({ user: user, token: token }));
         sessionStorage.setItem("user", JSON.stringify(user));
         sessionStorage.setItem("token", JSON.stringify(token));
-
-        if (user.role === 1) {
-          window.location.href = "/dashboard";
-        } else {
-          window.location.href = "/";
-        }
+        setTimeout(() => {
+          if (user.role === 1) {
+            window.location.href = "/dashboard";
+          } else {
+            window.location.href = "/";
+          }
+        }, 3000);
       },
       onError: (error) => {
         console.error("Error:", error);
@@ -62,8 +63,7 @@ const Login = () => {
     }
   );
 
-  
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
     e.stopPropagation();
     if (!user.email || !user.password) {
@@ -71,7 +71,10 @@ const Login = () => {
       return;
     }
 
-    loginApi(user);
+    try {
+      const response = await loginApi(user);
+    } catch (error) {}
+
     // authenticate(user);
     // console.log("session >>> ",JSON.parse(sessionStorage.getItem("user")))
   };
