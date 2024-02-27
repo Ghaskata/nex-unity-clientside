@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { cn } from "../../lib/utils";
 import TableCompo from "./TableCompo";
 import {
@@ -37,7 +37,21 @@ const UserDetailsTable = ({ className }) => {
   const filterUser = (e) => {
     setSearchData(e.target.value);
   };
-  //   console.log(`search data >>> ${searchData}`);
+
+
+  useEffect(() => {
+    if (searchData.trim() === "") {
+      settotalPages(Math.ceil(userData.length / 6));
+    } else {
+      settotalPages(
+        Math.ceil(
+          userData.filter((item) =>
+            item.name.toLocaleLowerCase().includes(searchData.trim())
+          ).length / 6
+        )
+      );
+    }
+  }, [searchData, setSearchData]);
   return (
     <div className="w-full">
       <form
@@ -111,9 +125,9 @@ const UserDetailsTable = ({ className }) => {
           <tbody>
             {userData
               .filter((item) =>
-                searchData === ""
+                searchData.trim() === ""
                   ? item
-                  : item[filter].toLowerCase().includes(searchData)
+                  : item[filter].toLowerCase().includes(searchData.trim())
               )
               .slice(firstIndex, lastIndex)
               .map((user, index) => (
@@ -192,7 +206,11 @@ const UserDetailsTable = ({ className }) => {
         <div>
           <Button
             variant={"outline"}
-            className={`gap-3 h-10 ${page === 1 ? "" : "bg-white"}`}
+            className={`gap-3 text-textPrimary border transition-all duration-300 ease-linear h-10 ${
+              page === 1
+                ? "text-textGray hover:bg-transparent active:scale-1 border-textGray"
+                : "bg-backgroundv1 hover:bg-backgroundv3  border-textPrimary "
+            }`}
             onClick={() => page != 1 && setpage(page - 1)}
           >
             <ArrowLeft className="w-5 h-5" /> Privious
@@ -201,13 +219,14 @@ const UserDetailsTable = ({ className }) => {
         <div className="flex justify-center items-center gap-1">
           {Array.from({ length: totalPages }).map((_, i) => (
             <Button
+            key={i}
               onClick={() => setpage(i + 1)}
               variant={"outline"}
-              className={`${
+              className={`text-textGray  ${
                 page === i + 1
-                  ? "bg-black text-white hover:bg-black hover:text-white"
-                  : "hover:bg-black/20"
-              } border-none h-10`}
+                  ? "bg-blueMain text-white hover:bg-blueMain "
+                  : "hover:bg-backgroundv3 hover:text-textGray"
+              } border-none h-10 transition-all duration-300 ease-linear`}
             >
               {i + 1}
             </Button>
@@ -216,7 +235,11 @@ const UserDetailsTable = ({ className }) => {
         <div>
           <Button
             variant={"outline"}
-            className={`gap-3 h-10 ${page === totalPages ? "" : "bg-white"}`}
+            className={`gap-3 text-textPrimary border transition-all duration-300 ease-linear h-10 ${
+              page === totalPages
+                ? "text-textGray hover:bg-transparent active:scale-1 border-textGray"
+                : "bg-backgroundv1 hover:bg-backgroundv3  border-textPrimary "
+            }`}
             onClick={() => page !== totalPages && setpage(page + 1)}
           >
             Next <ArrowRight className="w-5 h-5" />{" "}

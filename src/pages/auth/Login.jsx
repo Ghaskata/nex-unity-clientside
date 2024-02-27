@@ -10,20 +10,23 @@ import Input from "../../components/ui/Input";
 import { toast } from "react-toastify";
 import ForgotPasswordModal from "../../components/dash/modal/forgotPasswordModalflow/ForgotPasswordModal";
 import { CircleUserRound } from "lucide-react";
+import { authenticate } from "../../utils/authenticate";
 
 const Login = () => {
   const [IsshowPassword, setIsshowPassword] = useState(false);
-  const [user, setUser] = useState({ name: "", password: "" });
+  const [user, setUser] = useState({ email: "", password: "" });
   const [ForgotPasswordOpen, setForgotPasswordOpen] = useState(false);
 
   const handleLogin = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    if (!user.name || !user.password) {
+    if (!user.email || !user.password) {
       toast.warning("fill all the fields", { hideProgressBar: true });
       return;
     }
-    console.log("login user on post /login >>> ", user);
+    authenticate(user);
+
+    console.log("session >>> ",JSON.parse(sessionStorage.getItem("user")))
   };
 
   const handleChange = (e) => {
@@ -38,10 +41,12 @@ const Login = () => {
           </div>
         </div>
         <div className="login_wrapper flex items-center justify-center mx-2">
-          <div className="bg-backgroundv1 text-textPrimary px-2 md:px-5 py-5 rounded-2xl w-full max-w-md shadow">
+          <div className="bg-backgroundv1 text-textPrimary px-2 md:px-5 py-5 md:py-8 rounded-2xl w-full max-w-md shadow">
             <div className="flex flex-col w-full gap-y-2 justify-center items-center">
-              <CircleUserRound size={100} strokeWidth={1} className="mx-auto"/>
-              <h1 className="text-center uppercase text-3xl">Login</h1>
+              {/* <CircleUserRound size={100} strokeWidth={1} className="mx-auto"/> */}
+              <h1 className="text-center font-semibold uppercase text-3xl">
+                Login
+              </h1>
             </div>
             <div className="p-3 pt-0">
               <form
@@ -52,11 +57,11 @@ const Login = () => {
               >
                 <div className="form-group mt-5">
                   <Input
-                    lable={"Email and User Name"}
+                    lable={"Email "}
                     type={"text"}
-                    name={"name"}
-                    placeholder={"Enter User Name and Email"}
-                    value={user.name}
+                    name={"email"}
+                    placeholder={"Enter Email"}
+                    value={user.email}
                     onChange={handleChange}
                   />
                 </div>
@@ -82,8 +87,9 @@ const Login = () => {
                 </div>
                 <span className="flex justify-end text-sm">
                   <Link
-                    role="button"
-                    onClick={() => setForgotPasswordOpen(true)}
+                    // role="button"
+                    // onClick={() => setForgotPasswordOpen(true)}
+                    to={"/forgot-password"}
                   >
                     Forgot password?
                   </Link>
@@ -104,10 +110,10 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <ForgotPasswordModal
+      {/* <ForgotPasswordModal
         ForgotPasswordOpen={ForgotPasswordOpen}
         setForgotPasswordOpen={setForgotPasswordOpen}
-      />
+      /> */}
     </>
   );
 };

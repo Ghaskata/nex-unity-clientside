@@ -7,7 +7,7 @@ import { FaHome } from "react-icons/fa";
 const Sidebar = ({ className }) => {
   const { pathname } = useLocation();
 
-  console.log("pathname",pathname)
+  // console.log("pathname",pathname)
   return (
     <div
       className={cn(
@@ -17,7 +17,7 @@ const Sidebar = ({ className }) => {
     >
       <ul className="w-full flex-grow py-5 flex flex-col gap-3 h-full overflow-y-scroll scrollbar mb-20">
         {FrontNavlinkList.map((navLinkItem, index) => (
-          <li className="px-3 " key={navLinkItem}>
+          <li className="px-3 " key={index} >
             <Link
               to={navLinkItem.href}
               className={`text-base text-textPrimary md:text-lg flex items-center justify-start px-5 py-3 rounded gap-3 group/card ${

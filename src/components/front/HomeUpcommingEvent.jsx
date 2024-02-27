@@ -10,6 +10,8 @@ const HomeUpcommingEvent = () => {
           12
         </div>
       </div>
+      <hr className="border border-backgroundv3 w-full "/>
+
       <ul className="flex flex-col gap-3 w-[100%] xl:w-[95%]">
         <li className="flex gap-2 items-center w-full">
           <div className="w-[50px] h-[50px] rounded flex-shrink-0 bg-backgroundv3 flex flex-col justify-center items-center">
@@ -41,17 +43,10 @@ const HomeUpcommingEvent = () => {
             <h3 className="text-10 text-textGray truncate">123 intrested Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure eligendi similique nesciunt unde adipisci ducimus voluptates modi cumque, culpa porro.</h3>
           </div>
         </li>
-        <li className="flex gap-2 items-center w-full">
-          <div className="w-[50px] h-[50px] rounded flex-shrink-0 bg-backgroundv3 flex flex-col justify-center items-center">
-            <h3 className="text-14 font-500 ">20</h3>
-            <h3 className="text-10 text-textGray">Dec</h3>
-          </div>
-          <div className="flex-grow w-[calc(100%-50px)]">
-            <h3 className="text-14 font-500 capitalize truncate">Product designer</h3>
-            <h3 className="text-10 text-textGray truncate">123 intrested Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure eligendi similique nesciunt unde adipisci ducimus voluptates modi cumque, culpa porro.</h3>
-          </div>
-        </li>
       </ul>
+
+      <hr className="border border-backgroundv3 w-full "/>
+
       <div className="w-full flex justify-center items-center ">
             <Link className="text-blueMain text-14">See All</Link>
       </div>

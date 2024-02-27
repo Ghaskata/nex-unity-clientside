@@ -45,7 +45,7 @@ const HeroSectionCompo = () => {
   });
 
   return (
-    <div className="hero_wrraper bg-gray-300 h-screen w-screen ">
+    <div className="hero_wrraper bg-gray-300 h-screen w-hull ">
       <div className="relative h-full w-full flex justify-center items-center">
         <div className="text_container z-40 w-3/4 max-w-lg flex flex-col gap-5 items-center justify-center text-center transition-all duration-700 ease-linear">
           <h1 className="text-26 xsm:text-32 md:text-44  text-textPrimary ">

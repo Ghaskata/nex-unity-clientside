@@ -9,6 +9,7 @@ import {
   ThumbsUp,
   Watch,
 } from "lucide-react";
+import { Button } from "../ui/Button";
 
 const Post = () => {
   const [openAddCommnet, setopenAddCommnet] = useState(false);
@@ -31,6 +32,9 @@ const Post = () => {
                 <Clock className="h-3 w-3" /> 20 minutes ago on
               </h5>
             </div>
+          </div>
+          <div>
+            <Button variant={"blueV1"} className={"h-[35px] rounded"} size={"sm"}>View Profile</Button>
           </div>
         </div>
         <div className="pt-2 text-14 text-textPrimary">
@@ -101,7 +105,7 @@ const Post = () => {
               type="text"
               name=""
               id=""
-              className="bg-backgroundv3 focus:outline-none text-textGray w-full h-full rounded-full px-5 text-12"
+              className="bg-backgroundv3 focus:outline-none border border-textGray/40 text-textGray w-full h-full rounded-full px-5 text-12"
               placeholder="What's on Your Mind ?"
             />
             <div className="absolute end-3 top-2">

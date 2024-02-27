@@ -8,8 +8,8 @@ const CommunityPage = () => {
             <h3 className='text-28 lg:text-32 text-textPrimary'>Dashboard</h3>
             <div className='dash_home md:py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-5 md:gap-8'>
                 {
-                    communityData.map((community) => (
-                        <div className="shadow-md rounded-2xl p-5 bg-white">
+                    communityData.map((community,index) => (
+                        <div className="shadow-md rounded-2xl p-5 bg-white" key={index}>
                             <h3 className='text-xl mb-4'>{community.name}</h3>
                             <span className='text-base text-gray-500'>{community.total}</span>
                         </div>

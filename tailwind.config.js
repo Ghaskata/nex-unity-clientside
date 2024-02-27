@@ -26,7 +26,10 @@ module.exports = {
       colors: {
         backgroundv1: "var(--background-v1)",
         backgroundv2: "var(--background-v2)",
+        backgroundv3: "var(--background-v3)",
         textPrimary: "var(--color-text-primary)",
+        textGray:"#77828b",
+        blueMain:'#2a86fe'
       },
       container: {
         center: true,
@@ -57,6 +60,17 @@ module.exports = {
         64: "64px",
         74: "74px",
       },
+      fontWeight:{
+        100:"100",
+        200:"200",
+        300:"300",
+        400:"400",
+        500:"500",
+        600:"600",
+        700:"700",
+        800:"800",
+        900:"900"
+      }
     },
   },
   veriants: {

@@ -14,8 +14,8 @@ const TableCompo = ({ className, data, editButton, deleteButton, handleDelete, h
             <thead>
                 <tr>
                     {
-                        columns?.map((column) => (
-                            <th key={column}>
+                        columns?.map((column,index) => (
+                            <th key={index}>
                                 {column}
                             </th>
                         ))

@@ -9,6 +9,8 @@ import {
   useRoutes,
 } from "react-router-dom";
 import Loader from "../components/common/Loader";
+import { isAuthenticated } from "../reducers/authSlice";
+import { useSelector } from "react-redux";
 
 const BackDrop = lazy(() => import("../components/common/BackDrop"));
 //dashboard
@@ -22,10 +24,23 @@ const CommunityPage = lazy(() => import("../pages/dash/CommunityPage"));
 //front
 const FrontMaster = lazy(() => import("../layouts/front/FrontMaster"));
 const LandingPage = lazy(() => import("../pages/front/LandingPage"));
+const AboutUsPage = lazy(() => import("../pages/front/AboutUsPage"));
+const AddPostPage = lazy(() => import("../pages/front/AddPostPage"));
+const ContactUsPage = lazy(() => import("../pages/front/ContactUsPage"));
+const DonationPage = lazy(() => import("../pages/front/DonationPage"));
+const EventsPage = lazy(() => import("../pages/front/EventsPage"));
+const FrontCommunityPage = lazy(() =>
+  import("../pages/front/FrontCommunityPage")
+);
+const FrontSettingPage = lazy(() => import("../pages/front/FrontSettingPage"));
+const JobsPage = lazy(() => import("../pages/front/JobsPage"));
+const NewsPage = lazy(() => import("../pages/front/NewsPage"));
+const ProfilePage = lazy(() => import("../pages/front/ProfilePage"));
 
 //login
 const AuthMaster = lazy(() => import("../layouts/auth/AuthMaster"));
 const Login = lazy(() => import("../pages/auth/Login"));
+const ForgotPassword = lazy(() => import("../pages/auth/ForgotPassword"));
 
 //register
 const Register = lazy(() => import("../pages/auth/Register"));
@@ -34,14 +49,12 @@ const Register = lazy(() => import("../pages/auth/Register"));
 const NotFoundPage = lazy(() => import("../components/common/NotFoundPage"));
 
 const AuthGaurd = ({ children }) => {
-  const isAuth = true;
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (!isAuth) {
-      navigate("/", { replace: true });
-    }
-  });
-  return children;
+  const isAuth = useSelector(isAuthenticated);
+  console.log("is Auth", isAuth);
+  if (isAuth) {
+    return children;
+  }
+  return <AuthMaster />;
 };
 
 export default function Router() {
@@ -55,6 +68,10 @@ export default function Router() {
     {
       path: "/register",
       element: <Register />,
+    },
+    {
+      path: "/forgot-password",
+      element: <ForgotPassword />,
     },
 
     //for admin
@@ -76,16 +93,24 @@ export default function Router() {
     //for front
     {
       path: "/",
-      element: <AuthMaster />,
-    },
-    {
-      path: "/home",
       element: (
         <AuthGaurd>
           <FrontMaster />
         </AuthGaurd>
       ),
-      children: [{ index: true, element: <LandingPage /> }],
+      children: [
+        { index: true, path: "", element: <LandingPage /> },
+        { path: "add-post", element: <AddPostPage /> },
+        { path: "community", element: <FrontCommunityPage /> },
+        { path: "jobs", element: <JobsPage /> },
+        { path: "events", element: <EventsPage /> },
+        { path: "news", element: <NewsPage /> },
+        { path: "contact-us", element: <ContactUsPage /> },
+        { path: "about-us", element: <AboutUsPage /> },
+        { path: "profile", element: <ProfilePage /> },
+        { path: "dontaion", element: <DonationPage /> },
+        { path: "settings", element: <FrontSettingPage /> },
+      ],
     },
     {
       path: "*",

@@ -6,12 +6,14 @@
 @layer base {
   :root {
     --background-v1: white;
-    --background-v2: #f2f2f2;
+    --background-v2: #f9f9f9;
+    --background-v3: #f3f3f3;
     --color-text-primary: black;
   }
   .dark {
-    --background-v1: #020d1c;
-    --background-v2: black;
+    --background-v1: #1e1f24;
+    --background-v2: #17181c;
+    --background-v3: #25272d;
     --color-text-primary: white;
   }
 }
@@ -20,11 +22,10 @@
   @apply font-ledger;
 }
 
-@media screen and (min-width:1400px){
-  .container{
+@media screen and (min-width: 1400px) {
+  .container {
     max-width: 1270px;
   }
-  
 }
 
 body {
@@ -36,37 +37,32 @@ body {
   transition: ease-in-out;
 }
 
-.component{
-  @apply py-10 md:py-20
+.component {
+  @apply py-5 md:py-10;
 }
 
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
-    width: 2px;
+    width: 3px;
     height: 10px;
   }
 
   .scrollbar::-webkit-scrollbar-track {
-    background: white;
+    background: "var(--background-v1)";
   }
 
   .scrollbar::-webkit-scrollbar-thumb {
     height: 10px;
     border-radius: 100vh;
-    background: rgba(30, 64, 175, 0.5);
+    background: #2a86fe;
   }
 
   .scrollbar::-webkit-scrollbar-thumb:hover {
     /* background: #c0a0b9; */
   }
 
-  .dark .scrollbar::-webkit-scrollbar-track {
-    background: black;
-  }
-  .dark .scrollbar::-webkit-scrollbar-thumb {
-    height: 10px;
-    border-radius: 100vh;
-    background: white;
+  .post-scroll::-webkit-scrollbar{
+    display: none;
   }
 }
 
@@ -103,7 +99,6 @@ body {
   }
 }
 
-
 @layer base {
   .text-gradient {
     -webkit-text-fill-color: transparent !important;
@@ -113,6 +108,74 @@ body {
 }
 @layer components {
   .text-blue-lg {
-    background: linear-gradient(150deg, #339ada 0%,#1258b4 50%, #063168 100%);
+    background: linear-gradient(150deg, #339ada 0%, #1258b4 50%, #063168 100%);
   }
 }
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.custom-spin {
+  animation: spin 3s linear infinite; /* Adjust the animation duration here (2s in this example) */
+}
+
+.load-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: #fdba2c;
+}
+.bar {
+  content: "";
+  display: inline;
+  position: absolute;
+  width: 0;
+  height: 100%;
+  left: 50%;
+  text-align: center;
+}
+.bar:nth-child(1) {
+  background-color: #da4733;
+  animation: loading 3s linear infinite;
+}
+.bar:nth-child(2) {
+  background-color: #3b78e7;
+  animation: loading 3s linear 1s infinite;
+}
+.bar:nth-child(3) {
+  background-color: #fdba2c;
+  animation: loading 3s linear 2s infinite;
+}
+.bar:nth-child(4) {
+  background-color: #083d83;
+  animation: loading 3s linear 2s infinite;
+}
+@keyframes loading {
+  from {
+    left: 50%;
+    width: 0;
+    z-index: 100;
+  }
+  33.3333% {
+    left: 0;
+    width: 100%;
+    z-index: 10;
+  }
+  to {
+    left: 0;
+    width: 100%;
+  }
+}
+
+.dashbord-card:hover .dashbord-card-icon {
+  animation: spin 0.3s ease-in;
+}
+
