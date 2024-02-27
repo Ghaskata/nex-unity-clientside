@@ -9,7 +9,7 @@ const useAxiosPrivate = () => {
   const token = useSelector(selectToken);
   const isAuthenticated = useSelector(selectIsAuthenticated);
 
-  console.log("token in axios >>> ", token);
+  // console.log("token in axios >>> ", token);
   useEffect(() => {
     const requestIntercept = axiosPrivate.interceptors.request.use(
       (config) => {

@@ -31,7 +31,7 @@ const AUTH_API_URL = {
 
 const ROOT_COMMUNITY_API=BASE_URL+"/community"
 const COMMUNITY_API_URL={
-  getAll:path(ROOT_COMMUNITY_API,"/ge"),
+  getAll:path(ROOT_COMMUNITY_API,"/get"),
   create:path(ROOT_COMMUNITY_API,"/create"),
   update:path(ROOT_COMMUNITY_API,"/update"),
   delete:path(ROOT_COMMUNITY_API,"/delete"),

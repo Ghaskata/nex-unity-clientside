@@ -24,6 +24,7 @@ import {
 } from "react-icons/ri";
 import { FiSettings, FiHelpCircle } from "react-icons/fi";
 import {
+  Blocks,
   Briefcase,
   CalendarCheck2Icon,
   CalendarDays,
@@ -82,6 +83,7 @@ export const DashbordNavlinkList = [
     href: "/dashboard/roles",
   },
   { name: "Users", icon: <Users2 className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/users" },
+  { name: "Categories", icon: <Blocks className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/categories" },
   { name: "Communites", icon: <HiUserGroup className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/community" },
   { name: "Community Managers", icon: <UserRoundCog className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/subadmin" },
   { name: "Trace Request", icon: <MapPinnedIcon className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/request" },
