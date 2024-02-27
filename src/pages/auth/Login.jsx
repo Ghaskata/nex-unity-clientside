@@ -11,11 +11,41 @@ import { toast } from "react-toastify";
 import ForgotPasswordModal from "../../components/dash/modal/forgotPasswordModalflow/ForgotPasswordModal";
 import { CircleUserRound } from "lucide-react";
 import { authenticate } from "../../utils/authenticate";
+import { useMemo } from "react";
+import { useMutation } from "react-query";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { AUTH_API_URL } from "../../security/axios";
+import { useAuth } from "../../context/AuthProvider";
 
 const Login = () => {
   const [IsshowPassword, setIsshowPassword] = useState(false);
   const [user, setUser] = useState({ email: "", password: "" });
   const [ForgotPasswordOpen, setForgotPasswordOpen] = useState(false);
+  const axiosPrivate = useAxiosPrivate();
+  const { login, userData, sessionId, token } = useAuth();
+
+  const { mutateAsync: loginApi } = useMutation(
+    async (data) => {
+      return await axiosPrivate.post(AUTH_API_URL.login, JSON.stringify(data));
+    },
+    {
+      onSuccess: (res) => {
+        toast.success(res.data.message); // Adjust based on your API response structure
+        let user = res.data.data.user;
+        let token = res.data.data.token;
+        login(user, token);
+      },
+      onError: (error) => {
+        console.error("Error:", error);
+        // Check if error.response exists before accessing its properties
+        if (error.response) {
+          toast.error(error.response.data.message || "An error occurred");
+        } else {
+          toast.error("An unexpected error occurred");
+        }
+      },
+    }
+  );
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -24,11 +54,15 @@ const Login = () => {
       toast.warning("fill all the fields", { hideProgressBar: true });
       return;
     }
-    authenticate(user);
 
-    console.log("session >>> ",JSON.parse(sessionStorage.getItem("user")))
+    loginApi(user);
+    // authenticate(user);
+    // console.log("session >>> ",JSON.parse(sessionStorage.getItem("user")))
   };
 
+  console.log("userdata >>>>> ", userData);
+  console.log("token >>>>> ", token);
+  console.log("session >>>>> ", sessionId);
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };

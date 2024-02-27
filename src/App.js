@@ -3,13 +3,16 @@ import "./App.css";
 import Router from "./routes";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ToastCon } from "./components/common/Toast";
+import { AuthProvider } from "./context/AuthProvider";
 
 function App() {
   return (
-    <ThemeProvider>
-      <Router />
-      <ToastCon />
-    </ThemeProvider>
+    <AuthProvider>
+      <ThemeProvider>
+        <Router />
+        <ToastCon />
+      </ThemeProvider>
+    </AuthProvider>
   );
 }
 

@@ -11,6 +11,7 @@ import {
 import Loader from "../components/common/Loader";
 import { isAuthenticated } from "../reducers/authSlice";
 import { useSelector } from "react-redux";
+import { useAuth } from "../context/AuthProvider";
 
 const BackDrop = lazy(() => import("../components/common/BackDrop"));
 //dashboard
@@ -49,9 +50,10 @@ const Register = lazy(() => import("../pages/auth/Register"));
 const NotFoundPage = lazy(() => import("../components/common/NotFoundPage"));
 
 const AuthGaurd = ({ children }) => {
-  const isAuth = useSelector(isAuthenticated);
-  console.log("is Auth", isAuth);
-  if (isAuth) {
+  // const isAuth = useSelector(isAuthenticated);
+  const { isAuthenticated } = useAuth();
+  console.log("is Auth", isAuthenticated);
+  if (isAuthenticated) {
     return children;
   }
   return <AuthMaster />;
