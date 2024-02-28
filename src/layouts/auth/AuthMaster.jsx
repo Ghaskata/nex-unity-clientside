@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import img from "../../assets/images/frontHero/home header3.jpg";
 import IcnGoogle from "../../components/svg/IcnGoogle";
-import { Buttonvariants } from "../../components/ui/Button";
 import { cn } from "../../lib/utils";
 import { Link } from "react-router-dom";
+import './AuthMaster.css'
+import video1 from '../../assets/videos/video1.mp4'
+import video2 from '../../assets/videos/video2.mp4'
 
 const AuthMaster = () => {
   return (
     <>
-      <div className="w-full bg-backgroundv1 text-textPrimary grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+      {/* <div className="w-full bg-backgroundv1 text-textPrimary grid grid-cols-1 lg:grid-cols-2 min-h-screen">
         <div className="w-full hidden lg:flex md:justify-center md:items-center col-span-1">
           <div className="image_wrapper h-full w-full overflow-hidden">
             <img src={img} className="object-cover h-full w-full" alt="Logo" />
@@ -64,8 +66,40 @@ const AuthMaster = () => {
             </Link>
           </div>
         </div>
-      </div>
+      </div> */}
 
+      <main className="main-auth">
+        <header className="video-header">
+          <video
+            src={video2}
+            autoPlay
+            loop
+            playsinline
+            muted
+            className="auth-video"
+          ></video>
+
+          <div className="auth-header-text">
+            <h1>Welcome to Our</h1>
+            <span>Community Hub!</span>
+            <div className="mainAuth">
+              <Link to={"/login"} className="sign-in"> Sign In </Link>
+              <Link to={"/register"} className="sign-up"> Sign Up </Link>
+            </div>
+          </div>
+
+          <div className="description">
+            <p>
+              At <span>NexUnity</span>, we believe in the power of connection,
+              collaboration, and community. Whether you're a longtime resident
+              or a newcomer to our area, you're invited to join our vibrant
+              online platform dedicated to fostering meaningful relationships,
+              sharing valuable resources, and celebrating our collective
+              experiences.
+            </p>
+          </div>
+        </header>
+      </main>
     </>
   );
 };
