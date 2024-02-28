@@ -9,7 +9,7 @@ import IcnOpenEye from "../../components/svg/IcnOpenEye";
 import Input from "../../components/ui/Input";
 import { toast } from "react-toastify";
 import ForgotPasswordModal from "../../components/dash/modal/forgotPasswordModalflow/ForgotPasswordModal";
-import { CircleUserRound } from "lucide-react";
+import { CircleUserRound, Facebook, Linkedin, Lock, Twitter, User, User2, User2Icon } from "lucide-react";
 import { authenticate } from "../../utils/authenticate";
 import { useMemo } from "react";
 import { useMutation } from "react-query";
@@ -21,6 +21,8 @@ import {
   selectIsAuthenticated,
   selectRole,
 } from "../../reducers/authSlice";
+import { FaGoogle } from "react-icons/fa";
+import './css/Login.css'
 
 const Login = () => {
   const [IsshowPassword, setIsshowPassword] = useState(false);
@@ -41,6 +43,8 @@ const Login = () => {
         let user = res.data.data.user;
         let token = res.data.data.token;
         dispatch(login({ user: user, token: token }));
+        localStorage.setItem("user", JSON.stringify(user));
+        localStorage.setItem("token", JSON.stringify(token));
         sessionStorage.setItem("user", JSON.stringify(user));
         sessionStorage.setItem("token", JSON.stringify(token));
         setTimeout(() => {
@@ -66,13 +70,14 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     e.stopPropagation();
+    console.log(user)
     if (!user.email || !user.password) {
       toast.warning("fill all the fields", { hideProgressBar: true });
       return;
     }
 
     try {
-      const response = await loginApi(user);
+       await loginApi(user);
     } catch (error) {}
 
     // authenticate(user);
@@ -86,7 +91,7 @@ const Login = () => {
   };
   return (
     <>
-      <div className="w-full bg-backgroundv2 text-textPrimary grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+      {/* <div className="w-full bg-backgroundv2 text-textPrimary grid grid-cols-1 lg:grid-cols-2 min-h-screen">
         <div className="w-full hidden lg:flex md:justify-center md:items-center col-span-1">
           <div className="image_wrapper h-full w-full overflow-hidden">
             <img src={img} className="object-cover h-full w-full" alt="Logo" />
@@ -95,7 +100,6 @@ const Login = () => {
         <div className="login_wrapper flex items-center justify-center mx-2">
           <div className="bg-backgroundv1 text-textPrimary px-2 md:px-5 py-5 md:py-8 rounded-2xl w-full max-w-md shadow">
             <div className="flex flex-col w-full gap-y-2 justify-center items-center">
-              {/* <CircleUserRound size={100} strokeWidth={1} className="mx-auto"/> */}
               <h1 className="text-center font-semibold uppercase text-3xl">
                 Login
               </h1>
@@ -139,8 +143,6 @@ const Login = () => {
                 </div>
                 <span className="flex justify-end text-sm">
                   <Link
-                    // role="button"
-                    // onClick={() => setForgotPasswordOpen(true)}
                     to={"/forgot-password"}
                   >
                     Forgot password?
@@ -161,11 +163,79 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       {/* <ForgotPasswordModal
         ForgotPasswordOpen={ForgotPasswordOpen}
         setForgotPasswordOpen={setForgotPasswordOpen}
       /> */}
+
+      <div class="login-container">
+        <div class="forms-container">
+          <div class="signin-signup">
+            <form action="" class="sign-in-form" onSubmit={handleLogin}>
+              <h2 class="sign-title ">Sign in</h2>
+              <div class="input-field">
+                <i class="fas fa-user"><User2Icon className="mt-2 ps-1"/></i>
+                <input
+                  type="text"
+                  placeholder="Email"
+                  name="email"
+                  value={user.email}
+                  onChange={handleChange}
+                />
+              </div>
+              <div class="input-field">
+                <i class="fas fa-lock"><Lock className="mt-2 ps-1"/></i>
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={user.password}
+                  onChange={handleChange}
+                />
+              </div>
+              <input type="submit" value="Login" class="btn solid" />
+              <p class="social-text">Or Sign in with social platforms</p>
+              <div class="social-media">
+                <Link to="#" class="social-icon">
+                  <Facebook />
+                </Link>
+                <a href="#" class="social-icon">
+                  <Twitter />
+                </a>
+                <a href="#" class="social-icon">
+                  <FaGoogle />
+                </a>
+                <a href="#" class="social-icon">
+                  <Linkedin />
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="panels-container">
+          <div class="panel left-panel">
+            <div class="content">
+              <h3>New to our community ?</h3>
+              <p>
+                Discover a world of possibilities! Join us and explore a vibrant
+                community where ideas flourish and connections thrive.
+              </p>
+              <Link to="/register">
+                <button class="btn solid transparent" id="sign-up-btn" >
+                  Sign up
+                </button>
+              </Link>
+            </div>
+            <img
+              src="https://i.ibb.co/6HXL6q1/Privacy-policy-rafiki.png"
+              class="auth-image"
+              alt=""
+            />
+          </div>
+        </div>
+      </div>
     </>
   );
 };
