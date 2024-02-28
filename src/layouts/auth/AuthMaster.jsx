@@ -74,7 +74,7 @@ const AuthMaster = () => {
             src={video2}
             autoPlay
             loop
-            playsinline
+            playsInline
             muted
             className="auth-video"
           ></video>

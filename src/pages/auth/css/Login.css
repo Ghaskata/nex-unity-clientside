@@ -30,6 +30,17 @@
   z-index: 5;
 }
 
+.sign-in-sign-in-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0rem 5rem;
+  transition: all 0.2s 0.7s;
+  overflow: hidden;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
 .sign-in-form {
   display: flex;
   align-items: center;
@@ -42,14 +53,42 @@
   grid-row: 1 / 2;
 }
 /* 
-form.sign-up-form {
+form.sign-up-sign-in-form {
   opacity: 0;
   z-index: 1;
 } */
 
-form.sign-in-form {
+form.sign-in-sign-in-form {
   z-index: 2;
 }
+
+form .sign-in-form{
+  z-index: 1000;
+}
+
+
+.gender-container {
+  display: flex;
+  font-size: 1rem;
+  /* Change font-size to an appropriate value */
+  /* Add this line to vertically align the items */
+}
+
+.radio-group {
+  display: flex;
+  /* Display radio buttons in a row */
+  align-items: center;
+  /* Vertically align radio buttons */
+  margin-right: 20px;
+}
+.radio-sign{
+  margin: 0 10px 0 10px;
+}
+.gender-label {
+  margin: 10px;
+  /* Add space between radio button and label */
+}
+
 
 .sign-title {
   /* font-size: 30%; */
@@ -248,12 +287,12 @@ form.sign-in-form {
   left: 25%;
 }
 
-.login-container.sign-up-mode form.sign-up-form {
+.login-container.sign-up-mode form.sign-up-sign-in-form {
   opacity: 1;
   z-index: 2;
 }
 
-.login-container.sign-up-mode form.sign-in-form {
+.login-container.sign-up-mode form.sign-in-sign-in-form {
   opacity: 0;
   z-index: 1;
 }
@@ -313,7 +352,7 @@ form.sign-in-form {
 
   }
 
-  .image {
+  .auth-image {
     width: 200px;
     transition: transform 0.9s ease-in-out;
     transition-delay: 0.6s;
@@ -379,11 +418,11 @@ form.sign-in-form {
 }
 
 @media (max-width: 570px) {
-  form {
+  .sign-in-form {
     padding: 0 1.5rem;
   }
 
-  .image {
+  .auth-image {
     display: none;
   }
   .panel .content {

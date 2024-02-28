@@ -169,13 +169,13 @@ const Login = () => {
         setForgotPasswordOpen={setForgotPasswordOpen}
       /> */}
 
-      <div class="login-container">
-        <div class="forms-container">
-          <div class="signin-signup">
-            <form action="" class="sign-in-form" onSubmit={handleLogin}>
-              <h2 class="sign-title ">Sign in</h2>
-              <div class="input-field">
-                <i class="fas fa-user"><User2Icon className="mt-2 ps-1"/></i>
+      <div className="login-container">
+        <div className="forms-container">
+          <div className="signin-signup">
+            <form action="" className="sign-in-form" onSubmit={handleLogin}>
+              <h2 className="sign-title ">Sign in</h2>
+              <div className="input-field">
+                <i className="fas fa-user"><User2Icon className="mt-2 ps-1"/></i>
                 <input
                   type="text"
                   placeholder="Email"
@@ -184,8 +184,8 @@ const Login = () => {
                   onChange={handleChange}
                 />
               </div>
-              <div class="input-field">
-                <i class="fas fa-lock"><Lock className="mt-2 ps-1"/></i>
+              <div className="input-field">
+                <i className="fas fa-lock"><Lock className="mt-2 ps-1"/></i>
                 <input
                   type="password"
                   placeholder="Password"
@@ -194,19 +194,19 @@ const Login = () => {
                   onChange={handleChange}
                 />
               </div>
-              <input type="submit" value="Login" class="btn solid" />
-              <p class="social-text">Or Sign in with social platforms</p>
-              <div class="social-media">
-                <Link to="#" class="social-icon">
+              <input type="submit" value="Login" className="btn solid" />
+              <p className="social-text">Or Sign in with social platforms</p>
+              <div className="social-media">
+                <Link to="#" className="social-icon">
                   <Facebook />
                 </Link>
-                <a href="#" class="social-icon">
+                <a href="#" className="social-icon">
                   <Twitter />
                 </a>
-                <a href="#" class="social-icon">
+                <a href="#" className="social-icon">
                   <FaGoogle />
                 </a>
-                <a href="#" class="social-icon">
+                <a href="#" className="social-icon">
                   <Linkedin />
                 </a>
               </div>
@@ -214,23 +214,23 @@ const Login = () => {
           </div>
         </div>
 
-        <div class="panels-container">
-          <div class="panel left-panel">
-            <div class="content">
+        <div className="panels-container">
+          <div className="panel left-panel">
+            <div className="content">
               <h3>New to our community ?</h3>
               <p>
                 Discover a world of possibilities! Join us and explore a vibrant
                 community where ideas flourish and connections thrive.
               </p>
               <Link to="/register">
-                <button class="btn solid transparent" id="sign-up-btn" >
+                <button className="btn solid transparent" id="sign-up-btn" >
                   Sign up
                 </button>
               </Link>
             </div>
             <img
               src="https://i.ibb.co/6HXL6q1/Privacy-policy-rafiki.png"
-              class="auth-image"
+              className="auth-image"
               alt=""
             />
           </div>
