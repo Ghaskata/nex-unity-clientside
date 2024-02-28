@@ -12,7 +12,7 @@ import Step2 from "../../components/dash/modal/registerSteps/Step2";
 import Step3 from "../../components/dash/modal/registerSteps/Step3";
 import { CheckCheck } from "lucide-react";
 import { FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   PeopleRounded,
   EmailSharp,
@@ -29,6 +29,12 @@ import {
   PeopleOutlineRounded,
 } from "@mui/icons-material";
 import "./css/Login.css";
+import OtpVerifyEmailModal from "./OtpVerifyEmailModal";
+import { useMutation } from "react-query";
+import { AUTH_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { useSelector } from "react-redux";
+import { selectToken } from "../../reducers/authSlice";
 
 const Register = ({ setregisterModalOpen }) => {
   // const navigate = useNavigate();
@@ -77,8 +83,127 @@ const Register = ({ setregisterModalOpen }) => {
   // const handleChange = (e) => {
   //   setUser({ ...user, [e.target.name]: e.target.value });
   // };
+  // const [step, setstep] = useState(1);
 
-  const [step, setstep] = useState(1);
+  const axiosPrivate = useAxiosPrivate();
+
+  const [verifyEmailPopupOpen, setverifyEmailPopupOpen] = useState(false);
+  const verifyEmailPopupClose = () => {
+    setverifyEmailPopupOpen(false);
+  };
+  const [verifyEmailStatus, setverifyEmailStatus] = useState(false);
+  const verifyEmailFun = async () => {
+    try {
+      setverifyEmailStatus(true);
+      await registerApi({
+        ...registerUserData,
+        gender: +registerUserData.gender,
+        active: true,
+        isRoot: true,
+        isPrivate: false,
+        token: "",
+      });
+    } catch (error) {
+      console.log("error while registering >> ", error);
+    }
+  };
+
+  const navigate = useNavigate();
+  const [registerUserData, setregisterUserData] = useState({
+    first_name: "",
+    middle_name: "",
+    surname: "",
+    gender: "0",
+    email: "",
+    password: "",
+    profile_pic: "",
+  });
+
+  //email otp generate a[pi
+
+  const { mutateAsync: generateOTP } = useMutation(
+    async (data) => {
+      return await axiosPrivate.post(
+        AUTH_API_URL.generateOtp,
+        JSON.stringify(data)
+      );
+    },
+    {
+      onSuccess: (res) => {
+        console.log("res >>> ", res);
+        setverifyEmailPopupOpen(true);
+        toast.success("Verification code OTP sent successfully.");
+      },
+      onError: (error) => {
+        const message = error?.response?.data?.message;
+        if (message) {
+          toast.error(message);
+        } else {
+          toast.error("Something went wrong! Please try again");
+        }
+      },
+    }
+  );
+
+  //register user API
+  const { mutateAsync: registerApi } = useMutation(
+    async (data) => {
+      return await axiosPrivate.post(
+        AUTH_API_URL.register,
+        JSON.stringify(data)
+      );
+    },
+    {
+      onSuccess: (res) => {
+        console.log("res >> ", res);
+        toast.success("Register succesfully");
+        navigate("/login");
+      },
+      onError: (error) => {
+        const message = error?.response?.data?.message;
+        if (message) {
+          toast.error(message);
+        } else {
+          toast.error("Something went wrong! Please try again");
+        }
+      },
+    }
+  );
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setregisterUserData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (
+      registerUserData.first_name === "" ||
+      registerUserData.middle_name === "" ||
+      registerUserData.surname === "" ||
+      registerUserData.email === "" ||
+      registerUserData.password === ""
+    ) {
+      toast.warning("All fields are nessasary");
+    } else if (emailRegex.test(registerUserData.email)) {
+      toast.warning("Invalid Email Address");
+    } else if (registerUserData.password.length < 8) {
+      toast.warning("password minimun 8 character required");
+    } else {
+      try {
+        console.log("Form Data:", registerUserData);
+        verifyEmailStatus
+          ? verifyEmailFun()
+          : await generateOTP({ email: registerUserData.email });
+      } catch (error) {
+        console.log("error while grerating OTP >> ", error);
+      }
+    }
+  };
 
   return (
     <>
@@ -133,43 +258,81 @@ const Register = ({ setregisterModalOpen }) => {
       <div className="login-container">
         <div className="forms-container">
           <div className="signin-signup">
-            <form action="" className="sign-in-form">
+            <form action="" className="sign-in-form" onSubmit={handleSubmit}>
               <h2 className="sign-title">Sign up</h2>
               <div className="input-field">
                 <i>
                   <PeopleAltRounded />{" "}
                 </i>
-                <input type="text" placeholder="first name" />
+                <input
+                  type="text"
+                  placeholder="first name"
+                  name="first_name"
+                  value={registerUserData.first_name}
+                  onChange={handleChange}
+                />
               </div>
               <div className="input-field">
                 <i>
                   <PeopleAltRounded />
                 </i>
-                <input type="text" placeholder="middle name" />
+                <input
+                  type="text"
+                  placeholder="middle name"
+                  name="middle_name"
+                  value={registerUserData.middle_name}
+                  onChange={handleChange}
+                />
               </div>
               <div className="input-field">
                 <i>
                   <PeopleAltRounded />
                 </i>
-                <input type="text" placeholder="surname" />
+                <input
+                  type="text"
+                  placeholder="surname"
+                  name="surname"
+                  value={registerUserData.surname}
+                  onChange={handleChange}
+                />
               </div>
               <div className="gender-container">
-                <label className="gender-label"> Gender </label>
+                <label className="gender-label"> Gender: </label>
                 <div className="radio-group">
-                  <input type="radio" className="radio-sign"  name="gender" id="male" value="male" />
-                  <label for="male">Male</label>
-                </div>
-                <div className="radio-group">
-                  <input type="radio" className="radio-sign"
+                  <input
+                    type="radio"
+                    className="radio-sign"
                     name="gender"
-                    id="female"
-                    value="female"
+                    value={"1"}
+                    checked={registerUserData.gender === "1"}
+                    onChange={handleChange}
+                    id="male"
                   />
-                  <label for="female">Female</label>
+                  <label htmlFor="male">Male</label>
                 </div>
                 <div className="radio-group">
-                  <input type="radio" className="radio-sign"  name="gender" id="other" value="other" />
-                  <label for="other">Other</label>
+                  <input
+                    type="radio"
+                    className="radio-sign"
+                    id="female"
+                    name="gender"
+                    value={"2"}
+                    checked={registerUserData.gender === "2"}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="female">Female</label>
+                </div>
+                <div className="radio-group">
+                  <input
+                    type="radio"
+                    className="radio-sign"
+                    id="other"
+                    name="gender"
+                    value={"0"}
+                    checked={registerUserData.gender === "0"}
+                    onChange={handleChange}
+                  />
+                  <label htmlFor="other">Other</label>
                 </div>
               </div>
               <div className="input-field">
@@ -177,16 +340,43 @@ const Register = ({ setregisterModalOpen }) => {
                   {" "}
                   <EmailRounded />{" "}
                 </i>
-                <input type="email" placeholder="email" />
+                <input
+                  type="email"
+                  placeholder="email"
+                  name="email"
+                  value={registerUserData.email}
+                  onChange={handleChange}
+                />
               </div>
               <div className="input-field">
                 <i>
                   {" "}
                   <LockRounded />{" "}
                 </i>
-                <input type="password" placeholder="Password" />
+                <input
+                  type="password"
+                  placeholder="Password"
+                  name="password"
+                  value={registerUserData.password}
+                  onChange={handleChange}
+                />
               </div>
-              <input type="submit" value="Register" className="btn solid" />
+
+              {/* <label>
+                Profile Picture URL:
+                <input
+                  type="text"
+                  name="profile_pic"
+                  value={registerUserData.profile_pic}
+                  onChange={handleChange}
+                />
+              </label> */}
+
+              <input
+                type="submit"
+                value={verifyEmailStatus ? "Register" : "Send OTP"}
+                className="btn solid"
+              />
               <p className="social-text">Or Sign in with social platforms</p>
               <div className="social-media">
                 <Link to="#" className="social-icon">
@@ -228,6 +418,13 @@ const Register = ({ setregisterModalOpen }) => {
           </div>
         </div>
       </div>
+
+      <OtpVerifyEmailModal
+        otpVerifyEmailModalOpen={verifyEmailPopupOpen}
+        emailValue={registerUserData.email}
+        otpVerifyEmailModalClose={verifyEmailPopupClose}
+        verifyEmailFun={verifyEmailFun}
+      />
     </>
   );
 };
