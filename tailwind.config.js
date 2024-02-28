@@ -8,7 +8,8 @@ module.exports = {
       jost: ["Jost"],
       ledger: ["Ledger"],
       playfair: ["Playfair Display"],
-      cormorant:["Cormorant Garamond"]
+      cormorant:["Cormorant Garamond"],
+      poppins:["Poppins"]
     },
 
     extend: {
