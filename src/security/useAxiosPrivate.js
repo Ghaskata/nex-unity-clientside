@@ -15,6 +15,7 @@ const useAxiosPrivate = () => {
       (config) => {
         if (isAuthenticated) {
           config.headers["Authorization"] = `Bearer ${token}`;
+          config.headers["authorization"] = `Bearer ${token}`;
           config.headers["session"] = token;
         }
 

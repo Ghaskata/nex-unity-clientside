@@ -42,6 +42,7 @@ const Posts = () => {
             <Post />
             <Post />
           </div>
+
         </div>
         <div className="!m-3 !xl:my-5 flex-shrink-0 hidden lg:flex  flex-col gap-5  overflow-y-auto post-scroll">
           <HomeUpcommingEvent />

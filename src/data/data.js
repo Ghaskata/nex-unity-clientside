@@ -100,7 +100,7 @@ export const category = [
   { name: "Sports", icon: <GiDiamondTrophy className="w-[30px] h-[30px]" />, type: "category" },
   { name: "Learning", icon: <RiLightbulbLine className="w-[30px] h-[30px]" />, type: "category" },
   {
-    name: "Fashion & beauty",
+    name: "Fashion",
     icon: <GiEclipse className="w-[30px] h-[30px]" />,
     type: "category",
   },
