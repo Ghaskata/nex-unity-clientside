@@ -189,9 +189,11 @@ const Register = ({ setregisterModalOpen }) => {
       registerUserData.password === ""
     ) {
       toast.warning("All fields are nessasary");
-    } else if (emailRegex.test(registerUserData.email)) {
-      toast.warning("Invalid Email Address");
-    } else if (registerUserData.password.length < 8) {
+    }
+    // else if (emailRegex.test(registerUserData.email)) {
+    //   toast.warning("Invalid Email Address");
+    // } 
+    else if (registerUserData.password.length < 8) {
       toast.warning("password minimun 8 character required");
     } else {
       try {
