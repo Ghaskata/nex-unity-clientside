@@ -4,6 +4,8 @@ import Router from "./routes";
 import { ThemeProvider } from "./context/ThemeContext";
 import { ToastCon } from "./components/common/Toast";
 import { AuthProvider } from "./context/AuthProvider";
+import swal from 'sweetalert';
+
 
 function App() {
   return (

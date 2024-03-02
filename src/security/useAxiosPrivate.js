@@ -16,6 +16,8 @@ const useAxiosPrivate = () => {
         if (isAuthenticated) {
           config.headers["Authorization"] = `Bearer ${token}`;
           config.headers["authorization"] = `Bearer ${token}`;
+          config.headers["Authorization"] = `${token}`;
+          config.headers["authorization"] = `${token}`;
           config.headers["session"] = token;
         }
 
@@ -49,6 +51,7 @@ const useAxiosPrivate = () => {
           toast.error("Request setup failed");
         }
 
+        console.log("request intercept >>> ",requestIntercept)
         return Promise.reject(error);
       }
     );

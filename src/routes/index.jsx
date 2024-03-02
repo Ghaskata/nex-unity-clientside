@@ -27,6 +27,7 @@ const User = lazy(() => import("../pages/dash/Users"));
 const CommunityManagers = lazy(() => import("../pages/dash/CommunityManagers"));
 const CommunityPage = lazy(() => import("../pages/dash/CommunityPage"));
 const DashCategoriesPage = lazy(() => import("../pages/dash/DashCategoriesPage"));
+const DashSingleCommunity = lazy(() => import("../pages/dash/DashSingleCommunity"));
 
 //front
 const FrontMaster = lazy(() => import("../layouts/front/FrontMaster"));
@@ -100,6 +101,7 @@ export default function Router() {
       children: [
         { path: "", element: <DashboardHome /> },
         { path: "community", element: <CommunityPage /> },
+        { path: "community/:id", element: <DashSingleCommunity /> },
         { path: "settings", element: <DashSettings /> },
         { path: "users", element: <User /> },
         { path: "subadmin", element: <CommunityManagers /> },

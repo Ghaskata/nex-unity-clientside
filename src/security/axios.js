@@ -38,4 +38,23 @@ const COMMUNITY_API_URL={
   leftCommmunity:path(ROOT_COMMUNITY_API,"/left_community"),
   joinCommmunity:path(ROOT_COMMUNITY_API,"/join_community"),
 }
-export { axiosPrivate, AUTH_API_URL,COMMUNITY_API_URL };
+
+
+
+const ROOT_POST_API=BASE_URL+"/post"
+const POST_API_URL={
+  createPost:path(ROOT_POST_API,"/create-post"),
+  getPublicPost:path(ROOT_POST_API,"/get-public-post"),
+  getPublicAndFollowingPost:path(ROOT_POST_API,"/get-public-and-following-post"),
+  getPersnolPost:path(ROOT_POST_API,"/get-persnol-post"),
+  getAllPost:path(ROOT_POST_API,"/get-all-post"),
+}
+const ROOT_CATEGORY_API=BASE_URL+"/category"
+const CATEGORY_API_URL={
+  create:path(ROOT_CATEGORY_API,"/create"),
+  get:path(ROOT_CATEGORY_API,"/get"),
+  update:path(ROOT_CATEGORY_API,"/update/:id"),
+  delete:path(ROOT_CATEGORY_API,"/delete/:id"),
+}
+
+export { axiosPrivate, AUTH_API_URL,COMMUNITY_API_URL ,POST_API_URL,CATEGORY_API_URL};

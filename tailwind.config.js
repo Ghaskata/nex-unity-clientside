@@ -30,7 +30,9 @@ module.exports = {
         backgroundv3: "var(--background-v3)",
         textPrimary: "var(--color-text-primary)",
         textGray:"#77828b",
-        blueMain:'#2a86fe'
+        // blueMain:'#2a86fe',
+        blueMain:'#2ce28b',//green
+        blueMainLight:'#e5f8ef'//green light
       },
       container: {
         center: true,
