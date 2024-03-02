@@ -64,7 +64,7 @@ const FrontHeader = () => {
                   className="block dark:hidden w-full h-full object-cover object-center"
                 />
 
-                <h1 className="text-textPrimary text-2xl md:text-3xl hidden sm:block">
+                <h1 className="text-blueMain font-semibold font-playfair text-2xl md:text-3xl hidden sm:block">
                   NexGen
                 </h1>
               </Link>

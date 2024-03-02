@@ -23,6 +23,7 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 
   const { pathname } = useLocation();
+  console.log(pathname)
   return (
     <>
       <div
@@ -32,21 +33,21 @@ const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
         )}
       >
         <ul className="w-full flex-grow py-5 flex flex-col gap-3 h-full overflow-y-scroll scrollbar mb-20">
-          {DashbordNavlinkList.map((navLinkItem, index) => (
-            <li className="px-3 " key={index}>
-              <Link
-                to={navLinkItem.href}
-                className={`text-base text-textPrimary md:text-lg flex items-center justify-start px-5 py-3 rounded gap-3 group/card ${
-                  pathname === navLinkItem.href
-                    ? "active bg-backgroundv3 !text-blueMain"
-                    : "hover:bg-backgroundv3"
-                }`}
-              >
-                <span className="icon">{navLinkItem.icon}</span>
-                {navLinkItem.name}
-              </Link>
-            </li>
-          ))}
+          {DashbordNavlinkList.map((navLinkItem, index) =>
+              <li className="px-3 " key={index}>
+                <Link
+                  to={navLinkItem.href}
+                  className={`text-base text-textPrimary md:text-lg flex items-center justify-start px-5 py-3 rounded gap-3 group/card ${
+                    pathname === navLinkItem.href
+                      ? "active bg-backgroundv3 !text-blueMain"
+                      : "hover:bg-backgroundv3"
+                  }`}
+                >
+                  <span className="icon">{navLinkItem.icon}</span>
+                  {navLinkItem.name}
+                </Link>
+              </li>
+          )}
           <li className="px-3">
             <Link
               role="button"
