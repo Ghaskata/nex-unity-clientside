@@ -1,9 +1,17 @@
-import React from 'react'
+import React from "react";
+import "./css/EventPage.css";
+import TodayEventSlider from "../../components/front/TodayEventSlider";
+import PastEventSlider from "../../components/front/PastEventSlider";
+import UpcommingEventSlider from "../../components/front/UpcommingEventSlider";
 
 const EventsPage = () => {
   return (
-    <div>EventsPage</div>
-  )
-}
+    <>
+      <TodayEventSlider/>
+      <UpcommingEventSlider/>
+      <PastEventSlider/>
+    </>
+  );
+};
 
-export default EventsPage
+export default EventsPage;

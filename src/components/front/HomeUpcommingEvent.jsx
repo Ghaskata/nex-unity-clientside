@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const HomeUpcommingEvent = () => {
   return (
-    <div className="w-[250px] xl:w-[300px] rounded-xl flex flex-col gap-3 justify-center items-center border-2 border-backgroundv3 bg-backgroundv1 text-textPrimary p-3 xl:p-5">
+    <div className="w-full rounded-xl flex flex-col gap-3 justify-center items-center border-2 border-backgroundv3 bg-backgroundv1 text-textPrimary p-3 xl:p-5">
       <div className="flex justify-between items-center w-full">
         <h2 className="font-500 text-18 xxl:text-20">Upcomming Events</h2>
         <div className="w-[28px] h-[28px] flex justify-center items-center rounded-full bg-backgroundv3 text-12 xl:text-14">
