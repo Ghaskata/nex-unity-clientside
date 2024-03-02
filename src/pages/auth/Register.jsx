@@ -85,12 +85,14 @@ const Register = ({ setregisterModalOpen }) => {
   // };
   // const [step, setstep] = useState(1);
 
+  let toastId;
   const axiosPrivate = useAxiosPrivate();
 
   const [verifyEmailPopupOpen, setverifyEmailPopupOpen] = useState(false);
   const verifyEmailPopupClose = () => {
     setverifyEmailPopupOpen(false);
   };
+  const [verifiedEmail, setverifiedEmail] = useState("");
   const [verifyEmailStatus, setverifyEmailStatus] = useState(false);
   const verifyEmailFun = async () => {
     try {
@@ -123,6 +125,7 @@ const Register = ({ setregisterModalOpen }) => {
 
   const { mutateAsync: generateOTP } = useMutation(
     async (data) => {
+      toastId = toast.loading("Please wait...");
       return await axiosPrivate.post(
         AUTH_API_URL.generateOtp,
         JSON.stringify(data)
@@ -131,15 +134,35 @@ const Register = ({ setregisterModalOpen }) => {
     {
       onSuccess: (res) => {
         console.log("res >>> ", res);
-        setverifyEmailPopupOpen(true);
-        toast.success("Verification code OTP sent successfully.");
+        toast.update(toastId, {
+          render: res.data.message || "Register succesfully",
+          type: toast.TYPE.SUCCESS,
+          isLoading: false,
+          autoClose: 2000,
+        });
+        setTimeout(() => {
+          setverifyEmailPopupOpen(true);
+        }, 1500);
+        // toast.success("Verification code OTP sent successfully.");
       },
       onError: (error) => {
         const message = error?.response?.data?.message;
         if (message) {
-          toast.error(message);
+          // toast.error(message);
+          toast.update(toastId, {
+            render: message,
+            type: toast.TYPE.ERROR,
+            isLoading: false,
+            autoClose: 2000,
+          });
         } else {
-          toast.error("Something went wrong! Please try again");
+          // toast.error("Something went wrong! Please try again");
+          toast.update(toastId, {
+            render: "Something went wrong! Please try again",
+            type: toast.TYPE.ERROR,
+            isLoading: false,
+            autoClose: 2000,
+          });
         }
       },
     }
@@ -148,6 +171,7 @@ const Register = ({ setregisterModalOpen }) => {
   //register user API
   const { mutateAsync: registerApi } = useMutation(
     async (data) => {
+      toastId = toast.loading("Please wait...");
       return await axiosPrivate.post(
         AUTH_API_URL.register,
         JSON.stringify(data)
@@ -156,15 +180,35 @@ const Register = ({ setregisterModalOpen }) => {
     {
       onSuccess: (res) => {
         console.log("res >> ", res);
-        toast.success("Register succesfully");
-        navigate("/login");
+        // toast.success("Register succesfully");
+        toast.update(toastId, {
+          render: res.data.message || "Register succesfully",
+          type: toast.TYPE.SUCCESS,
+          isLoading: false,
+          autoClose: 2000,
+        });
+        setTimeout(() => {
+          navigate("/login");
+        }, 2000);
       },
       onError: (error) => {
         const message = error?.response?.data?.message;
         if (message) {
-          toast.error(message);
+          toast.update(toastId, {
+            render: message,
+            type: toast.TYPE.ERROR,
+            isLoading: false,
+            autoClose: 2000,
+          });
+          // toast.error(message);
         } else {
-          toast.error("Something went wrong! Please try again");
+          toast.update(toastId, {
+            render: "Something went wrong! Please try again",
+            type: toast.TYPE.ERROR,
+            isLoading: false,
+            autoClose: 2000,
+          });
+          // toast.error("Something went wrong! Please try again");
         }
       },
     }
@@ -189,14 +233,18 @@ const Register = ({ setregisterModalOpen }) => {
       registerUserData.password === ""
     ) {
       toast.warning("All fields are nessasary");
-    } else if (emailRegex.test(registerUserData.email)) {
-      toast.warning("Invalid Email Address");
-    } else if (registerUserData.password.length < 8) {
+    }
+    //  else if (!emailRegex.test(registerUserData.email)) {
+    //   toast.warning("Invalid Email Address");
+    // }
+    else if (registerUserData.password.length < 8) {
       toast.warning("password minimun 8 character required");
     } else {
       try {
         console.log("Form Data:", registerUserData);
-        verifyEmailStatus
+        verifyEmailStatus &&
+        verifiedEmail !== "" &&
+        verifiedEmail === registerUserData.email
           ? verifyEmailFun()
           : await generateOTP({ email: registerUserData.email });
       } catch (error) {
@@ -303,8 +351,8 @@ const Register = ({ setregisterModalOpen }) => {
                     type="radio"
                     className="radio-sign"
                     name="gender"
-                    value={"1"}
-                    checked={registerUserData.gender === "1"}
+                    value={"0"}
+                    checked={registerUserData.gender === "0"}
                     onChange={handleChange}
                     id="male"
                   />
@@ -316,13 +364,13 @@ const Register = ({ setregisterModalOpen }) => {
                     className="radio-sign"
                     id="female"
                     name="gender"
-                    value={"2"}
-                    checked={registerUserData.gender === "2"}
+                    value={"1"}
+                    checked={registerUserData.gender === "1"}
                     onChange={handleChange}
                   />
                   <label htmlFor="female">Female</label>
                 </div>
-                <div className="radio-group">
+                {/* <div className="radio-group">
                   <input
                     type="radio"
                     className="radio-sign"
@@ -333,7 +381,7 @@ const Register = ({ setregisterModalOpen }) => {
                     onChange={handleChange}
                   />
                   <label htmlFor="other">Other</label>
-                </div>
+                </div> */}
               </div>
               <div className="input-field">
                 <i>
@@ -424,6 +472,7 @@ const Register = ({ setregisterModalOpen }) => {
         emailValue={registerUserData.email}
         otpVerifyEmailModalClose={verifyEmailPopupClose}
         verifyEmailFun={verifyEmailFun}
+        setverifiedEmail={setverifiedEmail}
       />
     </>
   );

@@ -9,7 +9,16 @@ import IcnOpenEye from "../../components/svg/IcnOpenEye";
 import Input from "../../components/ui/Input";
 import { toast } from "react-toastify";
 import ForgotPasswordModal from "../../components/dash/modal/forgotPasswordModalflow/ForgotPasswordModal";
-import { CircleUserRound, Facebook, Linkedin, Lock, Twitter, User, User2, User2Icon } from "lucide-react";
+import {
+  CircleUserRound,
+  Facebook,
+  Linkedin,
+  Lock,
+  Twitter,
+  User,
+  User2,
+  User2Icon,
+} from "lucide-react";
 import { authenticate } from "../../utils/authenticate";
 import { useMemo } from "react";
 import { useMutation } from "react-query";
@@ -22,9 +31,10 @@ import {
   selectRole,
 } from "../../reducers/authSlice";
 import { FaGoogle } from "react-icons/fa";
-import './css/Login.css'
+import "./css/Login.css";
 
 const Login = () => {
+  let id
   const [IsshowPassword, setIsshowPassword] = useState(false);
   const [user, setUser] = useState({ email: "", password: "" });
   const [ForgotPasswordOpen, setForgotPasswordOpen] = useState(false);
@@ -32,6 +42,7 @@ const Login = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const role = useSelector(selectRole);
+  const [loading, setloading] = useState(false);
 
   const { mutateAsync: loginApi } = useMutation(
     async (data) => {
@@ -39,7 +50,13 @@ const Login = () => {
     },
     {
       onSuccess: (res) => {
-        toast.success(res.data.message); // Adjust based on your API response structure
+        toast.update(id, {
+          render: res.data.message,
+          type: toast.TYPE.SUCCESS,
+          isLoading: false,
+          autoClose: 2000, 
+        });
+        // toast.success(res.data.message); // Adjust based on your API response structure
         let user = res.data.data.user;
         let token = res.data.data.token;
         dispatch(login({ user: user, token: token }));
@@ -57,11 +74,22 @@ const Login = () => {
       },
       onError: (error) => {
         console.error("Error:", error);
-        // Check if error.response exists before accessing its properties
         if (error.response) {
-          toast.error(error.response.data.message || "An error occurred");
+          toast.update(id, {
+            render: error.response.data.message,
+            type: toast.TYPE.ERROR,
+            isLoading: false,
+            autoClose:2000, 
+          });
+          // toast.error(error.response.data.message || "An error occurred");
         } else {
-          toast.error("An unexpected error occurred");
+          toast.update(id, {
+            render: "An unexpected error occurred",
+            type: toast.TYPE.ERROR,
+            isLoading: false,
+            autoClose: 2000, 
+          });
+          // toast.error("An unexpected error occurred");
         }
       },
     }
@@ -70,14 +98,15 @@ const Login = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     e.stopPropagation();
-    console.log(user)
+    console.log(user);
     if (!user.email || !user.password) {
       toast.warning("fill all the fields", { hideProgressBar: true });
       return;
     }
 
     try {
-       await loginApi(user);
+      id = toast.loading("Please wait...");
+      await loginApi(user);
     } catch (error) {}
 
     // authenticate(user);
@@ -89,6 +118,13 @@ const Login = () => {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
+
+  // useEffect(() => {
+  //   if (loading) {
+  //     id = toast.loading("Please wait...");
+  //   } 
+  // }, [loading]);
+
   return (
     <>
       {/* <div className="w-full bg-backgroundv2 text-textPrimary grid grid-cols-1 lg:grid-cols-2 min-h-screen">
@@ -175,7 +211,9 @@ const Login = () => {
             <form action="" className="sign-in-form" onSubmit={handleLogin}>
               <h2 className="sign-title ">Sign in</h2>
               <div className="input-field">
-                <i className="fas fa-user"><User2Icon className="mt-2 ps-1"/></i>
+                <i className="fas fa-user">
+                  <User2Icon className="mt-2 ps-1" />
+                </i>
                 <input
                   type="text"
                   placeholder="Email"
@@ -185,7 +223,9 @@ const Login = () => {
                 />
               </div>
               <div className="input-field">
-                <i className="fas fa-lock"><Lock className="mt-2 ps-1"/></i>
+                <i className="fas fa-lock">
+                  <Lock className="mt-2 ps-1" />
+                </i>
                 <input
                   type="password"
                   placeholder="Password"
@@ -223,7 +263,7 @@ const Login = () => {
                 community where ideas flourish and connections thrive.
               </p>
               <Link to="/register">
-                <button className="btn solid transparent" id="sign-up-btn" >
+                <button className="btn solid transparent" id="sign-up-btn">
                   Sign up
                 </button>
               </Link>

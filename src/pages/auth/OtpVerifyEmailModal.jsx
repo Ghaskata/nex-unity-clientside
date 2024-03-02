@@ -13,6 +13,7 @@ const OtpVerifyEmailModal = ({
   otpVerifyEmailModalClose,
   emailValue,
   verifyEmailFun,
+  setverifiedEmail
 }) => {
   const [otp, setOtp] = useState("");
   const axiosPrivate = useAxiosPrivate();
@@ -33,6 +34,7 @@ const OtpVerifyEmailModal = ({
       onSuccess: (res) => {
         console.log("res >>> ", res);
         handleClose();
+        setverifiedEmail(emailValue)
         verifyEmailFun();
         toast.success("Email Verify Successfully.");
       },
@@ -81,7 +83,7 @@ const OtpVerifyEmailModal = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-2xl bg-backgroundv1 border border-blueMain transform overflow-hidden rounded-2xl px-6 py-16 sm:px-10 text-left align-middle shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-2xl bg-backgroundv1 border-2 border-blueMain transform overflow-hidden rounded-2xl px-6 py-16 sm:px-10 text-left align-middle shadow-xl transition-all">
                 <div className="dialog-content">
                   <span
                     className="close absolute top-6 right-6 cursor-pointer"
