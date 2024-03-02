@@ -16,7 +16,7 @@ const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
                     leaveFrom="opacity-100"
                     leaveTo="opacity-0"
                 >
-                    <div className="fixed inset-0 bg-black  bg-opacity-25" />
+                    <div className="fixed inset-0 bg-black dark:bg-white dark:bg-opacity-15  bg-opacity-25" />
                 </Transition.Child>
                 <div className="fixed inset-0 overflow-y-auto">
                     <div className="flex min-h-full items-center justify-center p-10">
@@ -29,19 +29,19 @@ const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white dark:bg-black/50  shadow-xl transition-all">
+                            <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-backgroundv1 border border-blueMain shadow-xl transition-all">
                                 <div className="dialog-content">
                                     <div className='dialog-body py-6 px-5 md:px-[30px] md:py-6'>
                                         <div className='logout-content'>
                                             <div className='icon'>
-                                                <img src={logoutLight} alt="" className='max-w-[140px] md:max-w-[200px] mx-auto dark:hidden block' />
+                                                <img src={logoutLight} alt="" className='max-w-[140px] md:max-w-[200px] mx-auto' />
                                                 {/* <img src={LogoutGifLight} alt="" className='max-w-[140px] md:max-w-[200px] mx-auto dark:block hidden' /> */}
                                             </div>
-                                            <h5 className='mb-4 text-lg text-black dark:text-white text-center '>
+                                            <h5 className='mb-4 text-22 text-textPrimary text-center '>
                                                 Are you sure want to logout?
                                             </h5>
-                                            <p className='text-center text-base text-black dark:text-white mb-7'>Your Password has been Changed successfully.</p>
-                                            <Button variant={"blue"} className="w-full rounded-lg" onClick={() => setLogoutModalOpen(false)}>
+                                            {/* <p className='text-center text-base text-textPrimary mb-7'>Your Password has been Changed successfully.</p> */}
+                                            <Button variant={"blueV1"} className="w-full rounded-lg" onClick={() => setLogoutModalOpen(false)}>
                                                 Logout
                                             </Button>
                                         </div>
