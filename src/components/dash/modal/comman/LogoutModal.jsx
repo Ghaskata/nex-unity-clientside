@@ -13,13 +13,14 @@ const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
 
   const handleLogout = () => {
     dispatch(logout());
+    setLogoutModalOpen(false);
 
     setTimeout(() => {
       localStorage.clear();
       sessionStorage.clear();
-      setLogoutModalOpen(false);
       navigate("/");
     }, 1000);
+    
   };
 
   return (
