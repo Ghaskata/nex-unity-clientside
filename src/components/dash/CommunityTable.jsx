@@ -214,7 +214,7 @@ const CommunityTable = () => {
                         {community.description}
                       </div>
                     </TableCell>
-                    <TableCell>{}?</TableCell>
+                    <TableCell>{community.createUserId}</TableCell>
                     <TableCell>{}no ?</TableCell>
                     <TableCell>
                       <div className="w-full flex items-center justify-center">
@@ -243,9 +243,9 @@ const CommunityTable = () => {
                         >
                           <VscEye className="h-6 w-6" />
                         </button>
-                        <button className="text-blue-600">
+                        {/* <button className="text-blue-600">
                           <Pen className="h-6 w-6" />
-                        </button>
+                        </button> */}
                         <button
                           className="text-red-600"
                           onClick={() => handleDelete(community._id)}
