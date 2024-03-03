@@ -1,16 +1,22 @@
 import { ArrowLeft } from "lucide-react";
 import React from "react";
 import CommunityPostList from "../../components/dash/CommunityPostList";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 const DashSingleCommunity = () => {
-  const navigate=useNavigate()
-  const location=useLocation()
-  console.log("location >> ",location)
+  const navigate = useNavigate();
+  const { communityId } = useParams();
+
+  console.log("community id >> ", communityId);
+
+  
   return (
     <div className="w-full bg-lightGray h-full min-h-screen !text-textPrimary font-popins ">
       <div className="container py-5">
-        <div className="flex items-center gap-2 !text-blueMain pb-3  container cursor-pointer" onClick={()=>navigate("/dashboard/community")}>
+        <div
+          className="flex items-center gap-2 !text-blueMain pb-3  container cursor-pointer"
+          onClick={() => navigate("/dashboard/community")}
+        >
           <ArrowLeft className="h-5 w-5 text-blueMain" /> Go Back
         </div>
 
@@ -36,6 +42,17 @@ const DashSingleCommunity = () => {
                     Lorem ipsum dolor sit amet consectetur adipisicing elit. In,
                     amet.
                   </h5>
+                </div>
+              </div>
+              <div className=" h-full justify-end items-end flex-shrink-0">
+                <div
+                  className={`${
+                    true
+                      ? "bg-green-600/30 text-green-700 border-green-700"
+                      : "bg-yellow-400/30 text-yellow-700 border-yellow-700"
+                  } rounded-full h-8 lg:h-10 px-5 gap-2 flex justify-center font-semibold items-center border text-16 transition-all duration-300 ease-linear`}
+                >
+                  Public | private
                 </div>
               </div>
             </div>
