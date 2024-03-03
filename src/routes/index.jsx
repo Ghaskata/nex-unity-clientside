@@ -28,6 +28,7 @@ const CommunityManagers = lazy(() => import("../pages/dash/CommunityManagers"));
 const CommunityPage = lazy(() => import("../pages/dash/CommunityPage"));
 const DashCategoriesPage = lazy(() => import("../pages/dash/DashCategoriesPage"));
 const DashSingleCommunity = lazy(() => import("../pages/dash/DashSingleCommunity"));
+const Roles = lazy(() => import("../pages/dash/Roles"));
 
 //front
 const FrontMaster = lazy(() => import("../layouts/front/FrontMaster"));
@@ -37,9 +38,8 @@ const AddPostPage = lazy(() => import("../pages/front/AddPostPage"));
 const ContactUsPage = lazy(() => import("../pages/front/ContactUsPage"));
 const DonationPage = lazy(() => import("../pages/front/DonationPage"));
 const EventsPage = lazy(() => import("../pages/front/EventsPage"));
-const FrontCommunityPage = lazy(() =>
-  import("../pages/front/FrontCommunityPage")
-);
+const FrontCommunityPage = lazy(() =>import("../pages/front/FrontCommunityPage"));
+const FrontSingleCommunityPage = lazy(() =>import("../pages/front/FrontSingleCommunityPage"));
 const FrontSettingPage = lazy(() => import("../pages/front/FrontSettingPage"));
 const JobsPage = lazy(() => import("../pages/front/JobsPage"));
 const NewsPage = lazy(() => import("../pages/front/NewsPage"));
@@ -101,8 +101,9 @@ export default function Router() {
       children: [
         { path: "", element: <DashboardHome /> },
         { path: "community", element: <CommunityPage /> },
-        { path: "community/:id", element: <DashSingleCommunity /> },
+        { path: "community/:communityId", element: <DashSingleCommunity /> },
         { path: "settings", element: <DashSettings /> },
+        { path: "roles", element: <Roles /> },
         { path: "users", element: <User /> },
         { path: "subadmin", element: <CommunityManagers /> },
         { path: "categories", element: <DashCategoriesPage /> },
@@ -120,6 +121,7 @@ export default function Router() {
         { index: true, path: "", element: <LandingPage /> },
         { path: "add-post", element: <AddPostPage /> },
         { path: "community", element: <FrontCommunityPage /> },
+        { path: "community/:communityId", element: <FrontSingleCommunityPage /> },
         { path: "jobs", element: <JobsPage /> },
         { path: "events", element: <EventsPage /> },
         { path: "news", element: <NewsPage /> },
