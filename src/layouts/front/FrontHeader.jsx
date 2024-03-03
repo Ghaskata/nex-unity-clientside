@@ -77,20 +77,20 @@ const FrontHeader = () => {
                 strokeWidth={1.8}
               />
             </button>
-            <button>
+            <Link to={"/settings"}>
               <Settings
                 className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px] text-textPrimary custom-spin"
                 strokeWidth={1.8}
               />
-            </button>
+            </Link>
             <ThemeToggler />
-            <button className="h-[42px] w-[42px] overflow-hidden rounded-full">
+            <Link className="h-[42px] w-[42px] overflow-hidden rounded-full" to={"/profile"}>
               <img
                 src={profile}
                 alt="profile"
                 className="w-full h-full object-cover"
               />
-            </button>
+            </Link>
           </div>
         </div>
       </header>
