@@ -24,7 +24,7 @@ const useAxiosPrivate = () => {
         return config;
       },
       (error) => {
-        toast.error("Something went wrong with the request");
+        console.error("Request error >>> ", error);
         return Promise.reject(error);
       }
     );
