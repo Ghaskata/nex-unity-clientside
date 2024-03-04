@@ -86,12 +86,13 @@ const CommunityTable = () => {
           });
           // toast.error(error.response.data.message || "An error occurred");
         } else {
-          toast.update(toastId, {
-            render: "An unexpected error occurred",
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000,
-          });
+          toast.dismiss(toastId)
+          // toast.update(toastId, {
+          //   render: "An unexpected error occurred",
+          //   type: toast.TYPE.ERROR,
+          //   isLoading: false,
+          //   autoClose: 2000,
+          // });
           // toast.error("An unexpected error occurred");
         }
       },

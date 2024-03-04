@@ -20,111 +20,7 @@ import { toast } from "react-toastify";
 import EditCategoryModal from "./modal/EditCategoryModal";
 import swal from "sweetalert";
 
-const data = [
-  {
-    id: "1",
-    image: "/images/p1.png",
-    category: "snack",
-    title: "Seeds of Change Organic Quinoa, Brown, & Red Rice",
-    rating: "3.5",
-    price: "699",
-    oldPrice: "799",
-    date: "02.11.2011",
-    status: "Disabled",
-  },
-  {
-    id: "2",
-    image: "/images/p1.png",
-    category: "snack",
-    title: "Seeds of Change Organic  & Red Rice",
-    rating: "3.5",
-    price: "699",
-    oldPrice: "799",
-    date: "02.11.2011",
-    status: "Active",
-  },
 
-  {
-    id: "3",
-    image: "/images/p1.png",
-    category: "fruits",
-    title: "Seeds of Change Organic Quinoa, Brown, & Red Rice",
-    rating: "3.5",
-    price: "699",
-    oldPrice: "799",
-    date: "02.11.2011",
-    status: "Archived",
-  },
-
-  {
-    id: "4",
-    image: "/images/p1.png",
-    category: "fruits",
-    title: "Seeds of Change Organic Quinoa, Brown, & Red Rice",
-    rating: "3.5",
-    price: "699",
-    oldPrice: "799",
-    date: "02.11.2011",
-    status: "Active",
-  },
-  {
-    id: "5",
-    image: "/images/p1.png",
-    category: "snack",
-    title: "Seeds of Change Organic Quinoa, Brown, & Red Rice",
-    rating: "3.5",
-    price: "699",
-    oldPrice: "799",
-    date: "02.11.2011",
-    status: "Disabled",
-  },
-  {
-    id: "2",
-    image: "/images/p1.png",
-    category: "snack",
-    title: "Seeds of Change Organic  & Red Rice",
-    rating: "3.5",
-    price: "699",
-    oldPrice: "799",
-    date: "02.11.2011",
-    status: "Active",
-  },
-
-  {
-    id: "3",
-    image: "/images/p1.png",
-    category: "fruits",
-    title: "Seeds of Change Organic Quinoa, Brown, & Red Rice",
-    rating: "3.5",
-    price: "699",
-    oldPrice: "799",
-    date: "02.11.2011",
-    status: "Archived",
-  },
-
-  {
-    id: "4",
-    image: "/images/p1.png",
-    category: "fruits",
-    title: "Seeds of Change Organic Quinoa, Brown, & Red Rice",
-    rating: "3.5",
-    price: "699",
-    oldPrice: "799",
-    date: "02.11.2011",
-    status: "Active",
-  },
-  {
-    id: "5",
-    image: "/images/p1.png",
-    category: "snack",
-    title: "Seeds of Change Organic Quinoa, Brown, & Red Rice",
-    rating: "3.5",
-    price: "699",
-    oldPrice: "799",
-    date: "02.11.2011",
-    status: "Disabled",
-  },
-];
 
 export function CategoriesTable() {
   let id;
@@ -171,24 +67,26 @@ export function CategoriesTable() {
         queryClient.invalidateQueries("categories");
       },
       onError: (error) => {
-        if (error.response) {
-          toast.update(id, {
-            render:
-              error.response.data.message || "An unexpected error occurred",
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000,
-          });
-          // toast.error(error.response.data.message || "An error occurred");
-        } else {
-          toast.update(id, {
-            render: "An unexpected error occurred",
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000,
-          });
-          // toast.error("An unexpected error occurred");
-        }
+        toast.dismiss(id)
+
+        // if (error.response) {
+        //   toast.update(id, {
+        //     render:
+        //       error.response.data.message || "An unexpected error occurred",
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        //   // toast.error(error.response.data.message || "An error occurred");
+        // } else {
+        //   toast.update(id, {
+        //     render: "An unexpected error occurred",
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        // toast.error("An unexpected error occurred");
+        // }
       },
     }
   );

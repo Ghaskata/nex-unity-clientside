@@ -29,20 +29,22 @@ import {
   login,
   selectIsAuthenticated,
   selectRole,
+  selectUserData,
 } from "../../reducers/authSlice";
 import { FaGoogle } from "react-icons/fa";
 import "./css/Login.css";
 
 const Login = () => {
-  let id
+  let id;
   const [IsshowPassword, setIsshowPassword] = useState(false);
   const [user, setUser] = useState({ email: "", password: "" });
   const [ForgotPasswordOpen, setForgotPasswordOpen] = useState(false);
   const axiosPrivate = useAxiosPrivate();
   const dispatch = useDispatch();
-  const isAuthenticated = useSelector(selectIsAuthenticated);
+  const userData = useSelector(selectUserData);
   const role = useSelector(selectRole);
   const [loading, setloading] = useState(false);
+  const navigate = useNavigate();
 
   const { mutateAsync: loginApi } = useMutation(
     async (data) => {
@@ -54,7 +56,7 @@ const Login = () => {
           render: res.data.message,
           type: toast.TYPE.SUCCESS,
           isLoading: false,
-          autoClose: 2000, 
+          autoClose: 2000,
         });
         // toast.success(res.data.message); // Adjust based on your API response structure
         let user = res.data.data.user;
@@ -66,31 +68,32 @@ const Login = () => {
         sessionStorage.setItem("token", JSON.stringify(token));
         setTimeout(() => {
           if (user.role === 1) {
-            window.location.href = "/dashboard";
+            navigate("/dashboard");
           } else {
-            window.location.href = "/";
+            navigate("/");
           }
         }, 3000);
       },
       onError: (error) => {
-        console.error("Error:", error);
-        if (error.response) {
-          toast.update(id, {
-            render: error.response.data.message,
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose:2000, 
-          });
-          // toast.error(error.response.data.message || "An error occurred");
-        } else {
-          toast.update(id, {
-            render: "An unexpected error occurred",
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000, 
-          });
-          // toast.error("An unexpected error occurred");
-        }
+        toast.dismiss(id);
+        // console.error("Error:", error);
+        // if (error.response) {
+        //   toast.update(id, {
+        //     render: error.response.data.message,
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose:2000,
+        //   });
+        //   // toast.error(error.response.data.message || "An error occurred");
+        // } else {
+        //   toast.update(id, {
+        //     render: "An unexpected error occurred",
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        //   // toast.error("An unexpected error occurred");
+        // }
       },
     }
   );
@@ -118,12 +121,6 @@ const Login = () => {
   const handleChange = (e) => {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
-
-  // useEffect(() => {
-  //   if (loading) {
-  //     id = toast.loading("Please wait...");
-  //   } 
-  // }, [loading]);
 
   return (
     <>

@@ -45,24 +45,26 @@ const EditCategoryModal = ({
         queryClient.invalidateQueries("categories");
       },
       onError: (error) => {
-        if (error.response) {
-          toast.update(id, {
-            render:
-              error.response.data.message || "An unexpected error occurred",
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000,
-          });
-          // toast.error(error.response.data.message || "An error occurred");
-        } else {
-          toast.update(id, {
-            render: "An unexpected error occurred",
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000,
-          });
-          // toast.error("An unexpected error occurred");
-        }
+        toast.dismiss(id)
+
+        // if (error.response) {
+        //   toast.update(id, {
+        //     render:
+        //       error.response.data.message || "An unexpected error occurred",
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        //   // toast.error(error.response.data.message || "An error occurred");
+        // } else {
+        //   toast.update(id, {
+        //     render: "An unexpected error occurred",
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        //   // toast.error("An unexpected error occurred");
+        // }
       },
     }
   );
