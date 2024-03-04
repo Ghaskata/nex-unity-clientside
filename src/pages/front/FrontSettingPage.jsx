@@ -4,31 +4,136 @@ import Input from "../../components/ui/Input";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectUserData, updateUserData } from "../../reducers/authSlice";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { useMutation } from "react-query";
+import { AUTH_API_URL } from "../../security/axios";
+import { toast } from "react-toastify";
+import swal from "sweetalert";
+import ChangePasswordModal from "../../components/dash/modal/comman/ChangePasswordModal";
 
 const FrontSettingPage = () => {
+  let id;
+  const [changePasswordModalOpen, setchangePasswordModalOpen] = useState(false);
   const userData = useSelector(selectUserData);
-  const dispatch=useDispatch()
-  
+  const dispatch = useDispatch();
+  const axiosPrivate = useAxiosPrivate();
+
+  const handleSuccess = (res) => {
+    dispatch(updateUserData(editUser));
+    toast.update(id, {
+      render: res.data.message,
+      type: toast.TYPE.SUCCESS,
+      isLoading: false,
+      autoClose: 2000,
+    });
+  };
+  const handleStatusSuccess = (res) => {
+    dispatch(updateUserData({ active: !userData.active }));
+    toast.update(id, {
+      render: res.data.message,
+      type: toast.TYPE.SUCCESS,
+      isLoading: false,
+      autoClose: 2000,
+    });
+  };
+
+  useEffect(() => {
+    console.log("data in axios >>> ", userData);
+    localStorage.setItem("user", JSON.stringify(userData));
+    sessionStorage.setItem("user", JSON.stringify(userData));
+  }, [userData]);
+
+  const { mutateAsync: updateProfileApi } = useMutation(
+    async (data) => {
+      return await axiosPrivate.put(
+        AUTH_API_URL.updateProfile,
+        JSON.stringify(data)
+      );
+    },
+    {
+      onSuccess: handleSuccess,
+      onError: (error) => {
+        console.error("Error:", error);
+        toast.dismiss(id);
+        // if (error.response) {
+        //   toast.update(id, {
+        //     render: error.response.data.message,
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        // } else {
+        //   toast.update(id, {
+        //     render: "An unexpected error occurred",
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        // }
+      },
+    }
+  );
+  const { mutateAsync: activeStatusUpdate } = useMutation(
+    async (data) => {
+      return await axiosPrivate.put(
+        AUTH_API_URL.userActiveStatusUpdate,
+        JSON.stringify(data)
+      );
+    },
+    {
+      onSuccess: handleStatusSuccess,
+      onError: (error) => {
+        console.error("Error:", error);
+        toast.dismiss(id);
+        // if (error.response) {
+        //   toast.update(id, {
+        //     render: error.response.data.message,
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        // } else {
+        //   toast.update(id, {
+        //     render: "An unexpected error occurred",
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        // }
+      },
+    }
+  );
+
   const [editUser, seteditUser] = useState({
-    first_name:"",
-    middle_name:"",
-    surname:"",
-    gender:"0",
-    isPrivate:false,
-    profile_pic:null
+    first_name: "",
+    middle_name: "",
+    surname: "",
+    gender: "0",
+    isPrivate: false,
+    profile_pic: null,
   });
   const [previewURL, setpreviewURL] = useState(null);
-  
-  useEffect(()=>{
-    seteditUser(userData)
-  },[])
-  console.log("user",userData)
-  console.log("edittttuser",editUser)
 
-  const handleSubmit = (e) => {
+  useEffect(() => {
+    seteditUser({
+      first_name: userData.first_name,
+      middle_name: userData.middle_name,
+      surname: userData.surname,
+      gender: userData.gender,
+      isPrivate: userData.isPrivate,
+      profile_pic: userData.profile_pic,
+    });
+  }, []);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("edit user", editUser);
-    dispatch(updateUserData(editUser))
+    // console.log("edit user", editUser);
+    try {
+      id = toast.loading("Please wait...");
+      await updateProfileApi({ userId: userData._id, ...editUser });
+    } catch (error) {
+      console.log("error >>> ", error);
+    }
   };
 
   const handleProfileChange = (e) => {
@@ -41,6 +146,54 @@ const FrontSettingPage = () => {
     seteditUser({ ...editUser, [e.target.name]: e.target.files[0] });
   };
 
+  const handleStatus = async () => {
+    try {
+      swal({
+        title: "Are you sure?",
+        text: "You Really want to change yout profile active status !!!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then(async (willDelete) => {
+        if (willDelete) {
+          id = toast.loading("Please wait...");
+          await activeStatusUpdate({ userId: userData._id });
+        }
+      });
+    } catch (error) {
+      console.log("error >> ", error);
+    }
+  };
+
+  const handleRemoveAcc = () => {
+    try {
+      swal({
+        title: "Are you sure?",
+        text: "You Really want to Delete your Account !!!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      }).then(async (willDelete) => {
+        if (willDelete) {
+          swal({
+            title: "Success",
+            text: "Your Account Removed !!!",
+            icon: "success",
+            dangerMode: true,
+          });
+        }
+      });
+    } catch (error) {
+      console.log("error >> ", error);
+    }
+  };
+
+  const handleChangePassword = () => {
+    setchangePasswordModalOpen(true);
+  };
+
+  console.log("user", userData);
+  console.log("edittttuser", editUser);
   return (
     <div className="w-full h-full">
       <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-y-3 container my-5">
@@ -111,7 +264,7 @@ const FrontSettingPage = () => {
                   />
                 </div>
 
-                <div className="flex justify-center items-center gap-2">
+                <div className="flex justify-center items-center gap-2 col-span-1 sm:col-span-2">
                   <div className="w-[100px] flex-shrink-0 text-14 md:text-16 mb-2">
                     Gender
                   </div>
@@ -122,10 +275,10 @@ const FrontSettingPage = () => {
                       </label>
                       <input
                         type="radio"
-                        value={"0"}
+                        value={"1"}
                         id="male"
                         name="gender"
-                        checked={editUser.gender === 0}
+                        checked={editUser.gender === 1}
                         onChange={(e) =>
                           seteditUser({ ...editUser, gender: +e.target.value })
                         }
@@ -140,9 +293,9 @@ const FrontSettingPage = () => {
                       <input
                         type="radio"
                         id="female"
-                        value={"1"}
+                        value={"2"}
                         name="gender"
-                        checked={editUser.gender === 1}
+                        checked={editUser.gender === 2}
                         onChange={(e) =>
                           seteditUser({ ...editUser, gender: +e.target.value })
                         }
@@ -152,7 +305,7 @@ const FrontSettingPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-center items-center gap-2">
+                <div className="flex justify-center items-center gap-2 col-span-1 sm:col-span-2">
                   <div className="w-[100px] flex-shrink-0 text-14 md:text-16 mb-2">
                     Status
                   </div>
@@ -250,7 +403,10 @@ const FrontSettingPage = () => {
                   <h4>You can change your passwoerd</h4>
                 </div>
                 <div className=" flex-shrink-0">
-                  <button className="text-textPrimary bg-backgroundv1 border border-textGray rounded  flex gap-2 items-center py-1 px-3 ">
+                  <button
+                    onClick={handleChangePassword}
+                    className="text-textPrimary bg-backgroundv1 border border-textGray rounded  flex gap-2 items-center py-1 px-3 "
+                  >
                     Change
                   </button>
                 </div>
@@ -260,13 +416,36 @@ const FrontSettingPage = () => {
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
                   <h3 className="text-textPrimary text-16 font-semibold">
+                    Account Active
+                  </h3>
+                  <h4>you can Toggle Account Active status</h4>
+                </div>
+                <div className=" flex-shrink-0">
+                  <button
+                    onClick={handleStatus}
+                    className={`${
+                      userData.active ? "bg-red-600" : "bg-green-600"
+                    } text-white  rounded flex gap-2 items-center py-1 px-3`}
+                  >
+                    {userData.active ? "Deactive" : "Active"}
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5 col-span-1 md:col-span-2">
+              <div className="w-full flex justify-between items-start">
+                <div className="flex-grow w-full">
+                  <h3 className="text-textPrimary text-16 font-semibold">
                     Remove Account
                   </h3>
                   <h4>Once you deelete Account , there is no going back</h4>
                 </div>
                 <div className=" flex-shrink-0">
-                  <button className="bg-red-600 text-white  rounded flex gap-2 items-center py-1 px-3">
-                    Deactive
+                  <button
+                    onClick={handleRemoveAcc}
+                    className={`bg-red-600 text-white  rounded flex gap-2 items-center py-2 px-5`}
+                  >
+                    Remove Account
                   </button>
                 </div>
               </div>
@@ -274,6 +453,10 @@ const FrontSettingPage = () => {
           </div>
         </div>
       </div>
+      <ChangePasswordModal
+        changePasswordModalOpen={changePasswordModalOpen}
+        setchangePasswordModalOpen={setchangePasswordModalOpen}
+      />
     </div>
   );
 };

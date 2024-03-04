@@ -34,7 +34,7 @@ import { useMutation } from "react-query";
 import { AUTH_API_URL } from "../../security/axios";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useSelector } from "react-redux";
-import { selectToken } from "../../reducers/authSlice";
+import { selectToken, selectUserData } from "../../reducers/authSlice";
 
 const Register = ({ setregisterModalOpen }) => {
   // const navigate = useNavigate();
@@ -84,6 +84,9 @@ const Register = ({ setregisterModalOpen }) => {
   //   setUser({ ...user, [e.target.name]: e.target.value });
   // };
   // const [step, setstep] = useState(1);
+const storeuserData=useSelector(selectUserData)
+console.log("store user data >>> ",storeuserData)
+
 
   let toastId;
   const axiosPrivate = useAxiosPrivate();
@@ -115,7 +118,7 @@ const Register = ({ setregisterModalOpen }) => {
     first_name: "",
     middle_name: "",
     surname: "",
-    gender: "0",
+    gender: "1",
     email: "",
     password: "",
     profile_pic: "",
@@ -146,24 +149,25 @@ const Register = ({ setregisterModalOpen }) => {
         // toast.success("Verification code OTP sent successfully.");
       },
       onError: (error) => {
-        const message = error?.response?.data?.message;
-        if (message) {
-          // toast.error(message);
-          toast.update(toastId, {
-            render: message,
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000,
-          });
-        } else {
-          // toast.error("Something went wrong! Please try again");
-          toast.update(toastId, {
-            render: "Something went wrong! Please try again",
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000,
-          });
-        }
+        toast.dismiss(toastId);
+        // const message = error?.response?.data?.message;
+        // if (message) {
+        //   // toast.error(message);
+        //   toast.update(toastId, {
+        //     render: message,
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        // } else {
+        //   // toast.error("Something went wrong! Please try again");
+        //   toast.update(toastId, {
+        //     render: "Something went wrong! Please try again",
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        // }
       },
     }
   );
@@ -192,24 +196,25 @@ const Register = ({ setregisterModalOpen }) => {
         }, 2000);
       },
       onError: (error) => {
-        const message = error?.response?.data?.message;
-        if (message) {
-          toast.update(toastId, {
-            render: message,
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000,
-          });
-          // toast.error(message);
-        } else {
-          toast.update(toastId, {
-            render: "Something went wrong! Please try again",
-            type: toast.TYPE.ERROR,
-            isLoading: false,
-            autoClose: 2000,
-          });
-          // toast.error("Something went wrong! Please try again");
-        }
+        toast.dismiss(toastId);
+        // const message = error?.response?.data?.message;
+        // if (message) {
+        //   toast.update(toastId, {
+        //     render: message,
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        //   // toast.error(message);
+        // } else {
+        //   toast.update(toastId, {
+        //     render: "Something went wrong! Please try again",
+        //     type: toast.TYPE.ERROR,
+        //     isLoading: false,
+        //     autoClose: 2000,
+        //   });
+        //   // toast.error("Something went wrong! Please try again");
+        // }
       },
     }
   );
@@ -351,8 +356,8 @@ const Register = ({ setregisterModalOpen }) => {
                     type="radio"
                     className="radio-sign"
                     name="gender"
-                    value={"0"}
-                    checked={registerUserData.gender === "0"}
+                    value={"1"}
+                    checked={registerUserData.gender === "1"}
                     onChange={handleChange}
                     id="male"
                   />
@@ -364,8 +369,8 @@ const Register = ({ setregisterModalOpen }) => {
                     className="radio-sign"
                     id="female"
                     name="gender"
-                    value={"1"}
-                    checked={registerUserData.gender === "1"}
+                    value={"2"}
+                    checked={registerUserData.gender === "2"}
                     onChange={handleChange}
                   />
                   <label htmlFor="female">Female</label>
