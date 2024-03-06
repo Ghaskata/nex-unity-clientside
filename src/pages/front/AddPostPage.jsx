@@ -28,11 +28,12 @@ const AddPostPage = () => {
 
   const { mutateAsync: createPostApi } = useMutation(
     async (data) => {
-      console.log("data in axios >>>" ,data)
-      return await axiosPrivate.post(
-        POST_API_URL.createPost,
-        JSON.stringify(data)
-      );
+      console.log("data in axios >>>", data);
+      return await axiosPrivate.post(POST_API_URL.createPost, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     },
     {
       onSuccess: (res) => {
@@ -69,7 +70,13 @@ const AddPostPage = () => {
         toast.error("post image is empty !!! ");
       } else {
         toastId = toast.loading("Processing, Please wait...");
-        await createPostApi(createPostData);
+        const formData = new FormData();
+        formData.append("createUserId", createPostData.createUserId);
+        formData.append("content", createPostData.content);
+        formData.append("category_id", createPostData.category_id);
+        formData.append("post_type", createPostData.post_type);
+        formData.append("postImage", createPostData.postImage);
+        await createPostApi(formData);
       }
     } catch (error) {
       console.log("errror  >>> ", error);
@@ -104,7 +111,7 @@ const AddPostPage = () => {
           </h2>
         </div>
       </div>
-      <div className="container">
+      <div className="container pb-8">
         <div className="p-5 md:p-10 border  border-backgroundv3 bg-backgroundv1 text-textPrimary rounded-lg">
           <form className="grid grid-cols-1 lg:grid-cols-2 gap-3" action="">
             <div className=" flex flex-col">

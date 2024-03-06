@@ -10,6 +10,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import { Button } from "../ui/Button";
 import { Link } from "react-router-dom";
 import JoinedCommunityCard from "./JoinedCommunityCard";
+import JoinedCommunityCard1 from "./JoinedCommunityCard1";
 
 const MyJoinedcommunity = [
   {
@@ -96,32 +97,16 @@ const UserJoinedCommunity = () => {
           freeMode={true}
           breakpoints={{
             1500: {
-              slidesPerView: 5,
-              spaceBetween: 20,
-            },
-            1200: {
               slidesPerView: 4,
-              spaceBetween: 18,
             },
-            950: {
+            1100: {
               slidesPerView: 3,
-              spaceBetween: 18,
             },
-            768: {
+            550: {
               slidesPerView: 2,
-              spaceBetween: 15,
-            },
-            680: {
-              slidesPerView: 3,
-              spaceBetween: 15,
-            },
-            370: {
-              slidesPerView: 2,
-              spaceBetween: 10,
             },
             200: {
               slidesPerView: 1,
-              spaceBetween: 10,
             },
           }}
           modules={[FreeMode]}
@@ -132,13 +117,14 @@ const UserJoinedCommunity = () => {
               className="community w-full h-full overflow-hidden"
               key={itemIndex}
             >
-              <JoinedCommunityCard data={item} />
+              {/* <JoinedCommunityCard data={item} /> */}
+              <JoinedCommunityCard1 data={item}/>
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
       <div className="see__all relative w-full flex justify-between items-center py-5">
-        <Link to={"/"}>
+        {/* <Link to={"/"}>
           <Button
             className="group/btn rounded flex justify-center items-center gap-2 md:gap-3 h-10 md:h-12 lg:px-10"
             variant={"blueV1"}
@@ -148,7 +134,8 @@ const UserJoinedCommunity = () => {
               <ArrowRight className="h-6 w-6 " />
             </span>
           </Button>
-        </Link>
+        </Link> */}
+        <div></div>
         <div className=" flex gap-1 md:gap-3">
           <button onClick={nextslide}>
             {" "}

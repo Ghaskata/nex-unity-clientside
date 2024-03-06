@@ -34,6 +34,8 @@ const Posts = () => {
   };
 
   const axiosPrivate = useAxiosPrivate();
+
+  //posts get api
   const queryKey = useMemo(() => ["publicAndFollowingPosts"], []);
   const {
     data: posts,
@@ -53,10 +55,12 @@ const Posts = () => {
       refetchOnWindowFocus: false,
     }
   );
-  console.log("all posts >> ", posts);
+  // console.log("all posts >> ", posts);
 
+
+  
+  // category get api
   const categoriesQueryKey = useMemo(() => ["categories"], []);
-  // get api
   const {
     data: categories,
     isLoading: categoryLoading,
@@ -113,10 +117,12 @@ const Posts = () => {
           }
           // endMessage={<p>No more Post to load</p>}
         >
-          <div className="flex py-5 xxl:py-10 ">
-            <div className=" w-full flex flex-col gap-5">
+          <div className="flex py-5 xxl:py-10 w-full">
+            <div className="w-full flex flex-col gap-5">
               {posts
-              .filter((item)=>searchCategory ? searchCategoryData._id===item.category_id : item)
+              ?.slice()
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              .filter((item)=>searchCategory ? searchCategoryData._id === item.category_id : item)
               ?.slice(0, visiblePosts).map((post, index) => (
                 <Post key={index} postData={post} index={index}/>
               ))}

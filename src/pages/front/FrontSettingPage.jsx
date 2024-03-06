@@ -3,13 +3,19 @@ import React, { useEffect } from "react";
 import Input from "../../components/ui/Input";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectUserData, updateUserData } from "../../reducers/authSlice";
+import {
+  logout,
+  selectUserData,
+  updateUserData,
+} from "../../reducers/authSlice";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useMutation } from "react-query";
 import { AUTH_API_URL } from "../../security/axios";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
 import ChangePasswordModal from "../../components/dash/modal/comman/ChangePasswordModal";
+import { useNavigate } from "react-router-dom";
+import customeProfile from "../../assets/images/customeProfile.png";
 
 const FrontSettingPage = () => {
   let id;
@@ -17,6 +23,7 @@ const FrontSettingPage = () => {
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
   const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
 
   const handleSuccess = (res) => {
     dispatch(updateUserData(editUser));
@@ -28,13 +35,19 @@ const FrontSettingPage = () => {
     });
   };
   const handleStatusSuccess = (res) => {
-    dispatch(updateUserData({ active: !userData.active }));
     toast.update(id, {
       render: res.data.message,
       type: toast.TYPE.SUCCESS,
       isLoading: false,
       autoClose: 2000,
     });
+    toast.info("logging out . . . ");
+    setTimeout(() => {
+      dispatch(logout());
+      sessionStorage.clear();
+      localStorage.clear();
+      navigate("/");
+    }, 3000);
   };
 
   useEffect(() => {
@@ -45,10 +58,11 @@ const FrontSettingPage = () => {
 
   const { mutateAsync: updateProfileApi } = useMutation(
     async (data) => {
-      return await axiosPrivate.put(
-        AUTH_API_URL.updateProfile,
-        JSON.stringify(data)
-      );
+      return await axiosPrivate.put(AUTH_API_URL.updateProfile, data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
     },
     {
       onSuccess: handleSuccess,
@@ -108,7 +122,7 @@ const FrontSettingPage = () => {
     first_name: "",
     middle_name: "",
     surname: "",
-    gender: "0",
+    gender: "1",
     isPrivate: false,
     profile_pic: null,
   });
@@ -129,8 +143,27 @@ const FrontSettingPage = () => {
     e.preventDefault();
     // console.log("edit user", editUser);
     try {
-      id = toast.loading("Please wait...");
-      await updateProfileApi({ userId: userData._id, ...editUser });
+      if (
+        editUser.first_name.trim() === "" ||
+        editUser.middle_name.trim() === "" ||
+        editUser.surname.trim() === "" ||
+        editUser.profile_pic === null
+      ) {
+        toast.error("all field are require");
+      } else {
+        id = toast.loading("Please wait...");
+        const formData = new FormData();
+
+        // Append other form fields
+        formData.append("userId", userData._id);
+        formData.append("first_name", editUser.first_name.trim());
+        formData.append("middle_name", editUser.middle_name.trim());
+        formData.append("surname", editUser.surname.trim());
+        formData.append("gender", editUser.gender);
+        formData.append("isPrivate", editUser.isPrivate);
+        formData.append("profile_pic", editUser.profile_pic);
+        await updateProfileApi(formData);
+      }
     } catch (error) {
       console.log("error >>> ", error);
     }
@@ -139,18 +172,20 @@ const FrontSettingPage = () => {
   const handleProfileChange = (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
-    reader.onloadend = () => {
-      setpreviewURL(reader.result);
-    };
-    reader.readAsDataURL(file);
-    seteditUser({ ...editUser, [e.target.name]: e.target.files[0] });
+    if (file) {
+      reader.onloadend = () => {
+        setpreviewURL(reader.result);
+      };
+      reader.readAsDataURL(file);
+      seteditUser({ ...editUser, [e.target.name]: e.target.files[0] });
+    }
   };
 
   const handleStatus = async () => {
     try {
       swal({
-        title: "Are you sure?",
-        text: "You Really want to change yout profile active status !!!",
+        title: "You Really want to Deactive Your Account ? ",
+        text: "once you Deactive Your Account You have to contact nexunity@gmain.com To Active again",
         icon: "warning",
         buttons: true,
         dangerMode: true,
@@ -211,7 +246,7 @@ const FrontSettingPage = () => {
             onSubmit={handleSubmit}
           >
             <div className="col-span-2">
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-5 ">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 xl:grid-cols-2  gap-5 ">
                 <div>
                   <label htmlFor="" className="text-14 md:text-16 mb-2">
                     First name
@@ -264,13 +299,13 @@ const FrontSettingPage = () => {
                   />
                 </div>
 
-                <div className="flex justify-center items-center gap-2 col-span-1 sm:col-span-2">
+                <div className="flex justify-center items-center gap-2 col-span-1 sm:col-span-2 md:col-span-1 xl:col-span-2">
                   <div className="w-[100px] flex-shrink-0 text-14 md:text-16 mb-2">
                     Gender
                   </div>
                   <div className="flex justify-start gap-10 items-center flex-grow w-full">
                     <div className="h-full flex justify-start items-start gap-3">
-                      <label htmlFor="male" className="text-14 md:text-16">
+                      <label htmlFor="male" className="text-12 md:text-14">
                         Male
                       </label>
                       <input
@@ -287,7 +322,7 @@ const FrontSettingPage = () => {
                       />
                     </div>
                     <div className="h-full flex justify-start items-start gap-3">
-                      <label htmlFor="female" className="text-14 md:text-16 ">
+                      <label htmlFor="female" className="text-12 md:text-14 ">
                         Female
                       </label>
                       <input
@@ -305,7 +340,7 @@ const FrontSettingPage = () => {
                     </div>
                   </div>
                 </div>
-                <div className="flex justify-center items-center gap-2 col-span-1 sm:col-span-2">
+                <div className="flex justify-center items-center gap-2 col-span-1 sm:col-span-2 md:col-span-1 xl:col-span-2">
                   <div className="w-[100px] flex-shrink-0 text-14 md:text-16 mb-2">
                     Status
                   </div>
@@ -366,7 +401,7 @@ const FrontSettingPage = () => {
             <div className="col-span-2 md:col-span-1 w-full flex justify-center md:justify-start items-center flex-col gap-5">
               <div className=" w-[150px] h-[150px] rounded-full overflow-hidden z-10 shadow bg-blueMain/30">
                 <img
-                  src={previewURL}
+                  src={previewURL ? previewURL : customeProfile}
                   width={247}
                   height={247}
                   alt="logo"
@@ -393,7 +428,7 @@ const FrontSettingPage = () => {
 
           <div className="w-full border my-5  border-backgroundv3"></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 w-full text-textGray text-14 my-8">
+          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-5 w-full text-textGray text-14 my-8">
             <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5">
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
@@ -416,9 +451,13 @@ const FrontSettingPage = () => {
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
                   <h3 className="text-textPrimary text-16 font-semibold">
-                    Account Active
+                    Account Deactive
                   </h3>
-                  <h4>you can Toggle Account Active status</h4>
+                  <h4>
+                    once you Deactive Your Account You have to contact{" "}
+                    <span className="text-blueMain">nexunity@gmain.com</span> To
+                    Active again
+                  </h4>
                 </div>
                 <div className=" flex-shrink-0">
                   <button
@@ -436,9 +475,12 @@ const FrontSettingPage = () => {
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
                   <h3 className="text-textPrimary text-16 font-semibold">
-                    Remove Account
+                    Dangor !!! Remove Account
                   </h3>
-                  <h4>Once you deelete Account , there is no going back</h4>
+                  <h4>
+                    Once you deelete Account , there is no any way to going back
+                    your Account
+                  </h4>
                 </div>
                 <div className=" flex-shrink-0">
                   <button
