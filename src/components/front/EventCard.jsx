@@ -1,30 +1,58 @@
 import React from "react";
 import "../../pages/front/css/EventPage.css";
 
-const EventCard = () => {
+const EventCard = ({ data }) => {
   return (
-    <div class="event-card-wrap ">
-      <a href="#" class="event-card !m-0 !bg-backgroundv1 border border-backgroundv3">
+    <div className="event-card-wrap ">
+      <a
+        href="#"
+        className="event-card !m-0 !bg-backgroundv1 border border-backgroundv3"
+      >
         <img
-          src="https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=280&dpr=2"
+          src={
+            data?.eventImage
+              ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${data.eventImage}`
+              : "https://images.pexels.com/photos/8386434/pexels-photo-8386434.jpeg?auto=compress&cs=tinysrgb&w=280&dpr=2"
+          }
           title=""
-          class="event-card-img"
+          className="event-card-img !h-[150px]"
         />
-        <div class="event-header flex gap-2">
-          <div class="event-date flex-shrink-0 p-2 border border-backgroundv3">
-            <span class="event-month">FEB</span>
-            <div class="bg-gray">
-              <h4 class="event-day text-20">22</h4>
+        <div className="event-header flex gap-2">
+          <div className="event-date flex-shrink-0 p-2 border border-backgroundv3">
+            <span className="event-month">
+              {new Date(data.time).toLocaleString("default", {
+                month: "short",
+              })}
+            </span>
+            <div className="bg-gray">
+              <h4 className="event-day text-20">
+                {new Date(data.time).getDate()}
+              </h4>
             </div>
           </div>
-          <div className="h-full flex justify-center">
-            <h3 class="text-textPrimary font-semibold text-24">
-              Artificial Intelligence
+          <div className="h-full flex flex-col justify-center">
+            <h3 className="text-textPrimary font-semibold text-24 truncate">
+              {data.eventName}
+            </h3>
+            <h3 className="text-textGray text-12  truncate">{data.content}</h3>
+            <h3 className="text-textPrimary text-14 font-400 truncate mt-1">
+              {data.location}
+            </h3>
+            <h3 className="text-textPrimary text-16 font-500  mt-2">
+              {new Date(data.time).toLocaleString("en-US", {
+                year: "numeric",
+                month: "numeric",
+                day: "numeric",
+                hour: "numeric",
+                minute: "numeric",
+                hour12: false, // 24-hour format
+                timeZone: "UTC",
+              })}
             </h3>
           </div>
         </div>
-        <div class="card-speakers">
-          <div class="speaker-circle">
+        <div className="card-speakers">
+          <div className="speaker-circle">
             <img
               src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
               alt=""
@@ -33,7 +61,7 @@ const EventCard = () => {
             />
           </div>
 
-          <div class="speaker-circle">
+          <div className="speaker-circle">
             <img
               src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=256&q=80"
               alt="Jane Smith - Product Designer"
@@ -41,13 +69,13 @@ const EventCard = () => {
               data-role="Product Designer"
             />
           </div>
-          <div class="speaker-circle">
-            <p class="speaker-last"> +2 </p>
+          <div className="speaker-circle">
+            <p className="speaker-last"> +2 </p>
           </div>
 
-          <div class="speaker-details">
-            {/* <!-- <h3 class="speaker-name">Jane Smith</h3>
-                <p class="speaker-role">Product Designer</p> --> */}
+          <div className="speaker-details">
+            {/* <!-- <h3 className="speaker-name">Jane Smith</h3>
+                <p className="speaker-role">Product Designer</p> --> */}
             <button className="!bg-blueMain"> Apply </button>
           </div>
         </div>

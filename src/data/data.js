@@ -63,7 +63,7 @@ export const FrontNavlinkList = [
   { name: "Contact Us", icon: <LiaHeadsetSolid  className="w-[24px] h-[24px]" />, type: "Page", href: "/contact-us" },
   { name: "About Us", icon: <HiMiniInformationCircle className="w-[24px] h-[24px]" />, type: "Page", href: "/about-us" },
   { name: "Profile", icon: <RiAccountCircleFill className="w-[24px] h-[24px]" />, type: "Page", href: "/profile" },
-  { name: "Donation", icon: <HelpingHand className="w-[24px] h-[24px]" />, type: "Page", href: "/dontaion" },
+  // { name: "Donation", icon: <HelpingHand className="w-[24px] h-[24px]" />, type: "Page", href: "/dontaion" },
   { name: "Settings", icon: <FiSettings className="w-[24px] h-[24px]" />, type: "Page", href: "/settings" },
   {
     name: "Send feedback",
@@ -86,7 +86,7 @@ export const DashbordNavlinkList = [
   { name: "Categories", icon: <Blocks className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/categories" },
   { name: "Communites", icon: <HiUserGroup className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/community" },
   { name: "Community Managers", icon: <UserRoundCog className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/subadmin" },
-  { name: "Trace Request", icon: <MapPinnedIcon className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/request" },
+  // { name: "Trace Request", icon: <MapPinnedIcon className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/request" },
   { name: "Events", icon: <CalendarCheck2Icon className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/events" },
   { name: "Settings", icon: <MdSettings className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/settings" },
 ];

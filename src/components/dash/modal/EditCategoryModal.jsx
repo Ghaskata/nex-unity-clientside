@@ -3,7 +3,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Button } from "../../ui/Button";
 import { Plus } from "lucide-react";
 import Input from "../../ui/Input";
-import { CloseOutlined } from "@mui/icons-material";
+import { IoCloseOutline } from "react-icons/io5";
 import { useEffect } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import useAxiosPrivate from "../../../security/useAxiosPrivate";
@@ -120,7 +120,7 @@ const EditCategoryModal = ({
                     className="close absolute top-6 right-6 cursor-pointer"
                     onClick={handleClose}
                   >
-                    <CloseOutlined className="w-6 h-6 text-textPrimary text-dan" />
+                    <IoCloseOutline className="w-6 h-6 text-textPrimary text-dan" />
                   </span>
                   <div className="dialog-body py-6 px-5 md:px-[30px] md:py-6">
                     <div className="content">

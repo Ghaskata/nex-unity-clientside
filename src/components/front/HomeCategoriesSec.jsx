@@ -16,7 +16,7 @@ const HomeCategoriesSec = () => {
 
   const paramCategory = queryParams.get("category");
 
-  console.log("Category:", paramCategory);
+  console.log("param Category:", paramCategory);
 
   // get api
   const {
@@ -48,12 +48,32 @@ const HomeCategoriesSec = () => {
     ? [matchingCategory, ...nonMatchingCategories]
     : nonMatchingCategories;
 
+  // console.log("all category >> ", categories);
+
+  if (isError) {
+    return <DataLoadingCompo />;
+  }
+
   return (
     <>
       {isLoading && <DataLoadingCompo />}
       <div className="w-full pt-5 xxl:pt-10 text-textPrimary ">
         <ul className="w-full flex justify-start gap-x-3 overflow-x-auto post-scroll">
-          {orderedCategories?.map((category, index) => (
+          <li
+            className={`cursor-pointer border  rounded-lg py-3 px-5 h-full w-full flex justify-center items-center text-center group/item 
+              ${
+                paramCategory === null
+                  ? "border-blueMain bg-blueMain text-white"
+                  : "border-textPrimary bg-backgroundv1 text-textPrimary"
+              }
+              `}
+            onClick={() => navigate(`/`)}
+          >
+            <div className="w-full h-full text-center">
+              <h2 className="font-500 text-18"> All </h2>
+            </div>
+          </li>
+          {categories?.map((category, index) => (
             <li
               className={`cursor-pointer border  rounded-lg py-3 px-5 h-full w-full flex justify-center items-center text-center group/item 
               ${

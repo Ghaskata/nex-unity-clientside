@@ -1,7 +1,7 @@
 import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Plus } from "lucide-react";
-import { CloseOutlined } from "@mui/icons-material";
+import { IoCloseOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
@@ -154,7 +154,7 @@ const ChangePasswordModal = ({
                     className="close absolute top-6 right-6 cursor-pointer"
                     onClick={handleClose}
                   >
-                    <CloseOutlined className="w-6 h-6 text-textPrimary text-dan" />
+                    <IoCloseOutline  className="w-6 h-6 text-textPrimary text-dan" />
                   </span>
                   <div className="dialog-body py-6 px-5 md:px-[30px] md:py-6">
                     <div className="content">

@@ -11,23 +11,13 @@ import Step1 from "../../components/dash/modal/registerSteps/Step1";
 import Step2 from "../../components/dash/modal/registerSteps/Step2";
 import Step3 from "../../components/dash/modal/registerSteps/Step3";
 import { CheckCheck } from "lucide-react";
-import { FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  PeopleRounded,
-  EmailSharp,
-  PasswordSharp,
-  Facebook,
-  Twitter,
-  Google,
-  LinkedIn,
-  OutlinedFlagOutlined,
-  LockOpenRounded,
-  LockRounded,
-  EmailRounded,
-  PeopleAltRounded,
-  PeopleOutlineRounded,
-} from "@mui/icons-material";
+import { HiUsers } from "react-icons/hi2";
+import { IoIosMail } from "react-icons/io";
+import { FaFacebook, FaLock } from "react-icons/fa";
+import { FaTwitter } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+import { FaGoogle } from "react-icons/fa";
 import "./css/Login.css";
 import OtpVerifyEmailModal from "./OtpVerifyEmailModal";
 import { useMutation } from "react-query";
@@ -314,8 +304,8 @@ console.log("store user data >>> ",storeuserData)
             <form action="" className="sign-in-form" onSubmit={handleSubmit}>
               <h2 className="sign-title">Sign up</h2>
               <div className="input-field">
-                <i>
-                  <PeopleAltRounded />{" "}
+                <i className="flex justify-center items-center h-full">
+                  <HiUsers className="h-5 w-5" />{" "}
                 </i>
                 <input
                   type="text"
@@ -326,8 +316,8 @@ console.log("store user data >>> ",storeuserData)
                 />
               </div>
               <div className="input-field">
-                <i>
-                  <PeopleAltRounded />
+                <i className="flex justify-center items-center h-full">
+                  <HiUsers className="h-5 w-5" />
                 </i>
                 <input
                   type="text"
@@ -338,8 +328,8 @@ console.log("store user data >>> ",storeuserData)
                 />
               </div>
               <div className="input-field">
-                <i>
-                  <PeopleAltRounded />
+                <i className="flex justify-center items-center h-full">
+                  <HiUsers className="h-5 w-5" />
                 </i>
                 <input
                   type="text"
@@ -389,9 +379,9 @@ console.log("store user data >>> ",storeuserData)
                 </div> */}
               </div>
               <div className="input-field">
-                <i>
+                <i className="flex justify-center items-center h-full">
                   {" "}
-                  <EmailRounded />{" "}
+                  <IoIosMail className="h-5 w-5"/>{" "}
                 </i>
                 <input
                   type="email"
@@ -402,9 +392,9 @@ console.log("store user data >>> ",storeuserData)
                 />
               </div>
               <div className="input-field">
-                <i>
+                <i className="flex justify-center items-center h-full">
                   {" "}
-                  <LockRounded />{" "}
+                  <FaLock className="h-5 w-5"/>{" "}
                 </i>
                 <input
                   type="password"
@@ -433,16 +423,16 @@ console.log("store user data >>> ",storeuserData)
               <p className="social-text">Or Sign in with social platforms</p>
               <div className="social-media">
                 <Link to="#" className="social-icon">
-                  <Facebook />
+                  <FaFacebook />
                 </Link>
                 <a href="#" className="social-icon">
-                  <Twitter />
+                  <FaTwitter />
                 </a>
                 <a href="#" className="social-icon">
-                  <Google />
+                  <FaGoogle />
                 </a>
                 <a href="#" className="social-icon">
-                  <LinkedIn />
+                  <FaLinkedin />
                 </a>
               </div>
             </form>

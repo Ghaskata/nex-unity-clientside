@@ -121,9 +121,13 @@ const AllCommunity = () => {
   if (isError) {
     toast.error(error.message);
   }
+
+  if (isLoading) {
+    return <DataLoadingCompo/>
+  }
+
   return (
     <div className="w-full container component text-textPrimary">
-      {isLoading && <DataLoadingCompo />}
       <div className="flex justify-between items-start mb-5 md:mb-8 rounded-xl gap-5 bg-backgroundv1 border-2 border-backgroundv3 p-5">
         <h2 className="font-500 text-22 flex-shrink-0 md:text-24 lg:text-28 ">
           Communites
@@ -144,7 +148,7 @@ const AllCommunity = () => {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-4 3xl:grid-cols-5 gap-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 xxl:grid-cols-4 3xl:grid-cols-5 gap-5">
         {allCommunity
           ?.filter((item) =>
             search.trim() === ""

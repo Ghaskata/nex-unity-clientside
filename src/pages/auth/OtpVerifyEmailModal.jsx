@@ -2,7 +2,7 @@ import React, { FC, Fragment, useState } from "react";
 import { Transition, Dialog } from "@headlessui/react";
 import OtpInput from "react-otp-input";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { CloseOutlined } from "@mui/icons-material";
+import { IoCloseOutline } from "react-icons/io5";
 import { Button } from "../../components/ui/Button";
 import { useMutation } from "react-query";
 import { AUTH_API_URL } from "../../security/axios";
@@ -89,7 +89,7 @@ const OtpVerifyEmailModal = ({
                     className="close absolute top-6 right-6 cursor-pointer"
                     onClick={handleClose}
                   >
-                    <CloseOutlined className="w-6 h-6 text-textPrimary text-dan" />
+                    <IoCloseOutline className="w-6 h-6 text-textPrimary text-dan" />
                   </span>
                   <div className="dialog-header mb-10 xl:mb-16">
                     <h3 className="text-2xl  font-600 text-center mb-2 text-textPrimary">

@@ -49,6 +49,18 @@ const POST_API_URL={
   getPersnolPost:path(ROOT_POST_API,"/get-persnol-post"),
   getAllPost:path(ROOT_POST_API,"/get-all-post"),
 }
+const LIKE_API_URL={
+  likePost:path(ROOT_POST_API,"/like-post"),
+  getLike:path(ROOT_POST_API,"/get-like/:postId"),
+}
+const COMMENT_API_URL={
+  getPostComment:path(ROOT_POST_API,"/get-comment/:id"),
+  addComment:path(ROOT_POST_API,"/add-comment-post"),
+  editComment:path(ROOT_POST_API,"/update-comment-post"),
+  deleteComment:path(ROOT_POST_API,"/delete-comment-post"),
+}
+
+
 const ROOT_CATEGORY_API=BASE_URL+"/category"
 const CATEGORY_API_URL={
   create:path(ROOT_CATEGORY_API,"/create"),
@@ -57,4 +69,18 @@ const CATEGORY_API_URL={
   delete:path(ROOT_CATEGORY_API,"/delete/:id"),
 }
 
-export { axiosPrivate, AUTH_API_URL,COMMUNITY_API_URL ,POST_API_URL,CATEGORY_API_URL};
+
+const ROOT_EVENT_API=BASE_URL+"/event"
+const EVENT_API_URL={
+  create:path(ROOT_EVENT_API,"/create-event"),
+  get:path(ROOT_EVENT_API,"/get"),
+  update:path(ROOT_EVENT_API,"/update-event"),
+  delete:path(ROOT_EVENT_API,"/delete-event/:id"),
+  searchEvent:path(ROOT_EVENT_API,"/get?name=/:id"),
+}
+
+
+
+
+
+export { axiosPrivate, AUTH_API_URL,COMMUNITY_API_URL ,POST_API_URL,CATEGORY_API_URL,EVENT_API_URL ,LIKE_API_URL,COMMENT_API_URL};

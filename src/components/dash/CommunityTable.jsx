@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Eye, Pen, Trash2, View } from "lucide-react";
 import {
   Table,
@@ -33,6 +33,8 @@ const CommunityTable = () => {
   const [selectedStatus, setselectedStatus] = useState("All");
   const [search, setsearch] = useState("");
   const navigate = useNavigate();
+  const [loading, setloading] = useState(true)
+
 
   const axiosPrivate = useAxiosPrivate();
   const queryKey = useMemo(() => ["communities"], []);
@@ -119,9 +121,22 @@ const CommunityTable = () => {
     }
   };
 
+  if(isError){
+    return(
+      <div className="w-full h-[400px] flex justify-center items-center">
+        <DataLoadingCompo />
+        <h2 className="text-textPrimary text-center text-26">
+          Network Error !!!!
+        </h2>
+      </div>
+    )
+  }
+
+  if (isLoading) {
+    return <DataLoadingCompo/>
+  }
   return (
     <div className="w-full">
-      {isLoading && <DataLoadingCompo />}
       <div className="rounded-xl w-full  text-textPrimary text-center text-12  shadow bg-backgroundv1 border-2 border-backgroundv3">
         <div className="p-5 xxl:p-8 w-full  flex flex-col md:flex-row justify-between items-center gap-5">
           <div className="w-full">

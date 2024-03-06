@@ -19,11 +19,13 @@ import { CATEGORY_API_URL, COMMUNITY_API_URL } from "../../security/axios";
 import { toast } from "react-toastify";
 import EditCategoryModal from "./modal/EditCategoryModal";
 import swal from "sweetalert";
+import { useEffect } from "react";
 
 
 
 export function CategoriesTable() {
   let id;
+  const [loading, setloading] = useState(true)
   const queryClient = useQueryClient();
   const [search, setsearch] = useState("");
   const [editCategory, seteditCategory] = useState(null);
@@ -117,9 +119,12 @@ export function CategoriesTable() {
     }
   };
 
+  if (isLoading) {
+    return <DataLoadingCompo/>
+  }
+
   return (
     <div className="w-full">
-      {isLoading && <DataLoadingCompo />}
       <div className="rounded-xl w-full  text-textPrimary text-center text-12  shadow bg-backgroundv1 border-2 border-backgroundv3">
         <div className="p-5 xxl:p-8 w-full  flex flex-col md:flex-row justify-between items-center gap-5">
           <div className="w-full">

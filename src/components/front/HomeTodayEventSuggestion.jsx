@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { EVENT_API_URL } from "../../security/axios";
 import DataLoadingCompo from "../common/DataLoadingCompo";
 
-const HomeUpcommingEvent = () => {
+const HomeTodayEventSuggestion = () => {
   const axiosPrivate = useAxiosPrivate();
   const queryKey = useMemo(() => ["events"], []);
 
@@ -28,28 +28,32 @@ const HomeUpcommingEvent = () => {
 
   const currentDate = new Date();
 
-  const upcomingEvents = events?.filter((event) => {
+  const todayEvents = events?.filter((event) => {
     const eventDate = new Date(event.time);
-    return eventDate > currentDate;
+    return (
+      eventDate.getDate() === currentDate.getDate() &&
+      eventDate.getMonth() === currentDate.getMonth() &&
+      eventDate.getFullYear() === currentDate.getFullYear()
+    );
   });
 
   if (isLoading || isError) {
     return <DataLoadingCompo />;
   }
 
-  if (upcomingEvents?.length > 0) {
+  if (todayEvents?.length > 0) {
     return (
       <div className="w-full rounded-xl flex flex-col gap-3 justify-center items-center border-2 border-backgroundv3 bg-backgroundv1 text-textPrimary p-3 xl:p-5">
         <div className="flex justify-between items-center w-full">
-          <h2 className="font-500 text-18 xxl:text-20">Upcomming Events</h2>
+          <h2 className="font-500 text-18 xxl:text-20">Today Events</h2>
           <div className="w-[28px] h-[28px] flex justify-center items-center rounded-full bg-backgroundv3 text-12 xl:text-14">
-            {upcomingEvents?.length}
+            {todayEvents?.length}
           </div>
         </div>
         <hr className="border border-backgroundv3 w-full " />
 
         <ul className="flex flex-col gap-3 w-[100%] xl:w-[95%]">
-          {upcomingEvents?.slice(0, 3)?.map((event, index) => (
+          {todayEvents?.slice(0, 3)?.map((event, index) => (
             <li key={index} className="flex gap-2 items-center w-full">
               <div className="w-[50px] h-[50px] rounded flex-shrink-0 bg-backgroundv3 flex flex-col justify-center items-center">
                 <h3 className="text-14 font-500 ">
@@ -85,4 +89,4 @@ const HomeUpcommingEvent = () => {
   }
 };
 
-export default HomeUpcommingEvent;
+export default HomeTodayEventSuggestion;
