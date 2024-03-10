@@ -33,8 +33,7 @@ const CommunityTable = () => {
   const [selectedStatus, setselectedStatus] = useState("All");
   const [search, setsearch] = useState("");
   const navigate = useNavigate();
-  const [loading, setloading] = useState(true)
-
+  const [loading, setloading] = useState(true);
 
   const axiosPrivate = useAxiosPrivate();
   const queryKey = useMemo(() => ["communities"], []);
@@ -61,10 +60,10 @@ const CommunityTable = () => {
   const { mutateAsync: deleteApi } = useMutation(
     async (data) => {
       const config = {
-        data: data, 
+        data: data,
       };
-      console.log("config >>> ",config)
-      return await axiosPrivate.delete(COMMUNITY_API_URL.delete,config);
+      console.log("config >>> ", config);
+      return await axiosPrivate.delete(COMMUNITY_API_URL.delete, config);
     },
     {
       onSuccess: (res) => {
@@ -74,9 +73,9 @@ const CommunityTable = () => {
           isLoading: false,
           autoClose: 2000,
         });
-        setTimeout(()=>{
+        setTimeout(() => {
           queryClient.invalidateQueries("communities");
-        },2000)
+        }, 2000);
       },
       onError: (error) => {
         if (error.response) {
@@ -88,7 +87,7 @@ const CommunityTable = () => {
           });
           // toast.error(error.response.data.message || "An error occurred");
         } else {
-          toast.dismiss(toastId)
+          toast.dismiss(toastId);
           // toast.update(toastId, {
           //   render: "An unexpected error occurred",
           //   type: toast.TYPE.ERROR,
@@ -113,7 +112,7 @@ const CommunityTable = () => {
       }).then(async (willDelete) => {
         if (willDelete) {
           toastId = toast.loading("Please wait...");
-          await deleteApi({id: deleteId });
+          await deleteApi({ id: deleteId });
         }
       });
     } catch (error) {
@@ -121,19 +120,19 @@ const CommunityTable = () => {
     }
   };
 
-  if(isError){
-    return(
+  if (isError) {
+    return (
       <div className="w-full h-[400px] flex justify-center items-center">
         <DataLoadingCompo />
         <h2 className="text-textPrimary text-center text-26">
           Network Error !!!!
         </h2>
       </div>
-    )
+    );
   }
 
   if (isLoading) {
-    return <DataLoadingCompo/>
+    return <DataLoadingCompo />;
   }
   return (
     <div className="w-full">
@@ -213,11 +212,13 @@ const CommunityTable = () => {
                     </TableCell>
                     <TableCell>
                       <div className="image_cntainer w-[70px] h-[70px] overflow-hidden bg-textGray/50 rounded-lg">
-                        <img
-                          src={community.frontImage}
-                          alt="front_image"
-                          className="!h-full !w-full object-cover object-center"
-                        />
+                        {community.frontImage !== "" && (
+                          <img
+                            src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`}
+                            alt="front_image"
+                            className="!h-full !w-full object-cover object-center"
+                          />
+                        )}
                       </div>
                     </TableCell>
                     <TableCell>
