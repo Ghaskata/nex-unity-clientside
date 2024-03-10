@@ -15,25 +15,33 @@ import React, {
 } from "react";
 import { LayoutGrid } from "lucide-react";
 import { useQuery } from "react-query";
-import { CATEGORY_API_URL } from "../../security/axios.js";
+import { CATEGORY_API_URL, COMMUNITY_API_URL } from "../../security/axios.js";
 import useAxiosPrivate from "../../security/useAxiosPrivate.js";
 import DataLoadingCompo from "../common/DataLoadingCompo.jsx";
+import { useSelector } from "react-redux";
+import { selectUserData } from "../../reducers/authSlice.js";
 
 const UserCommunitySelect = ({ selectCommunity, setselectCommunity }) => {
+  const userData=useSelector(selectUserData)
+  const userId=userData._id
   const axiosPrivate = useAxiosPrivate();
-  const queryKey = useMemo(() => ["categories"], []);
+  const queryKey = useMemo(() => ["getCommunityCreatedByUser", userId], []);
 
-  // get api
+
   const {
-    data: categories,
+    data: userCreatedCommunity,
     isLoading,
     isError,
     error,
   } = useQuery(
     queryKey,
     async () => {
-      const response = await axiosPrivate.get(CATEGORY_API_URL.get);
-      return response.data.data;
+      if (userId) {
+        const response = await axiosPrivate.get(
+          COMMUNITY_API_URL.getCommunityCreatedByUser.replace(":id", userId)
+        );
+        return response.data.data;
+      }
     },
     {
       enabled: true,
@@ -41,17 +49,19 @@ const UserCommunitySelect = ({ selectCommunity, setselectCommunity }) => {
     }
   );
 
+
+  console.log("user communities",userCreatedCommunity);
   useEffect(() => {
-    categories && setselectCommunity(categories[0]._id);
-  }, [categories]);
+    userCreatedCommunity && setselectCommunity(userCreatedCommunity[0]._id);
+  }, [userCreatedCommunity]);
 
   return (
     <>
       {isLoading && <DataLoadingCompo />}
-      {categories && (
+      {userCreatedCommunity && (
         <Select
           onValueChange={(e) => setselectCommunity(e)}
-          value={selectCommunity === "" ? categories[0]?._id : selectCommunity}
+          value={selectCommunity === "" ? userCreatedCommunity[0]?._id : selectCommunity}
         >
           <SelectTrigger className="w-full !border border-backgroundv3 focus:border focus:border-backgroundv3   text-textGray text-16 bg-backgroundv2 rounded-lg py-3 px-3 h-14 ">
             <div className="flex gap-2 items-center text-textPrimary">
@@ -60,13 +70,13 @@ const UserCommunitySelect = ({ selectCommunity, setselectCommunity }) => {
             </div>
           </SelectTrigger>
           <SelectContent className="text-12 !bg-backgroundv2">
-            {categories?.map((item, index) => (
+            {userCreatedCommunity?.map((item, index) => (
               <SelectItem
                 value={item._id}
                 key={index}
                 className="capitalize text-textGray hover:border-0 hover:outline-none focus:outline-none focus:border-none hover:bg-lightGray"
               >
-                {item.category_name}
+                {item.name}
               </SelectItem>
             ))}
           </SelectContent>

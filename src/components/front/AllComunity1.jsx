@@ -3,111 +3,30 @@ import CommunityCard from "./CommunityCard";
 import { ArrowLeft, ArrowRight, Search } from "lucide-react";
 import { Button } from "../ui/Button";
 import { useEffect } from "react";
-import { useQuery } from "react-query";
+import { useMutation, useQuery } from "react-query";
 import { getAllCommunity } from "../../utils/community";
 import DataLoadingCompo from "../common/DataLoadingCompo";
 import { toast } from "react-toastify";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { COMMUNITY_API_URL } from "../../security/axios";
 import CommunityPageCard from "./CommunityPageCard";
+import { useSelector } from "react-redux";
+import { selectUserData } from "../../reducers/authSlice";
 
-const allCommunity = [
-  {
-    id: 1,
-    image: "",
-    name: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 2,
-    image: "",
-    name: "Lorem  dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 3,
-    image: "",
-    name: " ipsum dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 4,
-    image: "",
-    name: "dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 5,
-    image: "",
-    name: "Lorem",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 6,
-    image: "",
-    name: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 7,
-    image: "",
-    name: "Lorem  dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 8,
-    image: "",
-    name: " ipsum dolor",
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-];
 
-const AllCommunity1 = () => {
-  const axiosPrivate = useAxiosPrivate();
-  const queryKey = useMemo(() => ["communities"], []);
 
-  const {
-    data: communities,
-    isLoading,
-    isError,
-    error,
-  } = useQuery(
-    queryKey,
-    async () => {
-      const response = await axiosPrivate.get(COMMUNITY_API_URL.getAll);
-      return response.data.data;
-    },
-    {
-      enabled: true,
-      refetchOnWindowFocus: false,
-    }
-  );
+const AllCommunity1 = ({communities}) => {
 
+
+  
   const [search, setsearch] = useState("");
 
   const handleSearch = (e) => {
     setsearch(e.target.value);
   };
 
-  
   console.log("all communities", communities);
-  if (isError) {
-    toast.error(error.message);
-  }
-
-  if (isLoading) {
-    return <DataLoadingCompo/>
-  }
-
+  
   return (
     <div className="w-full container component text-textPrimary">
       <div className="flex justify-between items-start mb-5 md:mb-8 rounded-xl gap-5 bg-backgroundv1 border-2 border-backgroundv3 p-5">
@@ -141,7 +60,6 @@ const AllCommunity1 = () => {
             <CommunityPageCard key={index} data={item} />
           ))}
       </div>
-
     </div>
   );
 };

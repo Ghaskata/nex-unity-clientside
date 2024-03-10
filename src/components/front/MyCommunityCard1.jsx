@@ -34,8 +34,9 @@ const MyCommunityCard1 = ({ data }) => {
           {data?.name}
           <span>Photographer</span>
         </h2>
+        <div className="h-[50px] overflow-hidden">
         <p>{data?.description}</p>
-        <div className="flex gap-3 h-11">
+        </div>        <div className="flex gap-3 h-11">
           <div className="flex rounded justify-center items-center h-full border border-blueMain bg-blueMain w-full text-white hover:text-blueMain hover:bg-transparent transition-all duration-300 ease-linear">
             Manage
           </div>

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useMemo, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/free-mode";
@@ -11,68 +11,19 @@ import { Button } from "../ui/Button";
 import { Link } from "react-router-dom";
 import JoinedCommunityCard from "./JoinedCommunityCard";
 import JoinedCommunityCard1 from "./JoinedCommunityCard1";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { useQuery } from "react-query";
+import { COMMUNITY_API_URL } from "../../security/axios";
+import { useSelector } from "react-redux";
+import { selectUserData } from "../../reducers/authSlice";
+import { toast } from "react-toastify";
+import DataLoadingCompo from "../common/DataLoadingCompo";
 
-const MyJoinedcommunity = [
-  {
-    id: 1,
-    image: "",
-    name: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 2,
-    image: "",
-    name: "Lorem  dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 3,
-    image: "",
-    name: " ipsum dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 4,
-    image: "",
-    name: "dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 5,
-    image: "",
-    name: "Lorem",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 6,
-    image: "",
-    name: "Lorem ipsum dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 7,
-    image: "",
-    name: "Lorem  dolor",
-    description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-  {
-    id: 8,
-    image: "",
-    name: " ipsum dolor",
-    description:
-      "Lorem ipsum dolor, sit amet consectetur adipisicing elit.Lorem ipsum dolor, sit amet consectetur adipisicing elit.",
-    members: "123",
-  },
-];
 
-const UserJoinedCommunity = () => {
+
+const UserJoinedCommunity = ({userJoinedCommunity}) => {
+  
+
   const swiperRef = useRef(null);
 
   const nextslide = () => {
@@ -82,14 +33,17 @@ const UserJoinedCommunity = () => {
     swiperRef.current?.swiper?.slideNext();
   };
 
-  return (
+  console.log("all user joined communities >>> ", userJoinedCommunity);
+  
+  if(userJoinedCommunity.length>0)
+  {return (
     <div className="w-full container component text-textPrimary">
       <div className="mb-5 md:mb-8 rounded-xl gap-5 bg-backgroundv1 border-2 border-backgroundv3 p-5">
         <h2 className="font-500 text-22  md:text-24 lg:text-28">
           My Joined Communites
         </h2>
       </div>
-      <div className="my_community_container my-3">
+      <div className="my_community_container mt-3 mb-0">
         <Swiper
           ref={swiperRef}
           // slidesPerView={1}
@@ -112,18 +66,18 @@ const UserJoinedCommunity = () => {
           modules={[FreeMode]}
           className="h-full w-full "
         >
-          {MyJoinedcommunity.map((item, itemIndex) => (
+          {userJoinedCommunity.map((item, itemIndex) => (
             <SwiperSlide
               className="community w-full h-full overflow-hidden"
               key={itemIndex}
             >
               {/* <JoinedCommunityCard data={item} /> */}
-              <JoinedCommunityCard1 data={item}/>
+              <JoinedCommunityCard1 data={item.communityDetails[0]} />
             </SwiperSlide>
           ))}
         </Swiper>
       </div>
-      <div className="see__all relative w-full flex justify-between items-center py-5">
+      <div className="see__all relative w-full flex justify-between items-center ">
         {/* <Link to={"/"}>
           <Button
             className="group/btn rounded flex justify-center items-center gap-2 md:gap-3 h-10 md:h-12 lg:px-10"
@@ -155,7 +109,7 @@ const UserJoinedCommunity = () => {
         </div>
       </div>
     </div>
-  );
+  );}
 };
 
 export default UserJoinedCommunity;
