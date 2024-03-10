@@ -22,9 +22,24 @@ const Posts = () => {
   const searchCategory = encodedCategory
     ? decodeURIComponent(encodedCategory)
     : null;
-  let searchCategoryData=null;
+  let searchCategoryData = null;
 
-  
+  // useEffect(() => {
+  //   const postId = location.state ? location.state.postId : null;
+  //   console.log("location : ", location);
+  //   if (postId) {
+  //     console.log("location post id: ", postId);
+  //     const targetElement = document.getElementById(postId);
+  //     console.log("traget element ",targetElement);
+  //     if (targetElement) {
+  //       targetElement.scrollIntoView({
+  //         behavior: "smooth",
+  //         block: "start",
+  //       });
+  //     }
+      
+  //   }
+  // }, [location]);
 
   const [visiblePosts, setVisiblePosts] = useState(3);
   const handleFetchMore = () => {
@@ -55,10 +70,8 @@ const Posts = () => {
       refetchOnWindowFocus: false,
     }
   );
-  // console.log("all posts >> ", posts);
+  console.log("all posts >> ", posts);
 
-
-  
   // category get api
   const categoriesQueryKey = useMemo(() => ["categories"], []);
   const {
@@ -85,7 +98,6 @@ const Posts = () => {
 
   // console.log("searchCategoryData ",searchCategoryData)
 
-  
   if (isError || categoryError) {
     return (
       <div className="w-full h-[400px] flex justify-center items-center">
@@ -109,7 +121,14 @@ const Posts = () => {
         <InfiniteScroll
           dataLength={visiblePosts}
           next={handleFetchMore}
-          hasMore={visiblePosts < posts.filter((item)=>searchCategory ? searchCategoryData._id===item.category_id : item).length}
+          hasMore={
+            visiblePosts <
+            posts.filter((item) =>
+              searchCategory
+                ? searchCategoryData._id === item.category_id
+                : item
+            ).length
+          }
           loader={
             <div className="h-[200px] w-full flex justify-center items-center ">
               <div className="h-[30px] w-[30px] border-b-2 border-l-2 border-textGray animate-spin rounded-full"></div>
@@ -120,14 +139,20 @@ const Posts = () => {
           <div className="flex py-5 xxl:py-10 w-full">
             <div className="w-full flex flex-col gap-5">
               {posts
-              ?.slice()
-              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-              .filter((item)=>searchCategory ? searchCategoryData._id === item.category_id : item)
-              ?.slice(0, visiblePosts).map((post, index) => (
-                <Post key={index} postData={post} index={index}/>
-              ))}
+                ?.slice()
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .filter((item) =>
+                  searchCategory
+                    ? searchCategoryData._id === item.category_id
+                    : item
+                )
+                ?.slice(0, visiblePosts)
+                .map((post, index) => (
+                  <Post key={index} postData={post} index={index} />
+                ))}
             </div>
           </div>
+          <div className="h-[400px] w-full bg-red-600" id="hi"></div>
         </InfiniteScroll>
       </div>
       <div className="fixed end-0 top-0 w-[270px] xl:w-[300px] pt-[100px] h-screen !pb-10 flex-shrink-0 hidden lg:flex  flex-col gap-5  overflow-y-auto post-scroll">

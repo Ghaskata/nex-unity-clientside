@@ -3,12 +3,18 @@ import { Link, useFetcher } from "react-router-dom";
 import ThemeToggler from "../../components/common/ThemeToggler";
 import darkLogo from "../../assets/images/darkLogo.jpeg";
 import lightLogo from "../../assets/images/whiteLogo.png";
+import logo from "../../assets/images/loho1.png";
 import { Bell, Menu, Settings } from "lucide-react";
 import profile from "../../assets/images/frontHero/home header3.jpg";
 import Sidebar from "../../components/front/Sidebar";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import defaultimage from "../../assets/images/customeProfile.png";
+import { useSelector } from "react-redux";
+import { selectUserData } from "../../reducers/authSlice";
+
 
 const FrontHeader = () => {
+
   // let yscroll = window.scrollY;
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -38,33 +44,28 @@ const FrontHeader = () => {
   //   };
   // });
 
+  const userData=useSelector(selectUserData)
+
   return (
     // <header className="header__wrapper h-[120px] bg-transparent   p-1 z-50  fixed fixed-top w-full shadow-none transition-all duration-500 ease-linear flex justify-center items-center">
     <>
       {/* <DataLoadingCompo /> */}
       <header className="header__wrapper border-b border-backgroundv3 h-[80px] bg-backgroundv1 text-textPrimary   p-1 z-50  fixed fixed-top w-full shadow-none transition-all duration-500 ease-linear flex justify-center items-center">
-        <div className="flex justify-between items-center px-5 py-2 container">
+        <div className="flex justify-between items-center px-5 w-full h-full container">
           <div className="logo">
-            <div className="img_container h-[62px] w-[70px]">
-              <Link to={"/"} className="flex items-center gap-3 lg:gap-5">
+            <div className="img_container flex justify-center items-center  h-[70px] w-[70px]">
+              <Link to={"/"} className="flex items-center gap-2 lg:gap-3 h-full w-full">
                 {/* <Logo /> */}
 
                 <img
-                  src={darkLogo}
-                  alt="dark logo"
-                  width={687}
-                  height={567}
-                  className="hidden dark:block w-full h-full object-cover object-center"
-                />
-                <img
-                  src={lightLogo}
-                  alt="light logo"
+                  src={logo}
+                  alt="logo"
                   width={550}
-                  height={453}
-                  className="block dark:hidden w-full h-full object-cover object-center"
+                  height={550}
+                  className="w-full h-full object-cover object-center"
                 />
 
-                <h1 className="text-blueMain font-semibold font-playfair text-2xl md:text-3xl hidden sm:block">
+                <h1 className="text-blueMain font-semibold font-playfair text-2xl md:text-3xl hidden xsm:block">
                   NexGen
                 </h1>
               </Link>
@@ -86,7 +87,7 @@ const FrontHeader = () => {
             <ThemeToggler />
             <Link className="h-[42px] w-[42px] overflow-hidden rounded-full" to={"/profile"}>
               <img
-                src={profile}
+                src={userData.profile_pic!==""?userData.profile_pic : defaultimage}
                 alt="profile"
                 className="w-full h-full object-cover"
               />

@@ -27,8 +27,7 @@ export function formatUserFriendlyTime(timestamp) {
     const monthsAgo = Math.floor(timeDifference / 2592000000);
     return `${monthsAgo} ${monthsAgo === 1 ? 'month' : 'months'} ago`;
   } else {
-    const yearsAgo = Math.floor(timeDifference / 31536000000);
-    return `${yearsAgo} ${yearsAgo === 1 ? 'year' : 'years'} ago`;
+    return `on ${dateStr} at ${timeStr}`;
   }
 }
 

@@ -9,7 +9,11 @@ import {
   Trash2,
 } from "lucide-react";
 import { Button } from "../ui/Button";
-import { COMMENT_API_URL, LIKE_API_URL } from "../../security/axios";
+import axios, {
+  COMMENT_API_URL,
+  COMMUNITY_API_URL,
+  LIKE_API_URL,
+} from "../../security/axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import Lottie from "react-lottie-player";
@@ -21,8 +25,15 @@ import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
 import { CgEditFlipH } from "react-icons/cg";
 import CommentCard from "./CommentCard";
+import {
+  HoverCard,
+  HoverCardContent,
+  HoverCardTrigger,
+} from "../ui/hover-card";
+import { useNavigate } from "react-router-dom";
 
-const Post = ({ postData, index }) => {
+const Post = ({ postData, index  }) => {
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const userData = useSelector(selectUserData);
   const [showcomment, setshowcomment] = useState(false);
@@ -32,6 +43,33 @@ const Post = ({ postData, index }) => {
   const axiosPrivate = useAxiosPrivate();
   const postId = postData._id;
   const queryKey = useMemo(() => ["comment", postId], [postId]);
+
+  const communityId = postData.communityId;
+  const communityqueryKey = useMemo(
+    () => ["community", communityId],
+    [communityId]
+  );
+
+  const {
+    data: community,
+    isLoading: communityIsLoading,
+    isError: communityIsError,
+    error: communityError,
+  } = useQuery(
+    communityqueryKey,
+    async () => {
+      if (communityId) {
+        const response = await axiosPrivate.get(
+          COMMUNITY_API_URL.getCommunityById.replace(":id", communityId)
+        );
+        return response.data.data;
+      }
+    },
+    {
+      enabled: true,
+      refetchOnWindowFocus: false,
+    }
+  );
 
   const { data: comments } = useQuery(
     queryKey,
@@ -108,21 +146,47 @@ const Post = ({ postData, index }) => {
     setShowEmojiPicker(false);
   };
 
+ 
   return (
-    <div className="bg-backgroundv1 border-2 border-backgroundv3 min-h-[300px] text-textPrimary rounded-xl">
+    <div  id={postData._id} className="bg-backgroundv1 border-2 border-backgroundv3 min-h-[300px] text-textPrimary rounded-xl">
       <div className="p-5 w-full">
         <div className="w-full flex items-center justify-between ">
           <div className="flex items-center gap-3">
-            <div className="w-[50px] h-[50px] rounded-full overflow-hidden ">
-              <img
-                src={postData?.user[0]?.profile_pic || customeProfile}
-                alt="image"
-                className="w-full h-full object-cover object-center"
-              />
-            </div>
+            {!postData.communityId ? (
+              <div className="w-[50px] h-[50px] rounded-full overflow-hidden ">
+                <img
+                  src={postData?.user[0]?.profile_pic || customeProfile}
+                  alt="image"
+                  className="w-full h-full object-cover object-center"
+                />
+              </div>
+            ) : (
+              <div
+                className={`relative w-[80px] h-[80px] rounded-xl overflow-hidden bg-blueMain/50`}
+              >
+                {community?.frontImage!=="" && (
+                  <img
+                    src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${community?.frontImage}`}
+                    alt="image"
+                    className="w-full h-full object-cover object-center"
+                  />
+                )}
+                <img
+                  src={postData?.user[0]?.profile_pic || customeProfile}
+                  alt="image"
+                  className="absolute start-0 bottom-0 w-[50px] h-[50px] rounded-full"
+                />
+              </div>
+            )}
             <div className="">
-              <h3 className="text-16 font-500 ">
-                {postData?.user[0]?.first_name} {postData?.user[0]?.surname}
+              {postData.communityId && (
+                <h3 className="text-22 font-500 capitalize">
+                  {community?.name}
+                </h3>
+              )}
+              <h3 className="text-14 font-500 ">
+                {postData.communityId && "by"} {postData?.user[0]?.first_name}{" "}
+                {postData?.user[0]?.surname}{" "}
               </h3>
               <h5 className="text-10 text-textGray flex gap-1 items-center">
                 <Clock className="h-3 w-3" />{" "}
@@ -138,9 +202,22 @@ const Post = ({ postData, index }) => {
                 "h-[35px] rounded bg-blueMain hover:bg-backgroundv2 hover:text-blueMain"
               }
               size={"sm"}
+              onClick={() => navigate(`users/${postData?.user[0]?.first_name}`)}
             >
               View Profile
             </Button>
+            {postData.communityId && (
+              <Button
+                variant={"blueV1"}
+                className={
+                  "mt-2 h-[35px] rounded bg-blueMain hover:bg-backgroundv2 hover:text-blueMain"
+                }
+                size={"sm"}
+                onClick={() => navigate(`community/${community?._id}`)}
+              >
+                View Community
+              </Button>
+            )}
           </div>
         </div>
         <h2 className="pt-2 text-14 text-textPrimary">{postData?.content}</h2>
