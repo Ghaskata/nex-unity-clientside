@@ -39,12 +39,12 @@ const OtpVerifyEmailModal = ({
         toast.success("Email Verify Successfully.");
       },
       onError: (error) => {
-        const message = error?.response?.data?.message;
-        if (message) {
-          toast.error(message);
-        } else {
-          toast.error("Something went wrong! Please try again");
-        }
+        // const message = error?.response?.data?.message;
+        // if (message) {
+        //   toast.error(message);
+        // } else {
+        //   toast.error("Something went wrong! Please try again");
+        // }
       },
     }
   );

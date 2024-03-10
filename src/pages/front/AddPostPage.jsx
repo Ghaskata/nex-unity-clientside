@@ -4,7 +4,7 @@ import AddPostCategorySelect from "../../components/front/AddPostCategorySelect"
 import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
 import UserCommunitySelect from "../../components/front/UserCommunitySelect";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { POST_API_URL } from "../../security/axios";
 import { toast } from "react-toastify";
@@ -25,6 +25,7 @@ const AddPostPage = () => {
   const [selectedCategory, setselectedCategory] = useState("");
   const [selectCommunity, setselectCommunity] = useState("");
   const [createPostData, setcreatePostData] = useState(createPostDefaultValue);
+  const queryClient=useQueryClient()
 
   const { mutateAsync: createPostApi } = useMutation(
     async (data) => {
@@ -48,6 +49,7 @@ const AddPostPage = () => {
         setselectedCategory("");
         setselectCommunity("");
         setcreatePostData(createPostDefaultValue);
+        queryClient.invalidateQueries("communities")
       },
       onError: (error) => {
         console.log("error >>> ", error);
@@ -76,6 +78,8 @@ const AddPostPage = () => {
         formData.append("category_id", createPostData.category_id);
         formData.append("post_type", createPostData.post_type);
         formData.append("postImage", createPostData.postImage);
+        createPostData.post_type === 2 &&
+          formData.append("communityId", selectCommunity);
         await createPostApi(formData);
       }
     } catch (error) {
