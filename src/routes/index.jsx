@@ -29,6 +29,7 @@ const CommunityPage = lazy(() => import("../pages/dash/CommunityPage"));
 const DashCategoriesPage = lazy(() => import("../pages/dash/DashCategoriesPage"));
 const DashSingleCommunity = lazy(() => import("../pages/dash/DashSingleCommunity"));
 const Roles = lazy(() => import("../pages/dash/Roles"));
+const DashEvents = lazy(() => import("../pages/dash/DashEvents"));
 
 //front
 const FrontMaster = lazy(() => import("../layouts/front/FrontMaster"));
@@ -44,6 +45,11 @@ const FrontSettingPage = lazy(() => import("../pages/front/FrontSettingPage"));
 const JobsPage = lazy(() => import("../pages/front/JobsPage"));
 const NewsPage = lazy(() => import("../pages/front/NewsPage"));
 const ProfilePage = lazy(() => import("../pages/front/ProfilePage"));
+const FrontSinglePostPage = lazy(() => import("../pages/front/FrontSinglePostPage"));
+const FrontUserspagePage = lazy(() => import("../pages/front/FrontUserspagePage"));
+const OtherProfilePage = lazy(() => import("../pages/front/OtherProfilePage"));
+const FrontSingleEventPage = lazy(() => import("../pages/front/FrontSingleEventPage"));
+const FrontNotification = lazy(() => import("../pages/front/FrontNotification"));
 
 //login
 const AuthMaster = lazy(() => import("../layouts/auth/AuthMaster"));
@@ -107,6 +113,7 @@ export default function Router() {
         { path: "users", element: <User /> },
         { path: "subadmin", element: <CommunityManagers /> },
         { path: "categories", element: <DashCategoriesPage /> },
+        { path: "events", element: <DashEvents /> },
       ],
     },
     //for front
@@ -122,14 +129,19 @@ export default function Router() {
         { path: "add-post", element: <AddPostPage /> },
         { path: "community", element: <FrontCommunityPage /> },
         { path: "community/:communityId", element: <FrontSingleCommunityPage /> },
+        { path: "posts/:postId", element: <FrontSinglePostPage /> },
         { path: "jobs", element: <JobsPage /> },
         { path: "events", element: <EventsPage /> },
+        { path: "events/:eventId", element: <FrontSingleEventPage /> },
         { path: "news", element: <NewsPage /> },
         { path: "contact-us", element: <ContactUsPage /> },
         { path: "about-us", element: <AboutUsPage /> },
         { path: "profile", element: <ProfilePage /> },
         { path: "dontaion", element: <DonationPage /> },
         { path: "settings", element: <FrontSettingPage /> },
+        { path: "users", element: <FrontUserspagePage /> },
+        { path: "users/:name", element: <OtherProfilePage /> },
+        { path: "notification", element: <FrontNotification /> },
       ],
     },
     {

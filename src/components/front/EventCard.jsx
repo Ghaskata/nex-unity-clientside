@@ -1,11 +1,13 @@
 import React from "react";
 import "../../pages/front/css/EventPage.css";
+import { useNavigate } from "react-router-dom";
 
 const EventCard = ({ data }) => {
+  const navigate=useNavigate()
   return (
     <div className="event-card-wrap ">
       <a
-        href="#"
+        href={`/events/${data.eventName}`}
         className="event-card !m-0 !bg-backgroundv1 border border-backgroundv3"
       >
         <img
@@ -76,7 +78,7 @@ const EventCard = ({ data }) => {
           <div className="speaker-details">
             {/* <!-- <h3 className="speaker-name">Jane Smith</h3>
                 <p className="speaker-role">Product Designer</p> --> */}
-            <button className="!bg-blueMain"> Apply </button>
+            <button className="!bg-blueMain" onClick={()=>navigate(`/events/${data.eventName}`)}> view </button>
           </div>
         </div>
       </a>

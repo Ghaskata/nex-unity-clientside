@@ -1,5 +1,5 @@
 import { UploadCloud } from "lucide-react";
-import React, { useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import Input from "../../components/ui/Input";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,30 +9,48 @@ import {
   updateUserData,
 } from "../../reducers/authSlice";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { AUTH_API_URL } from "../../security/axios";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
 import ChangePasswordModal from "../../components/dash/modal/comman/ChangePasswordModal";
 import { useNavigate } from "react-router-dom";
 import customeProfile from "../../assets/images/customeProfile.png";
+import ForgotPasswordModal from "../../components/dash/modal/forgotPasswordModalflow/ForgotPasswordModal";
+import { useDropzone } from "react-dropzone";
 
 const FrontSettingPage = () => {
   let id;
   const [changePasswordModalOpen, setchangePasswordModalOpen] = useState(false);
+  const [ForgotPasswordOpen, setForgotPasswordOpen] = useState(false);
+
+  const queryClient = useQueryClient();
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
 
   const handleSuccess = (res) => {
-    dispatch(updateUserData(editUser));
     toast.update(id, {
       render: res.data.message,
       type: toast.TYPE.SUCCESS,
       isLoading: false,
       autoClose: 2000,
     });
+    console.log("res data >>> ", res.data);
+    const newEditedUser = {
+      first_name: res.data.data.first_name,
+      middle_name: res.data.data.middle_name,
+      surname: res.data.data.surname,
+      gender: res.data.data.gender,
+      isPrivate: res.data.data.isPrivate,
+      profile_pic: res.data.data.profile_pic,
+    };
+    setTimeout(() => {
+      // setpreviewURL(null);
+      dispatch(updateUserData(newEditedUser));
+    }, 2000);
+    queryClient.invalidateQueries("users");
   };
   const handleStatusSuccess = (res) => {
     toast.update(id, {
@@ -41,13 +59,15 @@ const FrontSettingPage = () => {
       isLoading: false,
       autoClose: 2000,
     });
-    toast.info("logging out . . . ");
+    // toast.info("logging out . . . ");
     setTimeout(() => {
-      dispatch(logout());
-      sessionStorage.clear();
-      localStorage.clear();
-      navigate("/");
+      // dispatch(logout());
+      // sessionStorage.clear();
+      // localStorage.clear();
+      // navigate("/");
+      dispatch(updateUserData({ active: !userData.active }));
     }, 3000);
+    queryClient.invalidateQueries("users");
   };
 
   useEffect(() => {
@@ -69,21 +89,6 @@ const FrontSettingPage = () => {
       onError: (error) => {
         console.error("Error:", error);
         toast.dismiss(id);
-        // if (error.response) {
-        //   toast.update(id, {
-        //     render: error.response.data.message,
-        //     type: toast.TYPE.ERROR,
-        //     isLoading: false,
-        //     autoClose: 2000,
-        //   });
-        // } else {
-        //   toast.update(id, {
-        //     render: "An unexpected error occurred",
-        //     type: toast.TYPE.ERROR,
-        //     isLoading: false,
-        //     autoClose: 2000,
-        //   });
-        // }
       },
     }
   );
@@ -99,21 +104,6 @@ const FrontSettingPage = () => {
       onError: (error) => {
         console.error("Error:", error);
         toast.dismiss(id);
-        // if (error.response) {
-        //   toast.update(id, {
-        //     render: error.response.data.message,
-        //     type: toast.TYPE.ERROR,
-        //     isLoading: false,
-        //     autoClose: 2000,
-        //   });
-        // } else {
-        //   toast.update(id, {
-        //     render: "An unexpected error occurred",
-        //     type: toast.TYPE.ERROR,
-        //     isLoading: false,
-        //     autoClose: 2000,
-        //   });
-        // }
       },
     }
   );
@@ -124,7 +114,6 @@ const FrontSettingPage = () => {
     surname: "",
     gender: "1",
     isPrivate: false,
-    profile_pic: null,
   });
   const [previewURL, setpreviewURL] = useState(null);
 
@@ -135,7 +124,6 @@ const FrontSettingPage = () => {
       surname: userData.surname,
       gender: userData.gender,
       isPrivate: userData.isPrivate,
-      profile_pic: userData.profile_pic,
     });
   }, []);
 
@@ -146,8 +134,7 @@ const FrontSettingPage = () => {
       if (
         editUser.first_name.trim() === "" ||
         editUser.middle_name.trim() === "" ||
-        editUser.surname.trim() === "" ||
-        editUser.profile_pic === null
+        editUser.surname.trim() === ""
       ) {
         toast.error("all field are require");
       } else {
@@ -155,13 +142,13 @@ const FrontSettingPage = () => {
         const formData = new FormData();
 
         // Append other form fields
-        formData.append("userId", userData._id);
+        // formData.append("userId", userData._id);
         formData.append("first_name", editUser.first_name.trim());
         formData.append("middle_name", editUser.middle_name.trim());
         formData.append("surname", editUser.surname.trim());
         formData.append("gender", editUser.gender);
         formData.append("isPrivate", editUser.isPrivate);
-        formData.append("profile_pic", editUser.profile_pic);
+        previewURL && formData.append("profile_pic", previewURL);
         await updateProfileApi(formData);
       }
     } catch (error) {
@@ -169,17 +156,16 @@ const FrontSettingPage = () => {
     }
   };
 
-  const handleProfileChange = (e) => {
-    const reader = new FileReader();
-    const file = e.target.files[0];
-    if (file) {
-      reader.onloadend = () => {
-        setpreviewURL(reader.result);
-      };
-      reader.readAsDataURL(file);
-      seteditUser({ ...editUser, [e.target.name]: e.target.files[0] });
+  const onDrop = useCallback((acceptedFiles) => {
+    if (acceptedFiles.length > 0) {
+      setpreviewURL(acceptedFiles[0]);
     }
-  };
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: "image/*",
+  });
 
   const handleStatus = async () => {
     try {
@@ -227,8 +213,12 @@ const FrontSettingPage = () => {
     setchangePasswordModalOpen(true);
   };
 
-  console.log("user", userData);
-  console.log("edittttuser", editUser);
+  console.log(
+    "userData of Store >>>> ",
+    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData.profile_pic}`
+  );
+  console.log("userData of Store >>>> ", userData);
+  // console.log("edittttuser", editUser);
   return (
     <div className="w-full h-full">
       <div className="w-full flex flex-col md:flex-row items-start md:items-center justify-between gap-y-3 container my-5">
@@ -399,14 +389,36 @@ const FrontSettingPage = () => {
               </div>
             </div>
             <div className="col-span-2 md:col-span-1 w-full flex justify-center md:justify-start items-center flex-col gap-5">
-              <div className=" w-[150px] h-[150px] rounded-full overflow-hidden z-10 shadow bg-blueMain/30">
-                <img
-                  src={previewURL ? previewURL : customeProfile}
-                  width={247}
-                  height={247}
-                  alt="logo"
-                  className="h-full w-full object-cover object-center"
-                />
+              <div
+                {...getRootProps()}
+                className={` ${
+                  isDragActive ? "border-4 border-dashed border-blueMain" : ""
+                }${
+                  !previewURL && "border-2 border-blueMain"
+                } w-[150px] h-[150px] rounded-full overflow-hidden z-10 shadow bg-blueMain/30`}
+              >
+                <input {...getInputProps()} id="profile_pic" />
+                {previewURL ? (
+                  <img
+                    src={URL.createObjectURL(previewURL)}
+                    alt="Preview not found"
+                    width={247}
+                    height={247}
+                    className="h-full w-full object-cover object-center"
+                  />
+                ) : (
+                  <img
+                    src={
+                      userData.profile_pic !== ""
+                        ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData.profile_pic}`
+                        : customeProfile
+                    }
+                    alt="profile pic was not found"
+                    width={247}
+                    height={247}
+                    className="h-full w-full object-cover object-center"
+                  />
+                )}
               </div>
               <div className="flex w-full items-center justify-center">
                 <label
@@ -415,21 +427,14 @@ const FrontSettingPage = () => {
                 >
                   <UploadCloud className="h-5 w-5" /> Upload
                 </label>
-                <input
-                  type="file"
-                  id="profile_pic"
-                  name="profile_pic"
-                  className="hidden"
-                  onChange={handleProfileChange}
-                />
               </div>
             </div>
           </form>
 
           <div className="w-full border my-5  border-backgroundv3"></div>
 
-          <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-2 gap-5 w-full text-textGray text-14 my-8">
-            <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5">
+          <div className="grid grid-cols-1 h-auto lg:grid-cols-2 xl:grid-cols-2 gap-5 w-full text-textGray text-14 my-8">
+            <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5 col-span-1 w-full block">
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
                   <h3 className="text-textPrimary text-16 font-semibold">
@@ -447,7 +452,7 @@ const FrontSettingPage = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5">
+            <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5 col-span-1 w-full">
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
                   <h3 className="text-textPrimary text-16 font-semibold">
@@ -471,7 +476,27 @@ const FrontSettingPage = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5 col-span-1 md:col-span-2">
+            <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5 col-span-1 md:col-span-2 xxl:col-span-1">
+              <div className="w-full flex justify-between items-start">
+                <div className="flex-grow w-full">
+                  <h3 className="text-textPrimary text-16 font-semibold">
+                    Forgot Passwod ??
+                  </h3>
+                  <h4>
+                    If You Forgot Your Password then then Update your Password
+                  </h4>
+                </div>
+                <div className=" flex-shrink-0">
+                  <button
+                    onClick={() => setForgotPasswordOpen(true)}
+                    className={`text-textPrimary bg-backgroundv1 border border-textGray rounded  flex gap-2 items-center py-1 px-3 `}
+                  >
+                    Forgot Password
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5 col-span-1 md:col-span-2 xxl:col-span-1">
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
                   <h3 className="text-textPrimary text-16 font-semibold">
@@ -498,6 +523,12 @@ const FrontSettingPage = () => {
       <ChangePasswordModal
         changePasswordModalOpen={changePasswordModalOpen}
         setchangePasswordModalOpen={setchangePasswordModalOpen}
+        ForgotPasswordOpen={ForgotPasswordOpen}
+        setForgotPasswordOpen={setForgotPasswordOpen}
+      />
+      <ForgotPasswordModal
+        ForgotPasswordOpen={ForgotPasswordOpen}
+        setForgotPasswordOpen={setForgotPasswordOpen}
       />
     </div>
   );

@@ -7,12 +7,14 @@ import {
   Smile,
   ThumbsUp,
   Trash2,
+  ViewIcon,
 } from "lucide-react";
 import { Button } from "../ui/Button";
 import axios, {
   COMMENT_API_URL,
   COMMUNITY_API_URL,
   LIKE_API_URL,
+  POST_API_URL,
 } from "../../security/axios";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
@@ -25,20 +27,25 @@ import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
 import { CgEditFlipH } from "react-icons/cg";
 import CommentCard from "./CommentCard";
+import { RiThumbUpFill } from "react-icons/ri";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "../ui/hover-card";
 import { useNavigate } from "react-router-dom";
+import FullImageShowModal from "../dash/modal/comman/FullImageShowModal";
+import { toast } from "react-toastify";
 
-const Post = ({ postData, index  }) => {
+const Post = ({ postData, index }) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const userData = useSelector(selectUserData);
   const [showcomment, setshowcomment] = useState(false);
   const [addCommentData, setaddCommentData] = useState("");
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+  const [fullImageShowModalOpen, setfullImageShowModalOpen] = useState(false);
+  const [imageUrl, setimageUrl] = useState("");
 
   const axiosPrivate = useAxiosPrivate();
   const postId = postData._id;
@@ -50,6 +57,7 @@ const Post = ({ postData, index  }) => {
     [communityId]
   );
 
+  //get community
   const {
     data: community,
     isLoading: communityIsLoading,
@@ -71,6 +79,26 @@ const Post = ({ postData, index  }) => {
     }
   );
 
+  //get likesData
+  const LikequeryKey = useMemo(() => ["likes", postId], [postId]);
+  const { data: likesData } = useQuery(
+    LikequeryKey,
+    async () => {
+      if (postId) {
+        const response = await axiosPrivate.get(
+          POST_API_URL.getLikeByPostId.replace(":postId", postId)
+        );
+        return response?.data?.data;
+      }
+    },
+    {
+      enabled: true,
+      refetchOnWindowFocus: false,
+    }
+  );
+  const likedByme = likesData?.find((item) => item.userId === userData._id);
+
+  //get comments
   const { data: comments } = useQuery(
     queryKey,
     async () => {
@@ -89,6 +117,7 @@ const Post = ({ postData, index  }) => {
 
   // console.log("coments by id ", postId, ">>> ", comments);
 
+  //like toggle
   const { mutateAsync: toggleLike } = useMutation(
     async (data) => {
       return await axiosPrivate.post(
@@ -99,9 +128,12 @@ const Post = ({ postData, index  }) => {
     {
       onSuccess: (res) => {
         queryClient.invalidateQueries("publicAndFollowingPosts");
+        queryClient.invalidateQueries(["likes", postId]);
       },
     }
   );
+
+  //add comment
   const { mutateAsync: addcomment } = useMutation(
     async (data) => {
       return await axiosPrivate.post(
@@ -119,43 +151,66 @@ const Post = ({ postData, index  }) => {
   );
 
   const handleLikeToggle = async () => {
-    const thumbsUp = document.getElementsByClassName("thumbsUp");
-    thumbsUp[index].classList.replace("hidden", "flex");
-    setTimeout(() => {
-      thumbsUp[index].classList.replace("flex", "hidden");
-    }, 1500);
+    if (!likedByme) {
+      const thumbsUp = document.getElementsByClassName("thumbsUp");
+      thumbsUp[index].classList.replace("hidden", "flex");
+      setTimeout(() => {
+        thumbsUp[index].classList.replace("flex", "hidden");
+      }, 1500);
+    }
     try {
       await toggleLike({ postId: postData._id });
     } catch (error) {
       console.log("error >> ", error);
     }
   };
+  const handleLikeToggleDouble = () => {
+    if (!likedByme) {
+      handleLikeToggle();
+    } else {
+      const thumbsUp = document.getElementsByClassName("thumbsUp");
+      thumbsUp[index].classList.replace("hidden", "flex");
+      setTimeout(() => {
+        thumbsUp[index].classList.replace("flex", "hidden");
+      }, 1500);
+    }
+  };
 
   const handleAddcomment = async (e) => {
     if (e.key === "Enter") {
-      try {
-        await addcomment({ postId: postId, content: addCommentData });
-        setshowcomment(true);
-      } catch (error) {
-        console.log("errrror >> ", error);
+      setShowEmojiPicker(false);
+      if (addCommentData.trim()==="") {
+        toast.info("comment should not empty")
+      }else{
+        try {
+          await addcomment({ postId: postId, content: addCommentData });
+          setshowcomment(true);
+        } catch (error) {
+          console.log("errrror >> ", error);
+        }
       }
     }
   };
   const handleEmoji = (emojiData, event) => {
     setaddCommentData((prevComment) => prevComment + emojiData.emoji);
-    setShowEmojiPicker(false);
   };
 
- 
+  // console.log("likes data >> ", likesData);
   return (
-    <div  id={postData._id} className="bg-backgroundv1 border-2 border-backgroundv3 min-h-[300px] text-textPrimary rounded-xl">
+    <div
+      id={postData._id}
+      className="bg-backgroundv1 border-2 border-backgroundv3 min-h-[300px] text-textPrimary rounded-xl"
+    >
       <div className="p-5 w-full">
         <div className="w-full flex items-center justify-between ">
           <div className="flex items-center gap-3">
             {!postData.communityId ? (
               <div className="w-[50px] h-[50px] rounded-full overflow-hidden ">
                 <img
-                  src={postData?.user[0]?.profile_pic || customeProfile}
+                  src={
+                    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${postData?.user[0]?.profile_pic}` ||
+                    customeProfile
+                  }
                   alt="image"
                   className="w-full h-full object-cover object-center"
                 />
@@ -164,7 +219,7 @@ const Post = ({ postData, index  }) => {
               <div
                 className={`relative w-[80px] h-[80px] rounded-xl overflow-hidden bg-blueMain/50`}
               >
-                {community?.frontImage!=="" && (
+                {community?.frontImage !== "" && (
                   <img
                     src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${community?.frontImage}`}
                     alt="image"
@@ -172,7 +227,10 @@ const Post = ({ postData, index  }) => {
                   />
                 )}
                 <img
-                  src={postData?.user[0]?.profile_pic || customeProfile}
+                  src={
+                    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${postData?.user[0]?.profile_pic}` ||
+                    customeProfile
+                  }
                   alt="image"
                   className="absolute start-0 bottom-0 w-[50px] h-[50px] rounded-full"
                 />
@@ -224,7 +282,7 @@ const Post = ({ postData, index  }) => {
       </div>
       <div
         className="relative !h-[300px] w-full !overflow-hidden cursor-pointer"
-        onDoubleClick={handleLikeToggle}
+        onDoubleClick={handleLikeToggleDouble}
       >
         <img
           src={
@@ -235,6 +293,17 @@ const Post = ({ postData, index  }) => {
           alt="post"
           className="!w-full !h-full object-cover object-center"
         />
+        <div
+          onClick={() => {
+            setimageUrl(
+              `${process.env.REACT_APP_SERVER_IMAGE_PATH}${postData?.image}`
+            );
+            setfullImageShowModalOpen(true);
+          }}
+          className="view cursor-pointer absolute bottom-5 end-5 bg-blueMainLight rounded-full h-[30px] w-[30px] flex justify-center items-center text-blueMain"
+        >
+          <ViewIcon className="h-4 w-4" />
+        </div>
         <div className="thumbsUp hidden absolute top-0 start-0 w-full justify-center items-center h-full">
           <Lottie
             loop
@@ -250,7 +319,11 @@ const Post = ({ postData, index  }) => {
           onClick={handleLikeToggle}
         >
           <div>
-            <ThumbsUp className="w-5 h-5" />
+            <RiThumbUpFill
+              className={`w-5 h-5 ${
+                likedByme ? "text-blueMain" : "text-textPrimary"
+              }`}
+            />
           </div>
           <h3 className="text-14 text-textGray ">Liked By</h3>
           <div className="bg-backgroundv3 text-12 rounded-full text-textPrimary flex h-full px-4 justify-center items-center">
@@ -284,7 +357,10 @@ const Post = ({ postData, index  }) => {
         <div className="flex gap-2 items-center pb-3">
           <div className="w-[45px] h-[45px] flex-shrink-0 rounded-full overflow-hidden">
             <img
-              src={userData?.profile_pic || customeProfile}
+              src={
+                `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData?.profile_pic}` ||
+                customeProfile
+              }
               alt="image"
               className="w-full h-full object-cover object-center"
             />
@@ -357,6 +433,12 @@ const Post = ({ postData, index  }) => {
           </button>
         </div>
       </div>
+      <FullImageShowModal
+        fullImageShowModalOpen={fullImageShowModalOpen}
+        setfullImageShowModalOpen={setfullImageShowModalOpen}
+        imageUrl={imageUrl}
+        setimageUrl={setimageUrl}
+      />
     </div>
   );
 };

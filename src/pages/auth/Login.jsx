@@ -197,11 +197,7 @@ const Login = () => {
           </div>
         </div>
       </div> */}
-      {/* <ForgotPasswordModal
-        ForgotPasswordOpen={ForgotPasswordOpen}
-        setForgotPasswordOpen={setForgotPasswordOpen}
-      /> */}
-
+      
       <div className="login-container">
         <div className="forms-container">
           <div className="signin-signup">
@@ -231,8 +227,11 @@ const Login = () => {
                   onChange={handleChange}
                 />
               </div>
+              <div className="w-full max-w-[380px] mt-3 flex justify-end items-end !text-end">
+                <div className="!text-end cursor-pointer text-blue-800" onClick={()=>setForgotPasswordOpen(true)}>forgot Password ?</div>
+              </div>
               <input type="submit" value="Login" className="btn solid" />
-              <p className="social-text">Or Sign in with social platforms</p>
+              <p className="social-text font-semibold" >Or Sign in with social platforms</p>
               <div className="social-media">
                 <Link to="#" className="social-icon">
                   <Facebook />
@@ -273,6 +272,11 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <ForgotPasswordModal
+        ForgotPasswordOpen={ForgotPasswordOpen}
+        setForgotPasswordOpen={setForgotPasswordOpen}
+      />
+
     </>
   );
 };

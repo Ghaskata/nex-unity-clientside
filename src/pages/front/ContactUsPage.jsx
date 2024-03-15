@@ -9,7 +9,6 @@ import { FaTwitter } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import { FaGoogle } from "react-icons/fa";
 
-
 const ContactUsPage = () => {
   return (
       <div class="w-full h-full flex justify-center items-center !bg-backgroundv2 !py-8 !z-0 px-2">
@@ -60,7 +59,7 @@ const ContactUsPage = () => {
                 </div>
             </div>
 
-            <div class="contact-circle">
+            <div class="contact-circle ">
                 <span class="circle one"></span>
                 <span class="circle two"></span>
             </div>

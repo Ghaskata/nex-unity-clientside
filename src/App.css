@@ -70,6 +70,7 @@ body {
   }
 }
 
+
 .container {
   @apply max-w-full xxl:w-[1340px] 3xl:w-[1480px];
 }

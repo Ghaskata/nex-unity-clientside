@@ -70,7 +70,7 @@ const Posts = () => {
       refetchOnWindowFocus: false,
     }
   );
-  console.log("all posts >> ", posts);
+  // console.log("all posts >> ", posts);
 
   // category get api
   const categoriesQueryKey = useMemo(() => ["categories"], []);
@@ -152,7 +152,6 @@ const Posts = () => {
                 ))}
             </div>
           </div>
-          <div className="h-[400px] w-full bg-red-600" id="hi"></div>
         </InfiniteScroll>
       </div>
       <div className="fixed end-0 top-0 w-[270px] xl:w-[300px] pt-[100px] h-screen !pb-10 flex-shrink-0 hidden lg:flex  flex-col gap-5  overflow-y-auto post-scroll">

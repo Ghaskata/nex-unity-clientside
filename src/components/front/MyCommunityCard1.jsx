@@ -1,6 +1,7 @@
 import React from "react";
 import "../../pages/front/css/CommunityPageCss.css";
 import { Link, useNavigate } from "react-router-dom";
+import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
 
 const MyCommunityCard1 = ({ data }) => {
   const navigate = useNavigate();
@@ -32,17 +33,17 @@ const MyCommunityCard1 = ({ data }) => {
         />
         <h2>
           {data?.name}
-          <span>Photographer</span>
+          <span>{formatUserFriendlyTime(data.createdAt)}</span>
         </h2>
         <div className="h-[50px] overflow-hidden">
         <p>{data?.description}</p>
         </div>        <div className="flex gap-3 h-11">
-          <div className="flex rounded justify-center items-center h-full border border-blueMain bg-blueMain w-full text-white hover:text-blueMain hover:bg-transparent transition-all duration-300 ease-linear">
+          <div onClick={() => navigate(`/community/${data._id}`)} className="cursor-pointer flex rounded justify-center items-center h-full border border-blueMain bg-blueMain w-full text-white hover:text-blueMain hover:bg-transparent transition-all duration-300 ease-linear">
             Manage
           </div>
           <div
             onClick={() => navigate(`/community/${data._id}`)}
-            className="flex rounded h-full justify-center items-center bg-transparent w-full border border-white text-white hover:text-blueMain hover:border-blueMain transition-all duration-300 ease-linear"
+            className="cursor-pointer flex rounded h-full justify-center items-center bg-transparent w-full border border-white text-white hover:text-blueMain hover:border-blueMain transition-all duration-300 ease-linear"
           >
             More Info
           </div>

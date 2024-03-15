@@ -7,6 +7,7 @@ import { COMMUNITY_API_URL } from "../../security/axios";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
 import { toast } from "react-toastify";
+import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
 
 const CommunityPageCard = ({ data }) => {
   const navigate = useNavigate();
@@ -26,7 +27,8 @@ const CommunityPageCard = ({ data }) => {
       onSuccess: (res) => {
         queryClient.invalidateQueries("communities");
         queryClient.invalidateQueries(["getUserJoinedCommunity", userData._id]);
-        toast.success(res.data.message);
+        queryClient.invalidateQueries(["community", data._id]);
+        toast.success("You Become Member Of Community");
       },
       onError: (error) => {
         console.log("error >>> ", error);
@@ -69,7 +71,7 @@ const CommunityPageCard = ({ data }) => {
         />
         <h2>
           {data?.name}
-          <span>Photographer</span>
+          <span>{formatUserFriendlyTime(data.createdAt)}</span>
         </h2>
         <div className="h-[50px] overflow-hidden">
           <p>{data?.description}</p>

@@ -19,6 +19,7 @@ import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
 import { COMMUNITY_API_URL } from "../../security/axios";
 import AddCommunityModal from "../dash/modal/comman/AddCommunityModal";
+import SuccessModal from "../dash/modal/comman/SuccessModal";
 
 const MyJoinedcommunity = [
   {
@@ -82,7 +83,8 @@ const MyJoinedcommunity = [
 
 const UserCreatedCommunity = ({ CommunityCreatedByUser }) => {
   const swiperRef = useRef(null);
-  const [addCommunityModalOpen, setaddCommunityModalOpen] = useState(false)
+  const [addCommunityModalOpen, setaddCommunityModalOpen] = useState(false);
+  const [successModalOpen, setsuccessModalOpen] = useState(false);
 
   const nextslide = () => {
     swiperRef.current?.swiper?.slidePrev();
@@ -104,7 +106,7 @@ const UserCreatedCommunity = ({ CommunityCreatedByUser }) => {
             <Button
               className="group/btn rounded flex justify-center items-center gap-2 px-3 h-10 md:h-12"
               variant={"blueV1"}
-              onClick={()=>setaddCommunityModalOpen(true)}
+              onClick={() => setaddCommunityModalOpen(true)}
             >
               <span>
                 <Plus className="h-6 w-6 " />
@@ -136,15 +138,17 @@ const UserCreatedCommunity = ({ CommunityCreatedByUser }) => {
             modules={[FreeMode]}
             className="w-full  h-auto"
           >
-            {CommunityCreatedByUser?.map((item, itemIndex) => (
-              <SwiperSlide
-                className="community w-full h-auto overflow-hidden"
-                key={itemIndex}
-              >
-                {/* <MyCommunityCard data={item} /> */}
-                <MyCommunityCard1 data={item} />
-              </SwiperSlide>
-            ))}
+            {CommunityCreatedByUser?.slice()
+              .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+              ?.map((item, itemIndex) => (
+                <SwiperSlide
+                  className="community w-full h-auto overflow-hidden"
+                  key={itemIndex}
+                >
+                  {/* <MyCommunityCard data={item} /> */}
+                  <MyCommunityCard1 data={item} />
+                </SwiperSlide>
+              ))}
           </Swiper>
         </div>
 
@@ -179,7 +183,15 @@ const UserCreatedCommunity = ({ CommunityCreatedByUser }) => {
             </button>
           </div>
         </div>
-        <AddCommunityModal addCommunityModalOpen={addCommunityModalOpen} setaddCommunityModalOpen={setaddCommunityModalOpen}/>
+        <AddCommunityModal
+          addCommunityModalOpen={addCommunityModalOpen}
+          setaddCommunityModalOpen={setaddCommunityModalOpen}
+          setsuccessModalOpen={setsuccessModalOpen}
+        />
+        <SuccessModal
+          setsuccessModalOpen={setsuccessModalOpen}
+          successModalOpen={successModalOpen}
+        />
       </div>
     );
   }

@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueries, useQuery, useQueryClient } from "react-query";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { Button } from "../ui/Button";
 import Input from "../ui/Input";
@@ -15,17 +15,19 @@ import {
 import { ArrowLeft, ArrowRight, Pen, Trash2 } from "lucide-react";
 import React, { useMemo, useState } from "react";
 import DataLoadingCompo from "../common/DataLoadingCompo";
-import { CATEGORY_API_URL, COMMUNITY_API_URL } from "../../security/axios";
+import {
+  CATEGORY_API_URL,
+  COMMUNITY_API_URL,
+  POST_API_URL,
+} from "../../security/axios";
 import { toast } from "react-toastify";
 import EditCategoryModal from "./modal/EditCategoryModal";
 import swal from "sweetalert";
 import { useEffect } from "react";
 
-
-
 export function CategoriesTable() {
   let id;
-  const [loading, setloading] = useState(true)
+  const [loading, setloading] = useState(true);
   const queryClient = useQueryClient();
   const [search, setsearch] = useState("");
   const [editCategory, seteditCategory] = useState(null);
@@ -33,12 +35,12 @@ export function CategoriesTable() {
   const axiosPrivate = useAxiosPrivate();
   const queryKey = useMemo(() => ["categories"], []);
 
-  // get api
+  // get categoies api
   const {
     data: categories,
-    isLoading,
-    isError,
-    error,
+    isLoading: isLoadingCategories,
+    isError: isErrorCategories,
+    error: errorCategories,
   } = useQuery(
     queryKey,
     async () => {
@@ -49,6 +51,27 @@ export function CategoriesTable() {
       enabled: true,
       refetchOnWindowFocus: false,
     }
+  );
+
+  // get posts for each category
+  const categoryIds = categories
+    ? categories.map((category) => category._id)
+    : [];
+  // console.log("categorie ids >>> ", categoryIds);
+  const queryResult = useQueries(
+    categoryIds.map((categoryId) => ({
+      queryKey: ["getAllPostByCid", categoryId],
+      queryFn: async () => {
+        const response = await axiosPrivate.get(
+          POST_API_URL.getAllPostByCid.replace(":cid", categoryId)
+        );
+        return response.data.data;
+      },
+      config: {
+        enabled: true,
+        refetchOnWindowFocus: false,
+      },
+    }))
   );
 
   //delete api
@@ -69,7 +92,7 @@ export function CategoriesTable() {
         queryClient.invalidateQueries("categories");
       },
       onError: (error) => {
-        toast.dismiss(id)
+        toast.dismiss(id);
 
         // if (error.response) {
         //   toast.update(id, {
@@ -112,17 +135,39 @@ export function CategoriesTable() {
         if (willDelete) {
           id = toast.loading("Please wait...");
           await deleteApi(deleteId);
-        } 
+        }
       });
     } catch (error) {
       console.log("error >> ", error);
     }
   };
 
-  if (isLoading) {
-    return <DataLoadingCompo/>
+  const isLoadingPosts = queryResult.some((query) => query.isLoading);
+
+  if (isLoadingCategories || isLoadingPosts) {
+    return <DataLoadingCompo />;
   }
 
+  if (isErrorCategories) {
+    return (
+      <div className="w-full h-[400px] flex justify-center items-center">
+        <DataLoadingCompo />
+        <h2 className="text-textPrimary text-center text-26">
+          Network Error !!!!
+        </h2>
+      </div>
+    );
+  }
+
+  let postsByCid = [];
+  if (queryResult) {
+    postsByCid = categoryIds.map((cid, index) => ({
+      cid: categoryIds[index],
+      posts: queryResult[index].data,
+    }));
+  }
+
+  // console.log("postsByCid >>> ", postsByCid);
   return (
     <div className="w-full">
       <div className="rounded-xl w-full  text-textPrimary text-center text-12  shadow bg-backgroundv1 border-2 border-backgroundv3">
@@ -186,7 +231,12 @@ export function CategoriesTable() {
                         {category.category_name}
                       </div>
                     </TableCell>
-                    <TableCell className="text-center">{}no ?</TableCell>
+                    <TableCell className="text-center">
+                      {
+                        postsByCid.find((item) => item.cid === category._id)
+                          ?.posts?.length
+                      }
+                    </TableCell>
                     <TableCell className="text-center">
                       {new Date(category.createdAt).toLocaleDateString()}
                     </TableCell>

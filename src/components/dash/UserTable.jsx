@@ -19,7 +19,7 @@ import {
 import { Button } from "../ui/Button";
 import Input from "../ui/Input";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useQuery } from "react-query";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { AUTH_API_URL, COMMUNITY_API_URL } from "../../security/axios";
 import DataLoadingCompo from "../common/DataLoadingCompo";
 import defaultimage from "../../assets/images/customeProfile.png";
@@ -33,8 +33,10 @@ import StatusFilter from "./userTableFilter/StatusFilter";
 import GenderFilter from "./userTableFilter/GenderFilter";
 import ActiveFilter from "./userTableFilter/ActiveFilter";
 import IsRoot from "./userTableFilter/IsRootFilter";
+import { toast } from "react-toastify";
 
 const UserTable = () => {
+  let toastId;
   const [selectedStatus, setselectedStatus] = useState("All");
   const [selectedIsRoot, setselectedIsRoot] = useState("All");
   const [selectedgender, setselectedgender] = useState("All");
@@ -43,8 +45,10 @@ const UserTable = () => {
   const [search, setsearch] = useState("");
 
   const axiosPrivate = useAxiosPrivate();
+  const queryClient = useQueryClient();
   const queryKey = useMemo(() => ["users"], []);
 
+  //users get api
   const {
     data: users,
     isLoading,
@@ -62,34 +66,44 @@ const UserTable = () => {
     }
   );
 
-  const handleStatusChange = (value) => {
-    console.log(value); //true or false
+  //stattus change api
+  const { mutateAsync: activeStatusUpdate } = useMutation(
+    async (data) => {
+      return await axiosPrivate.put(
+        AUTH_API_URL.userActiveStatusUpdate,
+        JSON.stringify(data)
+      );
+    },
+    {
+      onSuccess: (res) => {
+        toast.update(toastId, {
+          render: res.data.message,
+          type: toast.TYPE.SUCCESS,
+          isLoading: false,
+          autoClose: 2000,
+        });
+        queryClient.invalidateQueries("users");
+      },
+      onError: (error) => {
+        console.error("Error:", error);
+        toast.dismiss(toastId);
+      },
+    }
+  );
+
+  const handleStatusChange = async (value, userId) => {
+    try {
+      toastId = toast.loading("Please wait...");
+      await activeStatusUpdate({ userId: userId });
+    } catch (error) {
+      console.log("Error >>>> ", error);
+    }
   };
 
-  // console.log("All users >>", users);
-
-  
-  
-  // const handleMark=()=>{
-  //   if (search.trim() !== "") {
-  //     const highlightText = document.getElementsByClassName("highlightText");
-  //     const regex = new RegExp(`(${search.trim().toLocaleLowerCase()})`, "gi");
-
-  //     for (let i = 0; i < highlightText.length; i++) {
-  //       const originalText = highlightText[i].textContent;
-  //       const highlightedText = originalText.replace(
-  //         regex,
-  //         (match) => `<mark>${match}</mark>`
-  //       );
-  //       highlightText[i].innerHTML = highlightedText;
-  //     }
-  //   }
-  // }
-  
-  const handleSearch=(e)=>{
-    setsearch(e.target.value)
+  const handleSearch = (e) => {
+    setsearch(e.target.value);
     // handleMark()
-  }
+  };
 
   if (isError) {
     return (
@@ -105,6 +119,11 @@ const UserTable = () => {
   if (isLoading) {
     return <DataLoadingCompo />;
   }
+  console.log("users >>>> ", users);
+  console.log(
+    "image >>>> ",
+    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${users[1].profile_pic}`
+  );
 
   return (
     <div className="w-full">
@@ -230,6 +249,8 @@ const UserTable = () => {
             </TableHeader>
             <TableBody className="">
               {users
+                ?.slice()
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                 ?.filter((item) => {
                   const searchLowerCase = search.trim().toLowerCase();
                   if (searchLowerCase === "") {
@@ -237,7 +258,9 @@ const UserTable = () => {
                   } else {
                     return (
                       item.first_name.toLowerCase().includes(searchLowerCase) ||
-                      item.middle_name.toLowerCase().includes(searchLowerCase) ||
+                      item.middle_name
+                        .toLowerCase()
+                        .includes(searchLowerCase) ||
                       item.surname.toLowerCase().includes(searchLowerCase) ||
                       item.email.toLowerCase().includes(searchLowerCase)
                     );
@@ -362,7 +385,9 @@ const UserTable = () => {
                         <Switch
                           id="active"
                           checked={user.active}
-                          onCheckedChange={handleStatusChange}
+                          onCheckedChange={(value) =>
+                            handleStatusChange(value, user._id)
+                          }
                         />
                       </div>
                     </TableCell>

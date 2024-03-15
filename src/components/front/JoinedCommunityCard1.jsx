@@ -7,6 +7,7 @@ import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useMutation, useQueryClient } from "react-query";
 import { COMMUNITY_API_URL } from "../../security/axios";
 import { toast } from "react-toastify";
+import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
 
 const JoinedCommunityCard1 = ({ data }) => {
   const navigate = useNavigate();
@@ -27,10 +28,11 @@ const JoinedCommunityCard1 = ({ data }) => {
       onSuccess: (res) => {
         queryClient.invalidateQueries("communities");
         queryClient.invalidateQueries(["getUserJoinedCommunity", userData._id]);
-        toast.success(res.data.message);
+        queryClient.invalidateQueries(["community", data._id]);
+        toast.info("You Left From Community");
       },
       onError: (error) => {
-        toast.error("wronf");
+        // toast.error("wronf");
         console.log("error >>> ", error);
       },
     }
@@ -77,7 +79,7 @@ const JoinedCommunityCard1 = ({ data }) => {
         />
         <h2>
           {data?.name}
-          <span>Photographer</span>
+          <span>{formatUserFriendlyTime(data.createdAt)}</span>
         </h2>
         <div className="h-[50px] overflow-hidden">
         <p>{data?.description}</p>

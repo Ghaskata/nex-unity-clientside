@@ -42,7 +42,7 @@ const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
               />
 
               <h1 className="text-blueMain font-semibold font-playfair text-2xl md:text-3xl hidden xsm:block">
-                NexGen
+                NexUnity
               </h1>
             </Link>
           </div>

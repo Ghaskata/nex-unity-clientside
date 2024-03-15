@@ -33,7 +33,7 @@
 }
 .contact-circle {
     background-color: #1d204c;
-    /* background-image: url('../../../assets/images/contact/contact.jpg'); */
+    background-image: url('../../../assets/images/contact.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
