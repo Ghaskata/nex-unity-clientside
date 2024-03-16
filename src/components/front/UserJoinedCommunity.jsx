@@ -66,7 +66,10 @@ const UserJoinedCommunity = ({userJoinedCommunity}) => {
           modules={[FreeMode]}
           className="h-full w-full "
         >
-          {userJoinedCommunity.map((item, itemIndex) => (
+          {userJoinedCommunity
+            ?.slice()
+            .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            .map((item, itemIndex) => (
             <SwiperSlide
               className="community w-full h-full overflow-hidden"
               key={itemIndex}

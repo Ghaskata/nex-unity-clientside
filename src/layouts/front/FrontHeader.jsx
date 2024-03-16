@@ -1,20 +1,22 @@
-import React, { useEffect } from "react";
-import { Link, useFetcher } from "react-router-dom";
+import React, { useEffect, useMemo } from "react";
+import { Link, useFetcher, useNavigate } from "react-router-dom";
 import ThemeToggler from "../../components/common/ThemeToggler";
 import darkLogo from "../../assets/images/darkLogo.jpeg";
 import lightLogo from "../../assets/images/whiteLogo.png";
 import logo from "../../assets/images/loho1.png";
-import { Bell, Menu, Settings } from "lucide-react";
+import { Bell, Menu, Plus, Settings } from "lucide-react";
 import profile from "../../assets/images/frontHero/home header3.jpg";
 import Sidebar from "../../components/front/Sidebar";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
 import defaultimage from "../../assets/images/customeProfile.png";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
-
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { FOLLOW_API_URL } from "../../security/axios";
+import { useQuery } from "react-query";
 
 const FrontHeader = () => {
-
+  const navigate = useNavigate();
   // let yscroll = window.scrollY;
   // useEffect(() => {
   //   const handleScroll = () => {
@@ -44,7 +46,27 @@ const FrontHeader = () => {
   //   };
   // });
 
-  const userData=useSelector(selectUserData)
+  const userData = useSelector(selectUserData);
+  const CurrentUserId=userData._id
+  const axiosPrivate = useAxiosPrivate();
+  const queryKey = useMemo(() => ["get_pending_request"], []);
+
+  const { data: pendingRequestes } = useQuery(
+    queryKey,
+    async () => {
+      const response = await axiosPrivate.get(
+        FOLLOW_API_URL.get_pending_request.replace(":user_id", CurrentUserId)
+      );
+      return response.data.data;
+    },
+    {
+      enabled: true,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+
+  console.log("get_pending_request header>>> ",pendingRequestes)
 
   return (
     // <header className="header__wrapper h-[120px] bg-transparent   p-1 z-50  fixed fixed-top w-full shadow-none transition-all duration-500 ease-linear flex justify-center items-center">
@@ -54,7 +76,10 @@ const FrontHeader = () => {
         <div className="flex justify-between items-center px-5 w-full h-full container">
           <div className="logo">
             <div className="img_container flex justify-center items-center  h-[70px] w-[70px]">
-              <Link to={"/"} className="flex items-center gap-2 lg:gap-3 h-full w-full">
+              <Link
+                to={"/"}
+                className="flex items-center gap-2 lg:gap-3 h-full w-full"
+              >
                 {/* <Logo /> */}
 
                 <img
@@ -66,17 +91,29 @@ const FrontHeader = () => {
                 />
 
                 <h1 className="text-blueMain font-semibold font-playfair text-2xl md:text-3xl hidden xsm:block">
-                  NexGen
+                  NexUnity
                 </h1>
               </Link>
             </div>
           </div>
           <div className="flex gap-2 sm:gap-3 xl:gap-4 items-center">
-            <button>
+            <button onClick={() => navigate("/add-post")}>
+              <Plus
+                className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px] text-textPrimary"
+                strokeWidth={1.8}
+              />
+            </button>
+            <button
+              onClick={() => navigate("/notification")}
+              className="relative"
+            >
               <Bell
                 className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px] text-textPrimary"
                 strokeWidth={1.8}
               />
+              <div className="absolute -top-2 -end-2 w-5 h-5 rounded-full bg-blueMain text-white flex justify-center items-center text-10">
+                {pendingRequestes?.length}
+              </div>
             </button>
             <Link to={"/settings"}>
               <Settings
@@ -85,9 +122,16 @@ const FrontHeader = () => {
               />
             </Link>
             <ThemeToggler />
-            <Link className="h-[42px] w-[42px] overflow-hidden rounded-full" to={"/profile"}>
+            <Link
+              className="h-[42px] w-[42px] overflow-hidden rounded-full"
+              to={"/profile"}
+            >
               <img
-                src={userData.profile_pic!==""?userData.profile_pic : defaultimage}
+                src={
+                  userData.profile_pic !== ""
+                    ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData.profile_pic}`
+                    : defaultimage
+                }
                 alt="profile"
                 className="w-full h-full object-cover"
               />

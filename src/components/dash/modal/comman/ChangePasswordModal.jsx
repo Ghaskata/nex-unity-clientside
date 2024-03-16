@@ -15,47 +15,23 @@ import swal from "sweetalert";
 const ChangePasswordModal = ({
   changePasswordModalOpen,
   setchangePasswordModalOpen,
+  ForgotPasswordOpen,
+  setForgotPasswordOpen,
 }) => {
-  let token;
-  let toastId
-  const userData = useSelector(selectUserData);
-  const [password, setpassword] = useState("");
+  const [oldPassword, setoldPassword] = useState("");
+  const [newPassword, setnewPassword] = useState("");
   const axiosPrivate = useAxiosPrivate();
-  const { mutateAsync: forgetpassTokenGenerateApi } = useMutation(
+
+  const { mutateAsync: resetPasswordApi } = useMutation(
     async (data) => {
       return await axiosPrivate.post(
-        AUTH_API_URL.forgetpassTokenGenerate,
+        AUTH_API_URL.resetPassword,
         JSON.stringify(data)
       );
     },
     {
       onSuccess: (res) => {
-        // toast.success(res.data.message);
-        token = res.data.data;
-        setTimeout(() => {
-            changePassoword(token, password);
-        }, 1000);
-      },
-      onError: (error) => {
-        // if (error.response) {
-        //   toast.error(error.response.data.message || "An error occurred");
-        // } else {
-        //   toast.error("An unexpected error occurred");
-        // }
-      },
-    }
-  );
-  const { mutateAsync: forgetPasswordApi } = useMutation(
-    async (data) => {
-      return await axiosPrivate.post(
-        AUTH_API_URL.forgetPassword,
-        JSON.stringify(data)
-      );
-    },
-    {
-      onSuccess: (res) => {
-        console.log("res >>>> ",res)
-        toast.dismiss(toastId)
+        console.log("res >>>> ", res);
         toast.success("password change succesffulyy");
         setTimeout(() => {
           handleClose();
@@ -83,46 +59,35 @@ const ChangePasswordModal = ({
     }
   );
 
-  const handleChangePasswordTokenGenerate = async () => {
-    console.log("password >>> ", password);
+  const handleChangePassword = async () => {
     try {
-      swal({
-        title: "Are you sure?",
-        text: "You Really want to Change your Password !!!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then(async (willDelete) => {
-        if (willDelete) {
-          if (password.trim() === "") {
-            toast.warning("password should not empty");
-          } else {
-            toastId=toast.loading("please wait . . . ")
-            await forgetpassTokenGenerateApi({ userId: userData._id });
-          }
-        }
-      });
-    } catch (error) {
-      console.log("error >> ", error);
-    }
-  };
-
-  const changePassoword = async (token, password) => {
-    console.log("token >>> ", token, "psssword >>> ", password);
-    try {
-      if (password.trim() === "") {
-        toast.warning("password should not empty");
+      if (oldPassword.trim() === "" || newPassword.trim() === "") {
+        toast.warning("password should not empty !!!");
+      } else if (oldPassword === newPassword) {
+        toast.warning("both password are same ! ! !");
       } else {
-        await forgetPasswordApi({ token: token, password: password });
+        await resetPasswordApi({
+          oldPassword: oldPassword,
+          newPassword: newPassword,
+        });
       }
     } catch (error) {
       console.log("error >> ", error);
     }
   };
   const handleClose = () => {
-    setpassword("");
+    setoldPassword("");
+    setnewPassword("");
     setchangePasswordModalOpen(false);
   };
+
+  const handleForgotPassword = () => {
+    handleClose();
+    setTimeout(()=>{
+      setForgotPasswordOpen(true);
+    },1000)
+  };
+
   return (
     <Transition appear show={changePasswordModalOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={() => handleClose}>
@@ -148,13 +113,13 @@ const ChangePasswordModal = ({
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-backgroundv1 border border-blueMain shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-lg transform rounded-2xl bg-backgroundv1 border border-blueMain shadow-xl transition-all">
                 <div className="dialog-content">
                   <span
                     className="close absolute top-6 right-6 cursor-pointer"
                     onClick={handleClose}
                   >
-                    <IoCloseOutline  className="w-6 h-6 text-textPrimary text-dan" />
+                    <IoCloseOutline className="w-6 h-6 text-textPrimary text-dan" />
                   </span>
                   <div className="dialog-body py-6 px-5 md:px-[30px] md:py-6">
                     <div className="content">
@@ -168,23 +133,36 @@ const ChangePasswordModal = ({
                       </Dialog.Title>
 
                       <h5 className=" text-16 mt-4 text-textGray ">
-                        you want to Upadate your password then enter new
-                        password and update your old passsword to new password
+                        Change your old password with new One
                       </h5>
 
-                      <div className="my-8">
+                      <div className="flex flex-col my-8 gap-5">
                         <Input
                           className="h-12 bg-backgroundv2 font-400 !text-14 !text-textPrimary focus:outline-none border border-backgroundv3  w-full rounded-lg px-5"
-                          placeholder="Enter new password ..."
-                          value={password}
-                          onChange={(e) => setpassword(e.target.value)}
+                          placeholder="old password "
+                          value={oldPassword}
+                          onChange={(e) => setoldPassword(e.target.value)}
                         />
+                        <Input
+                          className="h-12 bg-backgroundv2 font-400 !text-14 !text-textPrimary focus:outline-none border border-backgroundv3  w-full rounded-lg px-5"
+                          placeholder="new password"
+                          value={newPassword}
+                          onChange={(e) => setnewPassword(e.target.value)}
+                        />
+                        <div className="flex justify-end items-end w-full">
+                          <div
+                            className="!text-end cursor-pointer text-blue-800"
+                            onClick={handleForgotPassword}
+                          >
+                            forgot Password ?
+                          </div>
+                        </div>
                       </div>
 
                       <Button
                         variant={"blueV1"}
                         className="w-full rounded-lg"
-                        onClick={handleChangePasswordTokenGenerate}
+                        onClick={handleChangePassword}
                       >
                         Change Password
                       </Button>

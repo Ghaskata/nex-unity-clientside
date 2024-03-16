@@ -11,12 +11,14 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "react-query";
 import useAxiosPrivate from "../../../../security/useAxiosPrivate";
-import { COMMUNITY_API_URL } from "../../../../security/axios";
+import { COMMUNITY_API_URL, EVENT_API_URL } from "../../../../security/axios";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
-const AddCommunityModal = ({
-  addCommunityModalOpen,
-  setaddCommunityModalOpen,
-  setsuccessModalOpen
+const AddEventModal = ({
+  addEventModalOpen,
+  setaddEventModalOpen,
+  setsuccessModalOpen,
 }) => {
   let toastId;
   const userData = useSelector(selectUserData);
@@ -25,50 +27,31 @@ const AddCommunityModal = ({
   const axiosPrivate = useAxiosPrivate();
 
   const defaultValue = {
-    name: "",
-    description: "",
+    eventName: "",
+    content: "",
+    location: "",
     createUserId: userData._id,
-    isPublic: true,
   };
-  const [newCommunity, setnewCommunity] = useState(defaultValue);
-  const [frontImagePreview, setfrontImagePreview] = useState("");
-  const [backImagePreview, setbackImagePreview] = useState("");
+  const [newEvent, setnewEvent] = useState(defaultValue);
+  const [imagePreview, setimagePreview] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
 
-  const onDropFront = useCallback((acceptedFiles) => {
+  const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
-      setfrontImagePreview(acceptedFiles[0]);
+      setimagePreview(acceptedFiles[0]);
     }
   }, []);
 
-  const onDropBack = useCallback((acceptedFiles) => {
-    if (acceptedFiles.length > 0) {
-      setbackImagePreview(acceptedFiles[0]);
-    }
-  }, []);
-
-  const {
-    getRootProps: frontgetRootProps,
-    getInputProps: frontgetInputProps,
-    isDragActive: frontisDragActive,
-  } = useDropzone({
-    onDrop: onDropFront,
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop: onDrop,
     accept: "image/*",
   });
 
-  const {
-    getRootProps: backgetRootProps,
-    getInputProps: backgetInputProps,
-    isDragActive: backisDragActive,
-  } = useDropzone({
-    onDrop: onDropBack,
-    accept: "image/*",
-  });
-
-  //community add api
-  const { mutateAsync: createCommunityApi } = useMutation(
+  //event add api
+  const { mutateAsync: createEventApi } = useMutation(
     async (data) => {
       console.log("data in axios >>>", data);
-      return await axiosPrivate.post(COMMUNITY_API_URL.create, data, {
+      return await axiosPrivate.post(EVENT_API_URL.create, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -83,10 +66,9 @@ const AddCommunityModal = ({
           isLoading: false,
           autoClose: 2000,
         });
-        queryClient.invalidateQueries("communities");
-        queryClient.invalidateQueries(["getCommunityCreatedByUser", userData._id]);
-        setsuccessModalOpen(true)
-        handleClose()
+        queryClient.invalidateQueries("events");
+        setsuccessModalOpen(true);
+        handleClose();
       },
       onError: (error) => {
         console.log("error >>> ", error);
@@ -95,27 +77,26 @@ const AddCommunityModal = ({
     }
   );
 
-  const handleCommunityAdd = async () => {
+  const handleEventAdd = async () => {
     try {
       if (
-        newCommunity.name.trim() === "" ||
-        newCommunity.description.trim() === "" ||
-        frontImagePreview === "" ||
-        backImagePreview === ""
+        newEvent.eventName.trim() === "" ||
+        newEvent.content.trim() === "" ||
+        newEvent.location.trim() === ""
       ) {
         toast.error("All fields are required");
       } else {
-        console.log("new community  addeddd >>>", newCommunity);
+        console.log("new Event  addeddd >>>", newEvent);
         toastId = toast.loading("Processing, Please wait...");
         const formData = new FormData();
-        formData.append("createUserId", newCommunity.createUserId);
-        formData.append("name", newCommunity.name);
-        formData.append("description", newCommunity.description);
-        formData.append("isPublic", newCommunity.isPublic);
-        formData.append("frontImage", frontImagePreview);
-        formData.append("backImage", backImagePreview);
+        formData.append("createUserId", newEvent.createUserId);
+        formData.append("eventName", newEvent.eventName);
+        formData.append("content", newEvent.content);
+        formData.append("location", newEvent.location);
+        formData.append("eventImage", imagePreview);
+        formData.append("time", startDate);
 
-        await createCommunityApi(formData);
+        await createEventApi(formData);
       }
     } catch (error) {
       console.log("ERRROR> >>", error);
@@ -123,13 +104,14 @@ const AddCommunityModal = ({
   };
 
   const handleClose = () => {
-    setfrontImagePreview("");
-    setbackImagePreview("");
-    setnewCommunity(defaultValue);
-    setaddCommunityModalOpen(false);
+    setTimeout(() => {
+      setimagePreview("");
+      setnewEvent(defaultValue);
+      setaddEventModalOpen(false);
+    }, 500);
   };
   return (
-    <Transition appear show={addCommunityModalOpen} as={Fragment}>
+    <Transition appear show={addEventModalOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
@@ -167,7 +149,7 @@ const AddCommunityModal = ({
                         className={"border-b-2 border-b-backgroundv3"}
                       >
                         <h5 className="mb-4 text-22 text-textPrimary flex gap-3 items-center">
-                          <Plus className="h-6 w-6" /> Add New Community
+                          <Plus className="h-6 w-6" /> Add New Event
                         </h5>
                       </Dialog.Title>
 
@@ -175,34 +157,49 @@ const AddCommunityModal = ({
                         <div className="grid grid-cols-1 gap-5 flex-grow">
                           <div className="flex flex-col gap-1">
                             <label htmlFor="" className="text-18">
-                              Community Name
+                              Event Name
                             </label>
                             <input
                               name="name"
                               className="bg-backgroundv2 h-12 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
                               placeholder="Type Here . . ."
-                              value={newCommunity.name}
+                              value={newEvent.eventName}
                               onChange={(e) =>
-                                setnewCommunity({
-                                  ...newCommunity,
-                                  name: e.target.value,
+                                setnewEvent({
+                                  ...newEvent,
+                                  eventName: e.target.value,
                                 })
                               }
                             />
                           </div>
                           <div className="flex flex-col gap-1">
                             <label htmlFor="" className="text-18">
-                              Community description
+                              Event Date Time
+                            </label>
+                            <DatePicker
+                              selected={startDate}
+                              onChange={(date) => {
+                                setStartDate(date);
+                              }}
+                              minDate={new Date()}
+                              showTimeSelect // This prop enables time selection
+                              dateFormat="Pp" // This prop specifies the date and time format
+                              className="bg-backgroundv2 h-12 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
+                            />
+                          </div>
+                          <div className="flex flex-col gap-1">
+                            <label htmlFor="" className="text-18">
+                              Event content
                             </label>
                             <textarea
-                              name="description"
+                              name="content"
                               rows={6}
                               cols={12}
-                              value={newCommunity.description}
+                              value={newEvent.content}
                               onChange={(e) =>
-                                setnewCommunity({
-                                  ...newCommunity,
-                                  description: e.target.value,
+                                setnewEvent({
+                                  ...newEvent,
+                                  content: e.target.value,
                                 })
                               }
                               className="bg-backgroundv2 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
@@ -211,57 +208,42 @@ const AddCommunityModal = ({
                           </div>
                         </div>
                         <div className="w-full md:w-[300px] flex flex-col gap-5 flex-shrink-0">
+                          <div className="flex flex-col gap-1">
+                            <label htmlFor="" className="text-18">
+                              Event Location
+                            </label>
+                            <textarea
+                              name="location"
+                              rows={6}
+                              cols={12}
+                              value={newEvent.location}
+                              onChange={(e) =>
+                                setnewEvent({
+                                  ...newEvent,
+                                  location: e.target.value,
+                                })
+                              }
+                              className="bg-backgroundv2 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
+                              placeholder="Event will held at . . ."
+                            ></textarea>
+                          </div>
                           <div className="flex justify-center items-center">
                             <div
-                              {...frontgetRootProps()}
+                              {...getRootProps()}
                               className={`${
-                                frontisDragActive
+                                isDragActive
                                   ? "border-4 border-dashed border-blueMain"
                                   : ""
                               }${
-                                !frontImagePreview && "border-2 border-blueMain"
-                              } cursor-pointer w-[120px] h-[120px] flex flex-col gap-3 justify-center items-center rounded-2xl overflow-hidden z-10 shadow bg-blueMain/30`}
+                                !imagePreview && "border-2 border-blueMain"
+                              } cursor-pointer w-full h-[200px] flex flex-col gap-3 justify-center items-center rounded-2xl overflow-hidden z-10 shadow bg-blueMain/30`}
                             >
-                              <input {...frontgetInputProps()} />
+                              <input {...getInputProps()} />
 
-                              {frontImagePreview ? (
+                              {imagePreview ? (
                                 <img
-                                  src={URL.createObjectURL(frontImagePreview)}
+                                  src={URL.createObjectURL(imagePreview)}
                                   alt="Front Image Preview"
-                                  width={247}
-                                  height={247}
-                                  className="h-full w-full object-cover object-center"
-                                />
-                              ) : (
-                                <div className="flex flex-col gap-3 justify-center items-center ">
-                                  <Image
-                                    className="h-6 w-6"
-                                    strokeWidth={1.5}
-                                  />
-                                  <h5 className="mb-4 text-12 text-textPrimary">
-                                    Front Image
-                                  </h5>
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <div className="w-full flex justify-center md:justify-start items-center flex-col gap-5">
-                            <div
-                              {...backgetRootProps()}
-                              className={`${
-                                backisDragActive
-                                  ? "border-4 border-dashed border-blueMain"
-                                  : ""
-                              }${
-                                !backImagePreview && "border-2 border-blueMain"
-                              } cursor-pointer  w-full h-[150px] flex flex-col gap-4 justify-center items-center rounded-2xl overflow-hidden z-10 shadow bg-blueMain/30`}
-                            >
-                              <input {...backgetInputProps()} />
-
-                              {backImagePreview ? (
-                                <img
-                                  src={URL.createObjectURL(backImagePreview)}
-                                  alt="back Image Preview"
                                   width={247}
                                   height={247}
                                   className="h-full w-full object-cover object-center"
@@ -273,7 +255,7 @@ const AddCommunityModal = ({
                                     strokeWidth={1.5}
                                   />
                                   <h5 className="mb-4 text-16 text-textPrimary">
-                                    Back Image
+                                    Event Image
                                   </h5>
                                 </div>
                               )}
@@ -286,9 +268,9 @@ const AddCommunityModal = ({
                         <Button
                           variant={"blueV1"}
                           className="w-full max-w-sm rounded-lg"
-                          onClick={handleCommunityAdd}
+                          onClick={handleEventAdd}
                         >
-                          Add Community
+                          Add Event
                         </Button>
                       </div>
                     </div>
@@ -303,4 +285,4 @@ const AddCommunityModal = ({
   );
 };
 
-export default AddCommunityModal;
+export default AddEventModal;

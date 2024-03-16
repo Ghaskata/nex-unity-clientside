@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import logoutLight from "../../../../assets/images/Logout.png";
 import { Button } from "../../../ui/Button";
@@ -8,24 +8,33 @@ import IcnClose from "../../../svg/IcnClose";
 import { IconButton } from "../../../ui/IconButton";
 import FirstStep from "./steps/FirstStep";
 import SecoundStep from "./steps/SecoundStep";
+import { IoCloseOutline } from "react-icons/io5";
+import ThirdStep from "./steps/ThirdStep";
+import SuccessStep from "./steps/SuccessStep";
 
 const ForgotPasswordModal = ({ ForgotPasswordOpen, setForgotPasswordOpen }) => {
   const [step, setStep] = useState(1);
+  const [email, setemail] = useState("");
+  const [otp, setotp] = useState("");
 
   const handleClose = () => {
     setForgotPasswordOpen(false);
     setTimeout(() => {
       setStep(1);
+      setemail("");
     }, 500);
   };
 
+  useEffect(() => {
+    if (step == 4) {
+      setTimeout(() => {
+        handleClose();
+      }, 2500);
+    }
+  });
   return (
     <Transition appear show={ForgotPasswordOpen} as={Fragment}>
-      <Dialog
-        as="div"
-        className="relative z-50"
-        onClose={() => setForgotPasswordOpen(false)}
-      >
+      <Dialog as="div" className="relative z-50" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -35,7 +44,7 @@ const ForgotPasswordModal = ({ ForgotPasswordOpen, setForgotPasswordOpen }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-black  bg-opacity-25" />
+          <div className="fixed inset-0 bg-black dark:bg-white dark:bg-opacity-15  bg-opacity-25" />
         </Transition.Child>
         <div className="fixed inset-0 overflow-y-auto">
           <div className="flex min-h-full items-center justify-center p-10">
@@ -48,24 +57,58 @@ const ForgotPasswordModal = ({ ForgotPasswordOpen, setForgotPasswordOpen }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-white dark:bg-black/50  shadow-xl transition-all">
-                <div className="dialog-content bg-white dark:bg-black/90 text-black dark:text-white py-2 px-5 md:px-7 md:py-4 rounded-2xl w-full max-w-md shadow">
-                  <div className="dialog-header ">
-                    <div className="flex items-end justify-end">
-                      <IconButton onClick={handleClose}>
-                        <IcnClose />
-                      </IconButton>
+              <Dialog.Panel className="w-full max-w-lg transform rounded-2xl bg-backgroundv1 border border-blueMain shadow-xl transition-all">
+                <div className="dialog-content">
+                  <span
+                    className="close absolute top-6 right-6 cursor-pointer"
+                    onClick={handleClose}
+                  >
+                    <IoCloseOutline className="w-6 h-6 text-textPrimary text-dan" />
+                  </span>
+                  <div className="dialog-body py-6 px-5 md:px-[30px] md:py-6">
+                    <div className="content">
+                      <Dialog.Title
+                        className={"border-b-2 border-b-backgroundv3"}
+                      >
+                        <h5 className="mb-4 text-22 text-textPrimary flex gap-3 items-center">
+                          {/* <Plus className="h-6 w-6" /> */}
+                          Forgot Password
+                        </h5>
+                      </Dialog.Title>
+
+                      <div className="diagol-body">
+                        <FirstStep
+                          step={step}
+                          setStep={setStep}
+                          isActiveStep={step === 1}
+                          email={email}
+                          setemail={setemail}
+                        />
+
+                        <SecoundStep
+                          email={email}
+                          step={step}
+                          otp={otp}
+                          setotp={setotp}
+                          setStep={setStep}
+                          isActiveStep={step === 2}
+                        />
+                        <ThirdStep
+                          step={step}
+                          otp={otp}
+                          setotp={setotp}
+                          setStep={setStep}
+                          isActiveStep={step === 3}
+                          handleClose={handleClose}
+                        />
+                        <SuccessStep
+                          step={step}
+                          setStep={setStep}
+                          isActiveStep={step === 4}
+                          handleClose={handleClose}
+                        />
+                      </div>
                     </div>
-                    <h4 className="text-xl md:text-3xl pb-8 text-black dark:text-white relative font-semibold ">
-                      Forgot Password
-                    </h4>
-                  </div>
-                  <div className="diagol-body">
-                    
-                      <FirstStep step={step} setStep={setStep} isActiveStep={step===1}/>
-                    
-                      <SecoundStep step={step} setStep={setStep} isActiveStep={step===2}/>
-                    
                   </div>
                 </div>
               </Dialog.Panel>

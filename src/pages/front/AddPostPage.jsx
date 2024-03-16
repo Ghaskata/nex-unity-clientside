@@ -9,6 +9,7 @@ import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { POST_API_URL } from "../../security/axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const AddPostPage = () => {
   let toastId;
@@ -21,11 +22,32 @@ const AddPostPage = () => {
     post_type: 1,
     postImage: "",
   };
+  const location = useLocation();
   const [previewURL, setpreviewURL] = useState(null);
   const [selectedCategory, setselectedCategory] = useState("");
   const [selectCommunity, setselectCommunity] = useState("");
   const [createPostData, setcreatePostData] = useState(createPostDefaultValue);
   const queryClient=useQueryClient()
+
+
+
+  let postType,communityId
+  useEffect(() => {
+    const { state } = location;
+    console.log("location >>> ",location);
+    if (state && state.postType && state.communityId) {
+      postType= state.postType;
+      communityId= state.communityId;
+      console.log('Post Type:', postType);
+      console.log('community ID:', communityId);
+      setcreatePostData({...createPostDefaultValue,post_type:postType})
+      setselectCommunity(communityId)
+    }
+  }, [location]);
+  
+  console.log('createPostData', createPostData);
+  console.log('selected community:', selectCommunity);
+
 
   const { mutateAsync: createPostApi } = useMutation(
     async (data) => {
@@ -50,6 +72,7 @@ const AddPostPage = () => {
         setselectCommunity("");
         setcreatePostData(createPostDefaultValue);
         queryClient.invalidateQueries("communities")
+        queryClient.invalidateQueries("publicAndFollowingPosts")
       },
       onError: (error) => {
         console.log("error >>> ", error);

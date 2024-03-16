@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../../ui/Button";
 import { IoCloseOutline } from "react-icons/io5";
-import { AwardIcon, Image, Plus, UploadCloud } from "lucide-react";
+import { AwardIcon, Image, Pencil, Plus, UploadCloud } from "lucide-react";
 import { selectUserData } from "../../../../reducers/authSlice";
 import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
@@ -13,9 +13,10 @@ import { useMutation, useQueryClient } from "react-query";
 import useAxiosPrivate from "../../../../security/useAxiosPrivate";
 import { COMMUNITY_API_URL } from "../../../../security/axios";
 
-const AddCommunityModal = ({
-  addCommunityModalOpen,
-  setaddCommunityModalOpen,
+const EditCommunityModal = ({
+  editCommunityModalOpen,
+  seteditCommunityModalOpen,
+  editCommunity,
   setsuccessModalOpen
 }) => {
   let toastId;
@@ -24,15 +25,17 @@ const AddCommunityModal = ({
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
 
+
+  console.log("edit community >>>",editCommunity);
   const defaultValue = {
-    name: "",
-    description: "",
-    createUserId: userData._id,
+    id:editCommunity._id,
+    name: editCommunity.name,
+    description: editCommunity.description,
     isPublic: true,
   };
-  const [newCommunity, setnewCommunity] = useState(defaultValue);
-  const [frontImagePreview, setfrontImagePreview] = useState("");
-  const [backImagePreview, setbackImagePreview] = useState("");
+  const [newEditedCommunity, setnewEditedCommunity] = useState(defaultValue);
+  const [frontImagePreview, setfrontImagePreview] = useState(null);
+  const [backImagePreview, setbackImagePreview] = useState(null);
 
   const onDropFront = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
@@ -64,11 +67,11 @@ const AddCommunityModal = ({
     accept: "image/*",
   });
 
-  //community add api
-  const { mutateAsync: createCommunityApi } = useMutation(
+  //community edit api
+  const { mutateAsync: editCommunityApi } = useMutation(
     async (data) => {
       console.log("data in axios >>>", data);
-      return await axiosPrivate.post(COMMUNITY_API_URL.create, data, {
+      return await axiosPrivate.put(COMMUNITY_API_URL.update, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -85,8 +88,9 @@ const AddCommunityModal = ({
         });
         queryClient.invalidateQueries("communities");
         queryClient.invalidateQueries(["getCommunityCreatedByUser", userData._id]);
-        setsuccessModalOpen(true)
+        queryClient.invalidateQueries(["community", editCommunity._id]);
         handleClose()
+        setsuccessModalOpen(true)
       },
       onError: (error) => {
         console.log("error >>> ", error);
@@ -98,24 +102,22 @@ const AddCommunityModal = ({
   const handleCommunityAdd = async () => {
     try {
       if (
-        newCommunity.name.trim() === "" ||
-        newCommunity.description.trim() === "" ||
-        frontImagePreview === "" ||
-        backImagePreview === ""
+        newEditedCommunity.name.trim() === "" ||
+        newEditedCommunity.description.trim() === ""
       ) {
         toast.error("All fields are required");
       } else {
-        console.log("new community  addeddd >>>", newCommunity);
         toastId = toast.loading("Processing, Please wait...");
         const formData = new FormData();
-        formData.append("createUserId", newCommunity.createUserId);
-        formData.append("name", newCommunity.name);
-        formData.append("description", newCommunity.description);
-        formData.append("isPublic", newCommunity.isPublic);
-        formData.append("frontImage", frontImagePreview);
-        formData.append("backImage", backImagePreview);
+        formData.append("id", newEditedCommunity.id);
+        formData.append("name", newEditedCommunity.name);
+        formData.append("description", newEditedCommunity.description);
+        formData.append("isPublic", newEditedCommunity.isPublic);
+        frontImagePreview && formData.append("frontImage", frontImagePreview)
+        backImagePreview && formData.append("backImage", backImagePreview)
+        console.log("edited community  addeddd >>>", formData);
 
-        await createCommunityApi(formData);
+        await editCommunityApi(formData);
       }
     } catch (error) {
       console.log("ERRROR> >>", error);
@@ -125,11 +127,11 @@ const AddCommunityModal = ({
   const handleClose = () => {
     setfrontImagePreview("");
     setbackImagePreview("");
-    setnewCommunity(defaultValue);
-    setaddCommunityModalOpen(false);
+    setnewEditedCommunity(defaultValue);
+    seteditCommunityModalOpen(false);
   };
   return (
-    <Transition appear show={addCommunityModalOpen} as={Fragment}>
+    <Transition appear show={editCommunityModalOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
@@ -167,7 +169,7 @@ const AddCommunityModal = ({
                         className={"border-b-2 border-b-backgroundv3"}
                       >
                         <h5 className="mb-4 text-22 text-textPrimary flex gap-3 items-center">
-                          <Plus className="h-6 w-6" /> Add New Community
+                          <Pencil className="h-6 w-6" /> Edit Community
                         </h5>
                       </Dialog.Title>
 
@@ -181,10 +183,10 @@ const AddCommunityModal = ({
                               name="name"
                               className="bg-backgroundv2 h-12 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
                               placeholder="Type Here . . ."
-                              value={newCommunity.name}
+                              value={newEditedCommunity.name}
                               onChange={(e) =>
-                                setnewCommunity({
-                                  ...newCommunity,
+                                setnewEditedCommunity({
+                                  ...newEditedCommunity,
                                   name: e.target.value,
                                 })
                               }
@@ -198,10 +200,10 @@ const AddCommunityModal = ({
                               name="description"
                               rows={6}
                               cols={12}
-                              value={newCommunity.description}
+                              value={newEditedCommunity.description}
                               onChange={(e) =>
-                                setnewCommunity({
-                                  ...newCommunity,
+                                setnewEditedCommunity({
+                                  ...newEditedCommunity,
                                   description: e.target.value,
                                 })
                               }
@@ -232,16 +234,15 @@ const AddCommunityModal = ({
                                   height={247}
                                   className="h-full w-full object-cover object-center"
                                 />
-                              ) : (
-                                <div className="flex flex-col gap-3 justify-center items-center ">
-                                  <Image
-                                    className="h-6 w-6"
-                                    strokeWidth={1.5}
-                                  />
-                                  <h5 className="mb-4 text-12 text-textPrimary">
-                                    Front Image
-                                  </h5>
-                                </div>
+                              ) : 
+                              (
+                                <img
+                                  src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${editCommunity.frontImage}`}
+                                  alt="Front Image Preview"
+                                  width={247}
+                                  height={247}
+                                  className="h-full w-full object-cover object-center"
+                                />
                               )}
                             </div>
                           </div>
@@ -267,15 +268,13 @@ const AddCommunityModal = ({
                                   className="h-full w-full object-cover object-center"
                                 />
                               ) : (
-                                <div className="flex flex-col gap-3 justify-center items-center ">
-                                  <Image
-                                    className="h-[50px] w-[50px]"
-                                    strokeWidth={1.5}
-                                  />
-                                  <h5 className="mb-4 text-16 text-textPrimary">
-                                    Back Image
-                                  </h5>
-                                </div>
+                                <img
+                                  src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${editCommunity.backImage}`}
+                                  alt="Front Image Preview"
+                                  width={247}
+                                  height={247}
+                                  className="h-full w-full object-cover object-center"
+                                />
                               )}
                             </div>
                           </div>
@@ -288,7 +287,7 @@ const AddCommunityModal = ({
                           className="w-full max-w-sm rounded-lg"
                           onClick={handleCommunityAdd}
                         >
-                          Add Community
+                          Edit Community
                         </Button>
                       </div>
                     </div>
@@ -303,4 +302,4 @@ const AddCommunityModal = ({
   );
 };
 
-export default AddCommunityModal;
+export default EditCommunityModal;

@@ -26,17 +26,22 @@ const AUTH_API_URL = {
   forgetPassword: path(ROOTS_AUTH_ADMIN, "/forget-password"),
   generateOtp: path(ROOTS_AUTH_ADMIN, "/generate_otp"),
   verifyOtp: path(ROOTS_AUTH_ADMIN, "/verify_otp"),
+  getAllUser: path(ROOTS_AUTH_ADMIN, "/get-user"),
+  resetPassword: path(ROOTS_AUTH_ADMIN, "/reset-password"),
 };
 
 
 const ROOT_COMMUNITY_API=BASE_URL+"/community"
 const COMMUNITY_API_URL={
+  getCommunityById:path(ROOT_COMMUNITY_API,"/:id"),
   getAll:path(ROOT_COMMUNITY_API,"/get"),
   create:path(ROOT_COMMUNITY_API,"/create"),
   update:path(ROOT_COMMUNITY_API,"/update"),
   delete:path(ROOT_COMMUNITY_API,"/delete"),
   leftCommmunity:path(ROOT_COMMUNITY_API,"/left_community"),
   joinCommmunity:path(ROOT_COMMUNITY_API,"/join_community"),
+  getCommunityCreatedByUser:path(ROOT_COMMUNITY_API,"/getCommunityCreatedByUser/:id"),
+  getUserJoinedCommunity:path(ROOT_COMMUNITY_API,"/getUserJoinedCommunity/:id"),
 }
 
 
@@ -48,6 +53,9 @@ const POST_API_URL={
   getPublicAndFollowingPost:path(ROOT_POST_API,"/get-public-and-following-post"),
   getPersnolPost:path(ROOT_POST_API,"/get-persnol-post"),
   getAllPost:path(ROOT_POST_API,"/get-all-post"),
+  getPublicAndFollowingPostByPostId:path(ROOT_POST_API,"/get-public-and-following-post/:postId"),
+  getLikeByPostId:path(ROOT_POST_API,"/get-like/:postId"),
+  getAllPostByCid:path(ROOT_POST_API,"/get-all-post/:cid"),
 }
 const LIKE_API_URL={
   likePost:path(ROOT_POST_API,"/like-post"),
@@ -81,6 +89,18 @@ const EVENT_API_URL={
 
 
 
+const ROOT_FOLLOW_API=BASE_URL+"/follow"
+const FOLLOW_API_URL={
+  sendRequest:path(ROOT_FOLLOW_API,"/send_request"),
+  acceptRequest:path(ROOT_FOLLOW_API,"/accept_request/:follow_id"),
+  declineRequest:path(ROOT_FOLLOW_API,"/decline_request/:follow_id"),
+  get_pending_request:path(ROOT_FOLLOW_API,"/get_pending_request/:user_id"),
+  getUserFollowers:path(ROOT_FOLLOW_API,"/get_followers/:user_id"),
+  getUserFollowing:path(ROOT_FOLLOW_API,"/get_following/:user_id"),
+  getUserRequsted:path(ROOT_FOLLOW_API,"/get_requested/:user_id"),
+}
 
 
-export { axiosPrivate, AUTH_API_URL,COMMUNITY_API_URL ,POST_API_URL,CATEGORY_API_URL,EVENT_API_URL ,LIKE_API_URL,COMMENT_API_URL};
+
+
+export { axiosPrivate,FOLLOW_API_URL, AUTH_API_URL,COMMUNITY_API_URL ,POST_API_URL,CATEGORY_API_URL,EVENT_API_URL ,LIKE_API_URL,COMMENT_API_URL};

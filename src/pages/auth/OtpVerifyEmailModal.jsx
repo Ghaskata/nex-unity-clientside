@@ -144,7 +144,7 @@ const OtpVerifyEmailModal = ({
                         <Button
                           variant={"blueV1"}
                           type="button"
-                          className="w-full md:py-3.5 py-2.5 px-6 md:text-base text-sm md:px-12 bg-blue-950 "
+                          className="w-full md:py-3.5 py-2.5 px-6 md:text-base text-sm md:px-12 "
                           onClick={verifyOtpClick}
                         >
                           Verify

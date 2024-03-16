@@ -8,6 +8,7 @@ import CommunityPostList from '../../components/dash/CommunityPostList';
 import EditCommunityModal from '../../components/dash/modal/comman/EditCommunityModal';
 import SuccessModal from '../../components/dash/modal/comman/SuccessModal';
 import { ArrowLeft, HeartHandshake, LogOut } from 'lucide-react';
+import UserPostList from '../../components/front/UserPostList';
 
 const ProfilePage = () => {
   const navigate = useNavigate();
@@ -115,11 +116,7 @@ const ProfilePage = () => {
           </div>
 
           <div className="py-3 container">
-            {/* <CommunityPostList
-              CommunityPostList={community.communityPostsDetail}
-              isCommunityAdmin={community.createUserId === userData._id}
-              communityId={communityId}
-            /> */}
+            <UserPostList userData={userData}/>
           </div>
         </div>
 

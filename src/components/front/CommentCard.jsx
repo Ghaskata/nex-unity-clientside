@@ -29,7 +29,7 @@ const CommentCard = ({ comment }) => {
     },
     {
       onSuccess: (res) => {
-        toast.success(res.data.message);
+        // toast.success(res.data.message);
         queryClient.invalidateQueries(["comment", comment.postId]);
       },
       onError: (error) => {
@@ -101,7 +101,7 @@ const CommentCard = ({ comment }) => {
         <img
           src={
             comment?.user[0]?.profile_pic !== ""
-              ? comment?.user[0]?.profile_pic
+              ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${comment?.user[0]?.profile_pic}`
               : customeProfile
           }
           alt="image"

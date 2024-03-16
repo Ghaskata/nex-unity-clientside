@@ -53,9 +53,15 @@ export const FrontNavlinkList = [
   },
   {
     name: "Community",
-    icon: <LucideUsers2 className="w-[24px] h-[24px]" />,
+    icon: <HiUserGroup className="w-[24px] h-[24px]" />,
     type: "Page",
     href: "/community",
+  },
+  {
+    name: "Users",
+    icon: <Users2 className="w-[24px] h-[24px]" />,
+    type: "Page",
+    href: "/users",
   },
   { name: "Jobs", icon: <RiBriefcase2Fill className="w-[24px] h-[24px]" />, type: "Page", href: "/jobs" },
   { name: "Events", icon: <CalendarDays className="w-[24px] h-[24px]" />, type: "Page", href: "/events" },
@@ -65,13 +71,13 @@ export const FrontNavlinkList = [
   { name: "Profile", icon: <RiAccountCircleFill className="w-[24px] h-[24px]" />, type: "Page", href: "/profile" },
   // { name: "Donation", icon: <HelpingHand className="w-[24px] h-[24px]" />, type: "Page", href: "/dontaion" },
   { name: "Settings", icon: <FiSettings className="w-[24px] h-[24px]" />, type: "Page", href: "/settings" },
-  {
-    name: "Send feedback",
-    icon: <RiFeedbackLine className="w-[24px] h-[24px]" />,
-    type: "Page",
-    divider: true,
-    href: "/home/feedback",
-  },
+  // {
+  //   name: "Send feedback",
+  //   icon: <RiFeedbackLine className="w-[24px] h-[24px]" />,
+  //   type: "Page",
+  //   divider: true,
+  //   href: "/home/feedback",
+  // },
 ];
 export const DashbordNavlinkList = [
   { name: "Home", icon: <FaHome className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard" },

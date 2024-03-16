@@ -12,7 +12,7 @@ const Buttonvariants = cva(
           "bg-black w-full text-white hover:bg-black/60 rounded-full border-[1px] border-gray-500",
         blue: "bg-blue-800 w-full text-white hover:bg-blue-500/80 rounded-full",
         blueV1:
-          "bg-blueMain w-full text-white border border-blueMain transition-all hover:bg-white hover:text-blueMain duration-500 ease-linear",
+          "bg-blueMain w-full text-white border border-blueMain transition-all hover:bg-transparent hover:text-blueMain duration-500 ease-linear",
         blueV2:
           "bg-blue-800 w-full text-white relative overflow-hidden z-10 before:absolute before:start-0 before:h-full before:w-full before:bg-black before:-top-full before:-z-10 hover:before:top-0  before:transition-all before:duration-300 before:ease-linear",
         white: "bg-white text-black hover:bg-black rounded-full",

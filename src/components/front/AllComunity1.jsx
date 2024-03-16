@@ -13,12 +13,7 @@ import CommunityPageCard from "./CommunityPageCard";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
 
-
-
-const AllCommunity1 = ({communities}) => {
-
-
-  
+const AllCommunity1 = ({ communities }) => {
   const [search, setsearch] = useState("");
 
   const handleSearch = (e) => {
@@ -26,7 +21,7 @@ const AllCommunity1 = ({communities}) => {
   };
 
   console.log("all communities", communities);
-  
+
   return (
     <div className="w-full container component text-textPrimary">
       <div className="flex justify-between items-start mb-5 md:mb-8 rounded-xl gap-5 bg-backgroundv1 border-2 border-backgroundv3 p-5">
@@ -51,6 +46,8 @@ const AllCommunity1 = ({communities}) => {
 
       <div className="grid grid-cols-1 xsm:grid-cols-2  lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-3 3xl:grid-cols-4 gap-3 lg:gap-5">
         {communities
+          ?.slice()
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           ?.filter((item) =>
             search.trim() === ""
               ? item

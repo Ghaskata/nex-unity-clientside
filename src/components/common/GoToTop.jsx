@@ -16,7 +16,7 @@ const GoToTop = () => {
         goToTop[0].classList.replace("bottom-10", "-bottom-16");
       }
 
-      console.log("screenY", screenH);
+      // console.log("screenY", screenH);
     };
     window.addEventListener("scroll", handleScroll);
     return () => {

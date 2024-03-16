@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import logoutLight from "../../../../assets/images/Logout.png";
 import { Button } from "../../../ui/Button";
@@ -7,29 +7,21 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../../../reducers/authSlice";
 import { useNavigate } from "react-router-dom";
 import Lottie from "react-lottie-player";
-import logoutImg from "../../../../assets/lottie/logout.json";
+import chekck from "../../../../assets/lottie/check.json";
 
-const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    dispatch(logout());
-    setLogoutModalOpen(false);
-
+const SuccessModal = ({ successModalOpen, setsuccessModalOpen }) => {
+  useEffect(() => {
     setTimeout(() => {
-      localStorage.clear();
-      sessionStorage.clear();
-      navigate("/");
-    }, 1000);
-  };
-
+      setsuccessModalOpen(false);
+    }, 2500);
+  });
   return (
-    <Transition appear show={logoutModalOpen} as={Fragment}>
+    <Transition appear show={successModalOpen} as={Fragment}>
       <Dialog
         as="div"
         className="relative z-50"
-        onClose={() => setLogoutModalOpen(false)}
+        onClose={() => setsuccessModalOpen(false)}
       >
         <Transition.Child
           as={Fragment}
@@ -53,32 +45,18 @@ const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-backgroundv1 border border-blueMain shadow-xl transition-all">
+              <Dialog.Panel className="w-full max-w-md transform rounded-2xl bg-transparent  transition-all">
                 <div className="dialog-content w-full">
                   <div className="dialog-body py-6 px-5 md:px-[30px] md:py-6 w-full">
                     <div className="logout-content w-full">
-                      <div className="icon w-full flex justify-center items-center" >
+                      <div className="icon w-full flex justify-center items-center">
                         <Lottie
                           loop
-                          animationData={logoutImg}
+                          animationData={chekck}
                           play
-                          style={{ width: "60%", height: "60%" }}
+                          style={{ width: "70%", height: "70%" }}
                         />
                       </div>
-                      <h5 className="mb-1 text-24 text-textPrimary text-center ">
-                        Are you sure ? 
-                      </h5>
-                      <h5 className="mb-4 text-16 text-textGray text-center ">
-                      You are Really want to logout from NexGen ?
-                      </h5>
-                      {/* <p className='text-center text-base text-textPrimary mb-7'>Your Password has been Changed successfully.</p> */}
-                      <Button
-                        variant={"blueV1"}
-                        className="w-full rounded-lg"
-                        onClick={handleLogout}
-                      >
-                        Logout
-                      </Button>
                     </div>
                   </div>
                 </div>
@@ -91,4 +69,4 @@ const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
   );
 };
 
-export default LogoutModal;
+export default SuccessModal;
