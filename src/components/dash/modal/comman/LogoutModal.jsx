@@ -24,6 +24,8 @@ const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
     }, 1000);
   };
 
+    
+  // console.log("logout img >>>> ",logoutImg);
   return (
     <Transition appear show={logoutModalOpen} as={Fragment}>
       <Dialog

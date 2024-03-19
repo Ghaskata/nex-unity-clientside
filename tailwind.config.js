@@ -5,11 +5,8 @@ module.exports = {
   theme: {
     fontFamily: {
       poppins:["Poppins"],
-      global: ["Merienda"],
-      jost: ["Jost"],
-      ledger: ["Ledger"],
-      playfair: ["Playfair Display"],
-      cormorant:["Cormorant Garamond"],
+      merienda: ["Merienda"],
+      playfair: ["Playfair Display"]
     },
 
     extend: {

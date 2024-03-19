@@ -3,6 +3,7 @@ import image from "../../assets/images/frontHero/home header3.jpg";
 import {
   Clock,
   Edit2,
+  Fullscreen,
   MessageSquareMore,
   Smile,
   ThumbsUp,
@@ -260,7 +261,7 @@ const Post = ({ postData, index }) => {
                 "h-[35px] rounded bg-blueMain hover:bg-backgroundv2 hover:text-blueMain"
               }
               size={"sm"}
-              onClick={() => navigate(`users/${postData?.user[0]?.first_name}`)}
+              onClick={() => navigate(`users/${postData?.user[0]?._id}`)}
             >
               View Profile
             </Button>
@@ -302,7 +303,7 @@ const Post = ({ postData, index }) => {
           }}
           className="view cursor-pointer absolute bottom-5 end-5 bg-blueMainLight rounded-full h-[30px] w-[30px] flex justify-center items-center text-blueMain"
         >
-          <ViewIcon className="h-4 w-4" />
+          <Fullscreen className="h-4 w-4" />
         </div>
         <div className="thumbsUp hidden absolute top-0 start-0 w-full justify-center items-center h-full">
           <Lottie

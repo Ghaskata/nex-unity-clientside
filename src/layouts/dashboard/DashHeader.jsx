@@ -16,6 +16,7 @@ import defaultimage from "../../assets/images/customeProfile.png";
 const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
   const userData = useSelector(selectUserData);
   const { isDarkMode } = useContext(ThemeContext);
+  
   return (
     <div className="dash_header bg-backgroundv1 border border-backgroundv3 text-textPrimary w-full fixed top-0 start-0 z-50 shadow h-[78px]">
       <div className="header_wrapper flex justify-between items-center px-5 h-full w-full">
@@ -41,7 +42,7 @@ const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
                 className="w-full h-full object-cover object-center"
               />
 
-              <h1 className="text-blueMain font-semibold font-playfair text-2xl md:text-3xl hidden xsm:block">
+              <h1 className="text-blueMain font-semibold !font-merienda text-2xl md:text-3xl hidden xsm:block">
                 NexUnity
               </h1>
             </Link>
@@ -56,7 +57,7 @@ const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
             <img
               src={
                 userData.profile_pic !== ""
-                  ? userData.profile_pic
+                  ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData.profile_pic}`
                   : defaultimage
               }
               alt="profile"

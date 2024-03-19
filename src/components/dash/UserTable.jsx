@@ -396,9 +396,9 @@ const UserTable = () => {
                         <button className="text-green-700">
                           <VscEye className="h-6 w-6" />
                         </button>
-                        <button className="text-red-600">
+                        {/* <button className="text-red-600">
                           <Trash2 className="h-6 w-6 " />
-                        </button>
+                        </button> */}
                       </div>
                     </TableCell>
                   </TableRow>

@@ -1,5 +1,5 @@
 import { Image, UploadCloud } from "lucide-react";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import AddPostCategorySelect from "../../components/front/AddPostCategorySelect";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
@@ -10,6 +10,8 @@ import { POST_API_URL } from "../../security/axios";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
+import { useDropzone } from "react-dropzone";
 
 const AddPostPage = () => {
   let toastId;
@@ -27,27 +29,37 @@ const AddPostPage = () => {
   const [selectedCategory, setselectedCategory] = useState("");
   const [selectCommunity, setselectCommunity] = useState("");
   const [createPostData, setcreatePostData] = useState(createPostDefaultValue);
-  const queryClient=useQueryClient()
+  const queryClient = useQueryClient();
+  const [successModalOpen, setsuccessModalOpen] = useState(false);
+  const [imagePreview, setimagePreview] = useState("");
 
-
-
-  let postType,communityId
-  useEffect(() => {
-    const { state } = location;
-    console.log("location >>> ",location);
-    if (state && state.postType && state.communityId) {
-      postType= state.postType;
-      communityId= state.communityId;
-      console.log('Post Type:', postType);
-      console.log('community ID:', communityId);
-      setcreatePostData({...createPostDefaultValue,post_type:postType})
-      setselectCommunity(communityId)
+  const onDrop = useCallback((acceptedFiles) => {
+    if (acceptedFiles.length > 0) {
+      setimagePreview(acceptedFiles[0]);
     }
-  }, [location]);
-  
-  console.log('createPostData', createPostData);
-  console.log('selected community:', selectCommunity);
+  }, []);
 
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+    onDrop,
+    accept: "image/*",
+  });
+
+  // let postType,communityId
+  // useEffect(() => {
+  //   const { state } = location;
+  //   console.log("location >>> ",location);
+  //   if (state && state.postType && state.communityId) {
+  //     postType= state.postType;
+  //     communityId= state.communityId;
+  //     console.log('Post Type:', postType);
+  //     console.log('community ID:', communityId);
+  //     setcreatePostData({...createPostDefaultValue,post_type:postType})
+  //     setselectCommunity(communityId)
+  //   }
+  // }, [location]);
+
+  console.log("createPostData", createPostData);
+  console.log("selected community:", selectCommunity);
 
   const { mutateAsync: createPostApi } = useMutation(
     async (data) => {
@@ -67,12 +79,14 @@ const AddPostPage = () => {
           isLoading: false,
           autoClose: 2000,
         });
-        setpreviewURL("");
+        setsuccessModalOpen(true);
+        setimagePreview("");
         setselectedCategory("");
         setselectCommunity("");
         setcreatePostData(createPostDefaultValue);
-        queryClient.invalidateQueries("communities")
-        queryClient.invalidateQueries("publicAndFollowingPosts")
+        queryClient.invalidateQueries("communities");
+        queryClient.invalidateQueries("publicAndFollowingPosts");
+        queryClient.invalidateQueries( ["profileDetails", userData._id]);
       },
       onError: (error) => {
         console.log("error >>> ", error);
@@ -86,12 +100,11 @@ const AddPostPage = () => {
     console.log("create post detail >>>>>> ", createPostData);
 
     try {
-      if (createPostData.content.trim() === "") {
+      if (createPostData.post_type === 2 && selectCommunity === "") {
+        toast.info("No Community Created By You Create New One");
+      } else if (createPostData.content.trim() === "") {
         toast.error("content Should not be empty");
-      } else if (
-        createPostData.postImage === null ||
-        createPostData.postImage === ""
-      ) {
+      } else if (imagePreview === "") {
         toast.error("post image is empty !!! ");
       } else {
         toastId = toast.loading("Processing, Please wait...");
@@ -100,7 +113,7 @@ const AddPostPage = () => {
         formData.append("content", createPostData.content);
         formData.append("category_id", createPostData.category_id);
         formData.append("post_type", createPostData.post_type);
-        formData.append("postImage", createPostData.postImage);
+        formData.append("postImage", imagePreview);
         createPostData.post_type === 2 &&
           formData.append("communityId", selectCommunity);
         await createPostApi(formData);
@@ -140,7 +153,7 @@ const AddPostPage = () => {
       </div>
       <div className="container pb-8">
         <div className="p-5 md:p-10 border  border-backgroundv3 bg-backgroundv1 text-textPrimary rounded-lg">
-          <form className="grid grid-cols-1 lg:grid-cols-2 gap-3" action="">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
             <div className=" flex flex-col">
               <div className="flex justify-center gap-5 items-center flex-grow w-full pb-5">
                 <div className="h-full flex justify-start items-start gap-3">
@@ -233,7 +246,30 @@ const AddPostPage = () => {
             </div>
             <div className="w-full flex justify-center md:justify-start items-center flex-col gap-5">
               <div className=" w-[300px] h-[200px] flex justify-center items-center rounded-lg overflow-hidden z-10 shadow bg-blueMain/30">
-                {previewURL ? (
+                <div
+                  {...getRootProps()}
+                  className={`${
+                    isDragActive ? "border-4 border-dashed border-blueMain" : ""
+                  }${
+                    !imagePreview && "border-2 border-blueMain"
+                  } cursor-pointer  w-full h-full flex flex-col gap-4 justify-center items-center rounded-lg overflow-hidden z-10 shadow `}
+                >
+                  <input {...getInputProps()} id="postImage" />
+
+                  {imagePreview ? (
+                    <img
+                      src={URL.createObjectURL(imagePreview)}
+                      width={247}
+                      height={247}
+                      alt="logo"
+                      className="h-full w-full object-cover object-center"
+                    />
+                  ) : (
+                    <Image className="h-[100px] w-[200px]" strokeWidth={1.5} />
+                  )}
+                </div>
+
+                {/* {previewURL ? (
                   <img
                     src={previewURL}
                     width={247}
@@ -243,7 +279,7 @@ const AddPostPage = () => {
                   />
                 ) : (
                   <Image className="h-[100px] w-[200px]" strokeWidth={1.5} />
-                )}
+                )} */}
               </div>
               <div className="flex w-full items-center justify-center">
                 <label
@@ -252,18 +288,23 @@ const AddPostPage = () => {
                 >
                   <UploadCloud className="h-5 w-5" /> Upload
                 </label>
-                <input
+                {/* <input
                   type="file"
                   id="postImage"
                   name="postImage"
                   className="hidden"
                   onChange={handleProfileChange}
-                />
+                /> */}
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
+
+      <SuccessModal
+        setsuccessModalOpen={setsuccessModalOpen}
+        successModalOpen={successModalOpen}
+      />
     </div>
   );
 };

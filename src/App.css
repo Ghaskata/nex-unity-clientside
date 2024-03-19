@@ -22,7 +22,7 @@
 }
 
 * {
-  @apply font-poppins;
+  @apply !font-poppins;
 }
 
 @media screen and (min-width: 1400px) {

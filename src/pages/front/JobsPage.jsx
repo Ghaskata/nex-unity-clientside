@@ -4,6 +4,8 @@ import "./css/Jobs";
 import Modal from "react-modal";
 
 import Jobs from "./css/Jobs";
+import { useSelector } from "react-redux";
+import { selectUserData } from "../../reducers/authSlice";
 
 function JobsPage() {
   const [jobs, setJobs] = useState([]);

@@ -140,7 +140,7 @@ export default function Router() {
         { path: "dontaion", element: <DonationPage /> },
         { path: "settings", element: <FrontSettingPage /> },
         { path: "users", element: <FrontUserspagePage /> },
-        { path: "users/:name", element: <OtherProfilePage /> },
+        { path: "users/:userId", element: <OtherProfilePage /> },
         { path: "notification", element: <FrontNotification /> },
       ],
     },

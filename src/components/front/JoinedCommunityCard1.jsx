@@ -60,8 +60,8 @@ const JoinedCommunityCard1 = ({ data }) => {
     <figure className="snip1336 hover:scale-[0.97] h-full transition-all duration-200 ease-linear rounded-lg overflow-hidden">
       <img
         src={
-          data.backImage 
-            ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${data.backImage}`
+          data?.backImage 
+            ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${data?.backImage}`
             : "https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/sample69.jpg"
         }
         alt="sample74"
@@ -70,8 +70,8 @@ const JoinedCommunityCard1 = ({ data }) => {
       <figcaption>
         <img
           src={
-            data.frontImage 
-              ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${data.frontImage}`
+            data?.frontImage 
+              ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${data?.frontImage}`
               : "https://s3-us-west-2.amazonaws.com/s.cdpn.io/331810/profile-sample5.jpg"
           }
           alt="profile-sample2"
@@ -79,7 +79,7 @@ const JoinedCommunityCard1 = ({ data }) => {
         />
         <h2>
           {data?.name}
-          <span>{formatUserFriendlyTime(data.createdAt)}</span>
+          <span>{formatUserFriendlyTime(data?.createdAt)}</span>
         </h2>
         <div className="h-[50px] overflow-hidden">
         <p>{data?.description}</p>
@@ -89,7 +89,7 @@ const JoinedCommunityCard1 = ({ data }) => {
             Left
           </div>
           <div
-            onClick={() => navigate(`/community/${data._id}`)}
+            onClick={() => navigate(`/community/${data?._id}`)}
             className="flex rounded cursor-pointer h-full justify-center items-center bg-transparent w-full border border-white text-white hover:text-blueMain hover:border-blueMain transition-all duration-300 ease-linear"
           >
             More Info

@@ -33,7 +33,7 @@ const CommunityPostList = ({ CommunityPostList, isCommunityAdmin,communityId }) 
         {CommunityPostList?.slice()
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .map((item, index) => (
-            <CommunityPost key={index} post={item} />
+            <CommunityPost key={index} post={item} isCommunityAdmin={isCommunityAdmin}/>
           ))}
       </div>
     </div>

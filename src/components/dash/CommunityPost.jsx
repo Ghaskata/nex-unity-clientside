@@ -1,19 +1,41 @@
-import React from "react";
+import React, { useState } from "react";
 import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
 import { Link } from "react-router-dom";
+import { Delete, Edit2, Trash2 } from "lucide-react";
+import SuccessModal from "./modal/comman/SuccessModal";
+import swal from "sweetalert";
 
-const CommunityPost = ({ post }) => {
+const CommunityPost = ({ post, isCommunityAdmin }) => {
+  const [successModalOpen, setsuccessModalOpen] = useState(false);
+
+  const handleDeletePost = () => {
+    swal({
+      title: "Are you sure?",
+      text: "You Really want to Delete This Posts !!!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        //deleet post
+      }
+    });
+  };
+
+  const handleEditPost = () => {};
+
   return (
-    <Link
-      to={`/posts/${post._id}`}
-    //   state={{ postId: "65e40224d9ac46b0ac202f21" }}
-    //   spy={true}
-    //   hashSpy={true}
-    //   offset={-50}
-    //   smooth={true}
-    //   duration={500}
-      className="cursor-pointer w-full rounded-lg border h-[250px] border-backgroundv3 bg-backgroundv2 xxl:h-[300px] flex flex-col overflow-hidden"
-    >
+    <div className="relative w-full rounded-lg border h-[250px] border-backgroundv3 bg-backgroundv2 xxl:h-[300px] flex flex-col overflow-hidden">
+      {isCommunityAdmin && (
+        <div className="absolute top-2 end-2 flex gap-3">
+          <button>
+            <Edit2 className="h-5 w-5 text-blue-700" />
+          </button>
+          <button>
+            <Trash2 className="h-5 w-5 text-red-700" />
+          </button>
+        </div>
+      )}
       <div className="h-[150px] xxl:h-[200px] w-full bg-backgroundv2 flex justify-center items-center">
         <img
           src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${post.image}`}
@@ -32,7 +54,11 @@ const CommunityPost = ({ post }) => {
           {formatUserFriendlyTime(post.createdAt)}
         </h1>
       </div>
-    </Link>
+      <SuccessModal
+        setsuccessModalOpen={setsuccessModalOpen}
+        successModalOpen={successModalOpen}
+      />
+    </div>
   );
 };
 

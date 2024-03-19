@@ -59,12 +59,7 @@ const FrontSettingPage = () => {
       isLoading: false,
       autoClose: 2000,
     });
-    // toast.info("logging out . . . ");
     setTimeout(() => {
-      // dispatch(logout());
-      // sessionStorage.clear();
-      // localStorage.clear();
-      // navigate("/");
       dispatch(updateUserData({ active: !userData.active }));
     }, 3000);
     queryClient.invalidateQueries("users");
@@ -125,7 +120,7 @@ const FrontSettingPage = () => {
       gender: userData.gender,
       isPrivate: userData.isPrivate,
     });
-  }, []);
+  }, [userData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -169,18 +164,23 @@ const FrontSettingPage = () => {
 
   const handleStatus = async () => {
     try {
-      swal({
-        title: "You Really want to Deactive Your Account ? ",
-        text: "once you Deactive Your Account You have to contact nexunity@gmain.com To Active again",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then(async (willDelete) => {
-        if (willDelete) {
-          id = toast.loading("Please wait...");
-          await activeStatusUpdate({ userId: userData._id });
-        }
-      });
+      if (userData.active) {
+        swal({
+          title: "You Really want to Deactive Your Account ? ",
+          text: "once you Deactive Your Account You have to contact nexunity@gmain.com To Active again",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then(async (willDelete) => {
+          if (willDelete) {
+            id = toast.loading("Please wait...");
+            await activeStatusUpdate({ userId: userData._id });
+          }
+        });
+      } else {
+        id = toast.loading("Please wait...");
+        await activeStatusUpdate({ userId: userData._id });
+      }
     } catch (error) {
       console.log("error >> ", error);
     }
@@ -198,7 +198,7 @@ const FrontSettingPage = () => {
         if (willDelete) {
           swal({
             title: "Success",
-            text: "Your Account Removed !!!",
+            text: "Your Remove Account Request Sent to nextUnity@gmail.com ! Your Account will remove In 2 to 3 days",
             icon: "success",
             dangerMode: true,
           });
@@ -213,11 +213,11 @@ const FrontSettingPage = () => {
     setchangePasswordModalOpen(true);
   };
 
-  console.log(
-    "userData of Store >>>> ",
-    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData.profile_pic}`
-  );
-  console.log("userData of Store >>>> ", userData);
+  // console.log(
+  //   "userData of Store >>>> ",
+  //   `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData.profile_pic}`
+  // );
+  // console.log("userData of Store >>>> ", userData);
   // console.log("edittttuser", editUser);
   return (
     <div className="w-full h-full">

@@ -66,7 +66,7 @@ const FrontHeader = () => {
   );
 
 
-  console.log("get_pending_request header>>> ",pendingRequestes)
+  // console.log("get_pending_request header>>> ",pendingRequestes)
 
   return (
     // <header className="header__wrapper h-[120px] bg-transparent   p-1 z-50  fixed fixed-top w-full shadow-none transition-all duration-500 ease-linear flex justify-center items-center">
@@ -90,7 +90,7 @@ const FrontHeader = () => {
                   className="w-full h-full object-cover object-center"
                 />
 
-                <h1 className="text-blueMain font-semibold font-playfair text-2xl md:text-3xl hidden xsm:block">
+                <h1 className="text-blueMain font-semibold !font-merienda text-2xl md:text-3xl hidden xsm:block">
                   NexUnity
                 </h1>
               </Link>

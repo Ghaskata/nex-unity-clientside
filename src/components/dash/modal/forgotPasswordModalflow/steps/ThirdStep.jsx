@@ -6,7 +6,7 @@ import { useMutation } from "react-query";
 import { AUTH_API_URL } from "../../../../../security/axios";
 import { toast } from "react-toastify";
 
-const ThirdStep = ({ otp, setotp, setStep, isActiveStep, handleClose }) => {
+const ThirdStep = ({ email,otp, setotp, setStep, isActiveStep, handleClose }) => {
   const [password, setpassword] = useState("");
   const [conPass, setconPass] = useState("");
   const axiosPrivate = useAxiosPrivate();
@@ -46,7 +46,7 @@ const ThirdStep = ({ otp, setotp, setStep, isActiveStep, handleClose }) => {
         toast.error("password should be same");
       } else {
         toastId = toast.loading("please wait ....");
-        await forgetPassword({ otp, password });
+        await forgetPassword({ otp, password ,email});
       }
     } catch (error) {
       console.log("ERROR >>> ", error);

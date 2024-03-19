@@ -10,7 +10,7 @@ import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
 import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
 
-const UsersProfileCard = ({ user ,status}) => {
+const UsersProfileCard = ({ user, status }) => {
   let toastId;
   const navigate = useNavigate("/");
   const userData = useSelector(selectUserData);
@@ -84,6 +84,7 @@ const UsersProfileCard = ({ user ,status}) => {
         setTimeout(() => {
           queryClient.invalidateQueries("users");
           queryClient.invalidateQueries(["requested", CurrentUserId]);
+          queryClient.invalidateQueries(["profileDetails", userId]);
         }, 2000);
       },
       onError: (error) => {
@@ -101,14 +102,19 @@ const UsersProfileCard = ({ user ,status}) => {
     return console.log("followingError   , followingError");
   }
 
-
-  console.log("following >> ",following);
+  console.log("following >> ", following);
 
   const handleFollow = async () => {
-    try {
-      await sendRequest({ fromUserId: CurrentUserId, toUserId: userId });
-    } catch (error) {
-      console.log("ERROR >>>> ", error);
+    if (status === "requested") {
+      toast.info("you are already send folllow request");
+    } else if (status === "following") {
+      toast.info("you are already follow ");
+    } else {
+      try {
+        await sendRequest({ fromUserId: CurrentUserId, toUserId: userId });
+      } catch (error) {
+        console.log("ERROR >>>> ", error);
+      }
     }
   };
   return (
@@ -171,8 +177,14 @@ const UsersProfileCard = ({ user ,status}) => {
         </div>
         <div className="profile-btns flex gap-3">
           <p
-            onClick={handleFollow} 
-            className={`w-full  h-12 flex justify-center items-center text-white rounded-lg ${status==="following"? "bg-blueMain border-blueMain hover:!text-blueMain":status==="requested"?"bg-red-600 border-red-600 hover:!text-red-600":"bg-blue-700 border-blue-700 hover:!text-blue-700"} hover:bg-transparent  transition-all duration-300 ease-linear border `}
+            onClick={handleFollow}
+            className={`w-full  h-12 flex justify-center items-center text-white rounded-lg ${
+              status === "following"
+                ? "bg-blueMain border-blueMain hover:!text-blueMain"
+                : status === "requested"
+                ? "bg-red-600 border-red-600 hover:!text-red-600"
+                : "bg-blue-700 border-blue-700 hover:!text-blue-700"
+            } hover:bg-transparent  transition-all duration-300 ease-linear border `}
           >
             {status}
           </p>

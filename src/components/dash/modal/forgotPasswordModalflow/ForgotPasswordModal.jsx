@@ -98,6 +98,7 @@ const ForgotPasswordModal = ({ ForgotPasswordOpen, setForgotPasswordOpen }) => {
                           otp={otp}
                           setotp={setotp}
                           setStep={setStep}
+                          email={email}
                           isActiveStep={step === 3}
                           handleClose={handleClose}
                         />

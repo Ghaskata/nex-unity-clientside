@@ -24,11 +24,11 @@ const DashSettings = () => {
   const [changePasswordModalOpen, setchangePasswordModalOpen] = useState(false);
   const [ForgotPasswordOpen, setForgotPasswordOpen] = useState(false);
 
+  const queryClient = useQueryClient();
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
   const axiosPrivate = useAxiosPrivate();
   const navigate = useNavigate();
-  const queryClient=useQueryClient()
 
   const handleSuccess = (res) => {
     toast.update(id, {
@@ -50,8 +50,7 @@ const DashSettings = () => {
       // setpreviewURL(null);
       dispatch(updateUserData(newEditedUser));
     }, 2000);
-    queryClient.invalidateQueries("users")
-
+    queryClient.invalidateQueries("users");
   };
   const handleStatusSuccess = (res) => {
     toast.update(id, {
@@ -60,15 +59,10 @@ const DashSettings = () => {
       isLoading: false,
       autoClose: 2000,
     });
-    toast.info("logging out . . . ");
     setTimeout(() => {
-      dispatch(logout());
-      sessionStorage.clear();
-      localStorage.clear();
-      navigate("/");
+      dispatch(updateUserData({ active: !userData.active }));
     }, 3000);
-    queryClient.invalidateQueries("users")
-
+    queryClient.invalidateQueries("users");
   };
 
   useEffect(() => {
@@ -126,7 +120,7 @@ const DashSettings = () => {
       gender: userData.gender,
       isPrivate: userData.isPrivate,
     });
-  }, []);
+  }, [userData]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -170,18 +164,23 @@ const DashSettings = () => {
 
   const handleStatus = async () => {
     try {
-      swal({
-        title: "You Really want to Deactive Your Account ? ",
-        text: "once you Deactive Your Account You have to contact nexunity@gmain.com To Active again",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then(async (willDelete) => {
-        if (willDelete) {
-          id = toast.loading("Please wait...");
-          await activeStatusUpdate({ userId: userData._id });
-        }
-      });
+      if (userData.active) {
+        swal({
+          title: "You Really want to Deactive Your Account ? ",
+          text: "once you Deactive Your Account You have to contact nexunity@gmain.com To Active again",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        }).then(async (willDelete) => {
+          if (willDelete) {
+            id = toast.loading("Please wait...");
+            await activeStatusUpdate({ userId: userData._id });
+          }
+        });
+      } else {
+        id = toast.loading("Please wait...");
+        await activeStatusUpdate({ userId: userData._id });
+      }
     } catch (error) {
       console.log("error >> ", error);
     }
@@ -199,7 +198,7 @@ const DashSettings = () => {
         if (willDelete) {
           swal({
             title: "Success",
-            text: "Your Account Removed !!!",
+            text: "Your Remove Account Request Sent to nextUnity@gmail.com ! Your Account will remove In 2 to 3 days",
             icon: "success",
             dangerMode: true,
           });
@@ -214,11 +213,11 @@ const DashSettings = () => {
     setchangePasswordModalOpen(true);
   };
 
-  console.log(
-    "userData of Store >>>> ",
-    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData.profile_pic}`
-  );
-  console.log("userData of Store >>>> ", userData);
+  // console.log(
+  //   "userData of Store >>>> ",
+  //   `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData.profile_pic}`
+  // );
+  // console.log("userData of Store >>>> ", userData);
   // console.log("edittttuser", editUser);
   return (
     <div className="w-full h-full">
@@ -402,7 +401,7 @@ const DashSettings = () => {
                 {previewURL ? (
                   <img
                     src={URL.createObjectURL(previewURL)}
-                    alt="Preview"
+                    alt="Preview not found"
                     width={247}
                     height={247}
                     className="h-full w-full object-cover object-center"
@@ -414,7 +413,7 @@ const DashSettings = () => {
                         ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData.profile_pic}`
                         : customeProfile
                     }
-                    alt="profile pic"
+                    alt="profile pic was not found"
                     width={247}
                     height={247}
                     className="h-full w-full object-cover object-center"
@@ -497,7 +496,7 @@ const DashSettings = () => {
                 </div>
               </div>
             </div>
-            <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5 col-span-1 md:col-span-2 xxl:col-span-1">
+            {/* <div className="rounded border  border-backgroundv3 bg-backgroundv2 p-5 col-span-1 md:col-span-2 xxl:col-span-1">
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
                   <h3 className="text-textPrimary text-16 font-semibold">
@@ -517,7 +516,7 @@ const DashSettings = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

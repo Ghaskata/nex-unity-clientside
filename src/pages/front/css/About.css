@@ -68,9 +68,9 @@
 
 .back {
   background: #cedce7;
-  background: -webkit-linear-gradient(45deg, #18182c 0%, #111140 100%);
-  background: -o-linear-gradient(45deg, #151636 0%, #0a113e 100%);
-  background: linear-gradient(45deg, #2a86fe 0%, #4e64ac 100%);
+  background: -webkit-linear-gradient(45deg, #2dcb67 0%, #4beb70 100%);
+  background: -o-linear-gradient(45deg, #3ae54b 0%, #3be875 100%);
+  background: linear-gradient(45deg, #3aee4f 0%, #3aef37 100%);
 }
 
 .front:after {

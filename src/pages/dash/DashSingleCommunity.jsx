@@ -213,7 +213,7 @@ const DashSingleCommunity = () => {
                 )}
               </div>
               <div className="flex justify-between flex-row items-end z-10 pt-28">
-                <div className="logo flex flex-row gap-5 items-start md:items-end">
+                <div className="logo flex flex-row gap-5 items-end md:items-end">
                   <div className=" w-[150px] h-[150px] lg:w-[200px] lg:h-[200px] bg-black rounded-lg overflow-hidden z-10 shadow">
                     <img
                       src={
