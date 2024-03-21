@@ -60,7 +60,7 @@ const FrontSingleEventPage = () => {
     return <DataLoadingCompo />;
   }
 
-  console.log("event >>> ", event);
+  // console.log("event >>> ", event);
 
   if (event) {
     return (

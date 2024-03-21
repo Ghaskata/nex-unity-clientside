@@ -58,8 +58,8 @@ const AddPostPage = () => {
   //   }
   // }, [location]);
 
-  console.log("createPostData", createPostData);
-  console.log("selected community:", selectCommunity);
+  // console.log("createPostData", createPostData);
+  // console.log("selected community:", selectCommunity);
 
   const { mutateAsync: createPostApi } = useMutation(
     async (data) => {

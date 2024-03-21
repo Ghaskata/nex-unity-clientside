@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
+import React, { Fragment, useCallback, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import swal from "sweetalert";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,15 +11,11 @@ import { useDropzone } from "react-dropzone";
 import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "react-query";
 import useAxiosPrivate from "../../../../security/useAxiosPrivate";
-import { COMMUNITY_API_URL, EVENT_API_URL } from "../../../../security/axios";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { MdEdit, MdEditSquare } from "react-icons/md";
+import { COMMUNITY_API_URL, JOB_API_URL } from "../../../../security/axios";
 
-const EditEventModal = ({
-  editEventModalOpen,
-  seteditEventModalOpen,
-  editEvent,
+const AddJobModal = ({
+  addJobModalOpen,
+  setaddJobModalOpen,
   setsuccessModalOpen,
 }) => {
   let toastId;
@@ -29,41 +25,29 @@ const EditEventModal = ({
   const axiosPrivate = useAxiosPrivate();
 
   const defaultValue = {
-    eventName: editEvent.eventName,
-    content: editEvent.content,
-    location: editEvent.location,
-    id: editEvent._id,
+    title: "",
+    companyName: "",
+    content: "",
   };
-  const [newEditEvent, setnewEditEvent] = useState(defaultValue);
-  const [startDate, setStartDate] = useState(editEvent.time);
-
-  useEffect(() => {
-    setnewEditEvent({
-      eventName: editEvent.eventName,
-      content: editEvent.content,
-      location: editEvent.location,
-      id: editEvent._id,
-    });
-    setStartDate(editEvent.time);
-  }, []);
-  const [imagePreview, setimagePreview] = useState("");
+  const [newJob, setnewJob] = useState(defaultValue);
+  const [ImagePreview, setImagePreview] = useState("");
 
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
-      setimagePreview(acceptedFiles[0]);
+      setImagePreview(acceptedFiles[0]);
     }
   }, []);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop: onDrop,
+    onDrop,
     accept: "image/*",
   });
 
-  //event edit api
-  const { mutateAsync: editEventApi } = useMutation(
+  //Job add api
+  const { mutateAsync: createJobApi } = useMutation(
     async (data) => {
       console.log("data in axios >>>", data);
-      return await axiosPrivate.put(EVENT_API_URL.update, data, {
+      return await axiosPrivate.post(JOB_API_URL.create, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -78,7 +62,7 @@ const EditEventModal = ({
           isLoading: false,
           autoClose: 2000,
         });
-        queryClient.invalidateQueries("events");
+        queryClient.invalidateQueries("jobs");
         setsuccessModalOpen(true);
         handleClose();
       },
@@ -89,26 +73,25 @@ const EditEventModal = ({
     }
   );
 
-  const handleEventEdit = async () => {
+  const handleJobAdd = async () => {
     try {
       if (
-        newEditEvent.eventName.trim() === "" ||
-        newEditEvent.content.trim() === "" ||
-        newEditEvent.location.trim() === ""
+        newJob.title.trim() === "" ||
+        newJob.content.trim() === "" ||
+        newJob.companyName.trim() === "" ||
+        ImagePreview === ""
       ) {
         toast.error("All fields are required");
       } else {
-        console.log("edit Event  addeddd >>>", newEditEvent);
+        console.log("new job  addeddd >>>", newJob);
         toastId = toast.loading("Processing, Please wait...");
         const formData = new FormData();
-        formData.append("id", newEditEvent.id);
-        formData.append("eventName", newEditEvent.eventName);
-        formData.append("content", newEditEvent.content);
-        formData.append("location", newEditEvent.location);
-        imagePreview && formData.append("eventImage", imagePreview);
-        formData.append("time", startDate);
+        formData.append("title", newJob.title);
+        formData.append("companyName", newJob.companyName);
+        formData.append("content", newJob.content);
+        ImagePreview && formData.append("jobImage", ImagePreview);
 
-        await editEventApi(formData);
+        await createJobApi(formData);
       }
     } catch (error) {
       console.log("ERRROR> >>", error);
@@ -116,19 +99,12 @@ const EditEventModal = ({
   };
 
   const handleClose = () => {
-    setTimeout(() => {
-      setimagePreview("");
-      setnewEditEvent(defaultValue);
-      seteditEventModalOpen(false);
-    }, 500);
+    setImagePreview("");
+    setnewJob(defaultValue);
+    setaddJobModalOpen(false);
   };
-
-  // console.log("startDate >>>> ", startDate);
-  // console.log("edit date >>>> ", editEvent.time);
-  const isValidDate = (date) => date instanceof Date && !isNaN(date);
-
   return (
-    <Transition appear show={editEventModalOpen} as={Fragment}>
+    <Transition appear show={addJobModalOpen} as={Fragment}>
       <Dialog as="div" className="relative z-50" onClose={handleClose}>
         <Transition.Child
           as={Fragment}
@@ -166,90 +142,49 @@ const EditEventModal = ({
                         className={"border-b-2 border-b-backgroundv3"}
                       >
                         <h5 className="mb-4 text-22 text-textPrimary flex gap-3 items-center">
-                          <MdEditSquare className="h-6 w-6" /> Edit Event
+                          <Plus className="h-6 w-6" /> Add New Job
                         </h5>
                       </Dialog.Title>
 
-                      <div className="my-8 flex flex-col-reverse md:flex-row gap-5 gap-y-5">
-                        <div className="grid grid-cols-1 gap-5 flex-grow">
+                      <div className="mt-8 flex flex-col-reverse md:flex-row gap-5 gap-y-5 mb-4">
+                        <div className="grid grid-cols-1 gap-3 flex-grow">
                           <div className="flex flex-col gap-1">
-                            <label htmlFor="" className="text-18">
-                              Event Name
+                            <label htmlFor="" className="text-16">
+                              Job Title
                             </label>
                             <input
                               name="name"
                               className="bg-backgroundv2 h-12 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
                               placeholder="Type Here . . ."
-                              value={newEditEvent.eventName}
+                              value={newJob.title}
                               onChange={(e) =>
-                                setnewEditEvent({
-                                  ...newEditEvent,
-                                  eventName: e.target.value,
+                                setnewJob({
+                                  ...newJob,
+                                  title: e.target.value,
                                 })
                               }
                             />
                           </div>
                           <div className="flex flex-col gap-1">
-                            <label htmlFor="" className="text-18">
-                              Event Date Time
+                            <label htmlFor="" className="text-16">
+                              Company Name
                             </label>
-                            <DatePicker
-                              selected={
-                                startDate ??
-                                (isValidDate(startDate)
-                                  ? startDate
-                                  : new Date())
-                              }
-                              onChange={(date) => {
-                                setStartDate(date);
-                              }}
-                              minDate={new Date()}
-                              showTimeSelect // This prop enables time selection
-                              dateFormat="Pp" // This prop specifies the date and time format
+                            <input
+                              name="name"
                               className="bg-backgroundv2 h-12 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
-                            />
-                          </div>
-                          <div className="flex flex-col gap-1">
-                            <label htmlFor="" className="text-18">
-                              Event content
-                            </label>
-                            <textarea
-                              name="content"
-                              rows={6}
-                              cols={12}
-                              value={newEditEvent.content}
+                              placeholder="Type Here . . ."
+                              value={newJob.companyName}
                               onChange={(e) =>
-                                setnewEditEvent({
-                                  ...newEditEvent,
-                                  content: e.target.value,
+                                setnewJob({
+                                  ...newJob,
+                                  companyName: e.target.value,
                                 })
                               }
-                              className="bg-backgroundv2 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
-                              placeholder="Type Here . . ."
-                            ></textarea>
+                            />
                           </div>
                         </div>
                         <div className="w-full md:w-[300px] flex flex-col gap-5 flex-shrink-0">
-                          <div className="flex flex-col gap-1">
-                            <label htmlFor="" className="text-18">
-                              Event Location
-                            </label>
-                            <textarea
-                              name="location"
-                              rows={6}
-                              cols={12}
-                              value={newEditEvent.location}
-                              onChange={(e) =>
-                                setnewEditEvent({
-                                  ...newEditEvent,
-                                  location: e.target.value,
-                                })
-                              }
-                              className="bg-backgroundv2 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
-                              placeholder="Event will held at . . ."
-                            ></textarea>
-                          </div>
-                          <div className="flex justify-center items-center">
+                          <div className="flex justify-center items-center w-full  h-full">
                             <div
                               {...getRootProps()}
                               className={`${
@@ -257,22 +192,14 @@ const EditEventModal = ({
                                   ? "border-4 border-dashed border-blueMain"
                                   : ""
                               }${
-                                !imagePreview && "border-2 border-blueMain"
-                              } cursor-pointer w-full h-[200px] flex flex-col gap-3 justify-center items-center rounded-2xl overflow-hidden z-10 shadow bg-blueMain/30`}
+                                !ImagePreview && "border-2 border-blueMain"
+                              } cursor-pointer w-[150px] h-[150px] flex flex-col gap-3 justify-center items-center rounded-2xl overflow-hidden z-10 shadow bg-blueMain/30`}
                             >
                               <input {...getInputProps()} />
 
-                              {imagePreview ? (
+                              {ImagePreview ? (
                                 <img
-                                  src={URL.createObjectURL(imagePreview)}
-                                  alt="Front Image Preview"
-                                  width={247}
-                                  height={247}
-                                  className="h-full w-full object-cover object-center"
-                                />
-                              ) : editEvent.eventImage != "" ? (
-                                <img
-                                  src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${editEvent.eventImage}`}
+                                  src={URL.createObjectURL(ImagePreview)}
                                   alt="Front Image Preview"
                                   width={247}
                                   height={247}
@@ -281,11 +208,11 @@ const EditEventModal = ({
                               ) : (
                                 <div className="flex flex-col gap-3 justify-center items-center ">
                                   <Image
-                                    className="h-[50px] w-[50px]"
+                                    className="h-6 w-6"
                                     strokeWidth={1.5}
                                   />
-                                  <h5 className="mb-4 text-16 text-textPrimary">
-                                    Event Image
+                                  <h5 className="mb-4 text-12 text-textPrimary">
+                                    Job Image
                                   </h5>
                                 </div>
                               )}
@@ -293,14 +220,33 @@ const EditEventModal = ({
                           </div>
                         </div>
                       </div>
+                      <div className="flex flex-col gap-1 w-full mb-8">
+                        <label htmlFor="" className="text-16">
+                          job description
+                        </label>
+                        <textarea
+                          name="content"
+                          rows={6}
+                          cols={12}
+                          value={newJob.content}
+                          onChange={(e) =>
+                            setnewJob({
+                              ...newJob,
+                              content: e.target.value,
+                            })
+                          }
+                          className="bg-backgroundv2 focus:outline-none  border border-backgroundv3 text-textPrimary  w-full rounded-lg p-3 text-14"
+                          placeholder="Type Here . . ."
+                        ></textarea>
+                      </div>
 
                       <div className="w-full flex justify-center items-center">
                         <Button
                           variant={"blueV1"}
                           className="w-full max-w-sm rounded-lg"
-                          onClick={handleEventEdit}
+                          onClick={handleJobAdd}
                         >
-                          Edit Event
+                          Add Job
                         </Button>
                       </div>
                     </div>
@@ -315,4 +261,4 @@ const EditEventModal = ({
   );
 };
 
-export default EditEventModal;
+export default AddJobModal;

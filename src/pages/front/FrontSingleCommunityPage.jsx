@@ -10,6 +10,7 @@ import { COMMUNITY_API_URL } from "../../security/axios";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
+import bg1 from "../../assets/images/bg-1.png";
 import swal from "sweetalert";
 import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
 import EditCommunityModal from "../../components/dash/modal/comman/EditCommunityModal";
@@ -24,7 +25,7 @@ const FrontSingleCommunityPage = () => {
   const [fullImageShowModalOpen, setfullImageShowModalOpen] = useState(false);
   const [imageUrl, setimageUrl] = useState(false);
   const { communityId } = useParams();
-  console.log("community id >> ", communityId);
+  // console.log("community id >> ", communityId);
   const userdata = useSelector(selectUserData);
   const userId = userData._id;
   let IsJoinedByMe;
@@ -179,10 +180,10 @@ const FrontSingleCommunityPage = () => {
   };
   // console.log("commmunity dta >>>>> ", community);
   // console.log("commmunity IsJoinedByMe >>>>> ", IsJoinedByMe);
-  console.log(
-    "commmunity image >>>>> ",
-    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`
-  );
+  // console.log(
+  //   "commmunity image >>>>> ",
+  //   `${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`
+  // );
 
   if (community) {
     return (
@@ -198,7 +199,7 @@ const FrontSingleCommunityPage = () => {
           <div className="py-3 container ">
             <div className="rounded-lg overflow-hidden bg-backgroundv1 p-5 relative border border-backgroundv3">
               <div className="absolute h-[200px] start-0 top-0 w-full bg-blueMain overflow-hidden">
-                {community.backImage && (
+                {community.backImage ? (
                   <img
                     src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.backImage}`}
                     width={247}
@@ -211,6 +212,12 @@ const FrontSingleCommunityPage = () => {
                       );
                       setfullImageShowModalOpen(true);
                     }}
+                  />
+                ) : (
+                  <img
+                    src={bg1}
+                    alt="logo"
+                    className="h-full w-full object-cover object-center "
                   />
                 )}
               </div>
@@ -228,11 +235,11 @@ const FrontSingleCommunityPage = () => {
                       alt="logo"
                       className="h-full w-full object-cover object-center"
                       onClick={() => {
-                      setimageUrl(
-                        `${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`
-                      );
-                      setfullImageShowModalOpen(true);
-                    }}
+                        setimageUrl(
+                          `${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`
+                        );
+                        setfullImageShowModalOpen(true);
+                      }}
                     />
                   </div>
                   <div>
@@ -241,7 +248,7 @@ const FrontSingleCommunityPage = () => {
                       {/* Nodeflffl Co. */}
                     </h2>
                   </div>
-                </div>  
+                </div>
 
                 <div className=" h-full justify-end items-end flex-shrink-0">
                   {community.createUserId === userData._id ? (

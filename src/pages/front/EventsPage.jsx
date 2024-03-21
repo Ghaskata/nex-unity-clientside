@@ -60,10 +60,10 @@ const EventsPage = () => {
     return <DataLoadingCompo/>
   }
 
-  console.log("events >>> ",events)
-  console.log("today events >>> ",todayEvents)
-  console.log("upcoming events >>> ",upcomingEvents)
-  console.log("past events >>> ",pastEvents)
+  // console.log("events >>> ",events)
+  // console.log("today events >>> ",todayEvents)
+  // console.log("upcoming events >>> ",upcomingEvents)
+  // console.log("past events >>> ",pastEvents)
   return (
     <>
      {(isLoading) && <DataLoadingCompo/>}

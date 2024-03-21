@@ -14,6 +14,7 @@ import swal from "sweetalert";
 import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
 import EditCommunityModal from "../../components/dash/modal/comman/EditCommunityModal";
 import FullImageShowModal from "../../components/dash/modal/comman/FullImageShowModal";
+import bg1 from "../../assets/images/bg-1.png";
 
 const DashSingleCommunity = () => {
   const navigate = useNavigate();
@@ -180,7 +181,10 @@ const DashSingleCommunity = () => {
   };
   // console.log("commmunity dta >>>>> ", community);
   // console.log("commmunity IsJoinedByMe >>>>> ", IsJoinedByMe);
-  console.log("commmunity image >>>>> ", `${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`);
+  console.log(
+    "commmunity image >>>>> ",
+    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`
+  );
 
   if (community) {
     return (
@@ -196,7 +200,7 @@ const DashSingleCommunity = () => {
           <div className="py-3 container ">
             <div className="rounded-lg overflow-hidden bg-backgroundv1 p-5 relative border border-backgroundv3">
               <div className="absolute h-[200px] start-0 top-0 w-full bg-blueMain overflow-hidden">
-                {community.backImage && (
+                {community.backImage ? (
                   <img
                     src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.backImage}`}
                     width={247}
@@ -209,6 +213,12 @@ const DashSingleCommunity = () => {
                       );
                       setfullImageShowModalOpen(true);
                     }}
+                  />
+                ) : (
+                  <img
+                    src={bg1}
+                    alt="logo"
+                    className="h-full w-full object-cover object-center "
                   />
                 )}
               </div>
@@ -226,11 +236,11 @@ const DashSingleCommunity = () => {
                       alt="logo"
                       className="h-full w-full object-cover object-center"
                       onClick={() => {
-                      setimageUrl(
-                        `${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`
-                      );
-                      setfullImageShowModalOpen(true);
-                    }}
+                        setimageUrl(
+                          `${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`
+                        );
+                        setfullImageShowModalOpen(true);
+                      }}
                     />
                   </div>
                   <div>

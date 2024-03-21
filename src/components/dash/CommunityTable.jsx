@@ -257,7 +257,7 @@ const CommunityTable = () => {
                         <button
                           className="text-green-700"
                           onClick={() =>
-                            navigate(`/dashboard/community/${community._id}`)
+                            navigate(`/community/${community._id}`)
                           }
                         >
                           <VscEye className="h-6 w-6" />

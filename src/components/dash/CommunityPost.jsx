@@ -1,12 +1,44 @@
 import React, { useState } from "react";
 import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
 import { Link } from "react-router-dom";
-import { Delete, Edit2, Trash2 } from "lucide-react";
+import { Delete, Edit2, Fullscreen, Trash2 } from "lucide-react";
 import SuccessModal from "./modal/comman/SuccessModal";
 import swal from "sweetalert";
+import { useMutation, useQueryClient } from "react-query";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { POST_API_URL } from "../../security/axios";
+import FullImageShowModal from "./modal/comman/FullImageShowModal";
 
 const CommunityPost = ({ post, isCommunityAdmin }) => {
   const [successModalOpen, setsuccessModalOpen] = useState(false);
+  const [fullImageShowModalOpen, setfullImageShowModalOpen] = useState(false);
+  const [editPostModalOpen, seteditPostModalOpen] = useState(false);
+  const queryClient = useQueryClient();
+  const axiosPrivate = useAxiosPrivate();
+
+  const [imageUrl, setimageUrl] = useState(null);
+
+  //delete api
+  const { mutateAsync: deletePost } = useMutation(
+    async () => {
+      return await axiosPrivate.delete(
+        POST_API_URL.deletePostById.replace(":postId", post._id)
+      );
+    },
+    {
+      onSuccess: (res) => {
+        // toast.success("Community Deleted successfully");
+        setsuccessModalOpen(true);
+        setTimeout(() => {
+          queryClient.invalidateQueries(["profileDetails", post.createUserId]);
+          queryClient.invalidateQueries(["community", post.communityId]);
+        }, 1500);
+      },
+      onError: (error) => {
+        console.log("error >>> ", error);
+      },
+    }
+  );
 
   const handleDeletePost = () => {
     swal({
@@ -16,27 +48,30 @@ const CommunityPost = ({ post, isCommunityAdmin }) => {
       buttons: true,
       dangerMode: true,
     }).then(async (willDelete) => {
-      if (willDelete) {
-        //deleet post
+      try {
+        if (willDelete) {
+          //deleet post
+          await deletePost();
+        }
+      } catch (error) {
+        console.log("error >> ", error);
       }
     });
   };
 
-  const handleEditPost = () => {};
-
   return (
-    <div className="relative w-full rounded-lg border h-[250px] border-backgroundv3 bg-backgroundv2 xxl:h-[300px] flex flex-col overflow-hidden">
-      {isCommunityAdmin && (
-        <div className="absolute top-2 end-2 flex gap-3">
-          <button>
+    <div className=" w-full rounded-lg border h-[250px] border-backgroundv3 bg-backgroundv2 xxl:h-[300px] flex flex-col overflow-hidden">
+      <div className="relative h-[150px] xxl:h-[200px] w-full bg-backgroundv2 flex justify-center items-center">
+        {isCommunityAdmin && (
+          <div className="absolute top-2 end-2 flex gap-3">
+            {/* <button>
             <Edit2 className="h-5 w-5 text-blue-700" />
-          </button>
-          <button>
-            <Trash2 className="h-5 w-5 text-red-700" />
-          </button>
-        </div>
-      )}
-      <div className="h-[150px] xxl:h-[200px] w-full bg-backgroundv2 flex justify-center items-center">
+          </button> */}
+            <button onClick={handleDeletePost}>
+              <Trash2 className="h-5 w-5 text-red-700" />
+            </button>
+          </div>
+        )}
         <img
           src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${post.image}`}
           width={247}
@@ -44,6 +79,13 @@ const CommunityPost = ({ post, isCommunityAdmin }) => {
           alt="logo"
           className="h-full w-full object-cover object-center"
         />
+
+        <button
+          onClick={() => setfullImageShowModalOpen(true)}
+          className="absolute bottom-2 end-2 w-[30px] h-[30px] flex justify-center bg-backgroundv2 items-center rounded-full"
+        >
+          <Fullscreen className="h-4 w-4 text-blueMain" />
+        </button>
       </div>
       <div className="flex-shrink-0 w-full h-[100px] p-3 bg-backgroundv1">
         <h1 className="text-20  font-semibold mb-1 text-textPrimary truncate">
@@ -57,6 +99,16 @@ const CommunityPost = ({ post, isCommunityAdmin }) => {
       <SuccessModal
         setsuccessModalOpen={setsuccessModalOpen}
         successModalOpen={successModalOpen}
+      />
+      <FullImageShowModal
+        fullImageShowModalOpen={fullImageShowModalOpen}
+        setfullImageShowModalOpen={setfullImageShowModalOpen}
+        imageUrl={
+          post?.image !== ""
+            ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${post?.image}`
+            : "https://images.unsplash.com/photo-1483909796554-bb0051ab60ad?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z2lybCUyMHByb2ZpbGV8ZW58MHx8MHx8fDA%3D"
+        }
+        setimageUrl={setimageUrl}
       />
     </div>
   );

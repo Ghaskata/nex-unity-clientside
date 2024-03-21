@@ -26,7 +26,7 @@ const EditCommunityModal = ({
   const axiosPrivate = useAxiosPrivate();
 
 
-  console.log("edit community >>>",editCommunity);
+  // console.log("edit community >>>",editCommunity);
   const defaultValue = {
     id:editCommunity._id,
     name: editCommunity.name,

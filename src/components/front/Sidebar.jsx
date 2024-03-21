@@ -5,11 +5,15 @@ import { Link, useLocation } from "react-router-dom";
 import { FaHome } from "react-icons/fa";
 import { LogOutIcon } from "lucide-react";
 import LogoutModal from "../dash/modal/comman/LogoutModal.jsx";
+import { useSelector } from "react-redux";
+import { selectRole, selectUserData } from "../../reducers/authSlice.js";
+import { MdSpaceDashboard } from "react-icons/md";
+
 
 const Sidebar = ({ className }) => {
   const { pathname } = useLocation();
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
-
+  const userData=useSelector(selectUserData)
   // console.log("pathname",pathname)
   return (
     <div
@@ -19,6 +23,15 @@ const Sidebar = ({ className }) => {
       )}
     >
       <ul className="w-full flex-grow py-5 flex flex-col gap-3 h-full overflow-y-scroll scrollbar mb-20">
+        {userData?.role === 1 && <li className="px-3 ">
+            <Link
+              to={"/dashboard"}
+              className={`text-base text-textPrimary md:text-lg flex items-center justify-start px-5 py-3 rounded gap-3 group/card hover:bg-backgroundv3}`}
+            >
+              <span className="icon"><MdSpaceDashboard className="w-[24px] h-[24px]" /></span>
+              Dashboard
+            </Link>
+          </li>}
         {FrontNavlinkList.map((navLinkItem, index) => (
           <li className="px-3 " key={index}>
             <Link

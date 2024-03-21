@@ -30,6 +30,7 @@ const DashCategoriesPage = lazy(() => import("../pages/dash/DashCategoriesPage")
 const DashSingleCommunity = lazy(() => import("../pages/dash/DashSingleCommunity"));
 const Roles = lazy(() => import("../pages/dash/Roles"));
 const DashEvents = lazy(() => import("../pages/dash/DashEvents"));
+const DashJobsPage = lazy(() => import("../pages/dash/DashJobsPage"));
 
 //front
 const FrontMaster = lazy(() => import("../layouts/front/FrontMaster"));
@@ -65,7 +66,10 @@ const NotFoundPage = lazy(() => import("../components/common/NotFoundPage"));
 const AuthGaurd = ({ children }) => {
   const isAuthenticated = useSelector(selectIsAuthenticated);
   const userData = useSelector(selectUserData);
-  if (isAuthenticated && userData.role === 2) {
+  // if (isAuthenticated && userData.role === 2) {
+  //   return children;
+  // }
+  if (isAuthenticated) {
     return children;
   }
   return <AuthMaster />;
@@ -109,11 +113,12 @@ export default function Router() {
         { path: "community", element: <CommunityPage /> },
         { path: "community/:communityId", element: <DashSingleCommunity /> },
         { path: "settings", element: <DashSettings /> },
-        { path: "roles", element: <Roles /> },
         { path: "users", element: <User /> },
-        { path: "subadmin", element: <CommunityManagers /> },
+        // { path: "roles", element: <Roles /> },
+        // { path: "subadmin", element: <CommunityManagers /> },
         { path: "categories", element: <DashCategoriesPage /> },
         { path: "events", element: <DashEvents /> },
+        { path: "jobs", element: <DashJobsPage /> },
       ],
     },
     //for front

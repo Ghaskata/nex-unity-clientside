@@ -206,7 +206,7 @@ const Post = ({ postData, index }) => {
         <div className="w-full flex items-center justify-between ">
           <div className="flex items-center gap-3">
             {!postData.communityId ? (
-              <div className="w-[50px] h-[50px] rounded-full overflow-hidden ">
+              <div className="w-[50px] h-[50px] rounded-full overflow-hidden border-2 border-blueMain">
                 <img
                   src={
                     `${process.env.REACT_APP_SERVER_IMAGE_PATH}${postData?.user[0]?.profile_pic}` ||
@@ -233,7 +233,7 @@ const Post = ({ postData, index }) => {
                     customeProfile
                   }
                   alt="image"
-                  className="absolute start-0 bottom-0 w-[50px] h-[50px] rounded-full"
+                  className="absolute start-0 bottom-0 w-[50px] h-[50px] rounded-full border-2 border-blueMain"
                 />
               </div>
             )}

@@ -34,9 +34,11 @@ import GenderFilter from "./userTableFilter/GenderFilter";
 import ActiveFilter from "./userTableFilter/ActiveFilter";
 import IsRoot from "./userTableFilter/IsRootFilter";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const UserTable = () => {
   let toastId;
+  const navigate=useNavigate()
   const [selectedStatus, setselectedStatus] = useState("All");
   const [selectedIsRoot, setselectedIsRoot] = useState("All");
   const [selectedgender, setselectedgender] = useState("All");
@@ -393,7 +395,7 @@ const UserTable = () => {
                     </TableCell>
                     <TableCell>
                       <div className="flex items-end justify-end gap-4 px-4">
-                        <button className="text-green-700">
+                        <button className="text-green-700" onClick={()=>navigate(`/users/${user._id}`)}>
                           <VscEye className="h-6 w-6" />
                         </button>
                         {/* <button className="text-red-600">

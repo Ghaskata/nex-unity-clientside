@@ -11,9 +11,6 @@ import { ArrowLeft, Edit2, HeartHandshake, LogOut } from "lucide-react";
 import UserProfileCommunityAndPost from "../../components/front/UserProfileCommunityAndPost";
 import customProfile from "../../assets/images/customeProfile.png";
 import bg1 from "../../assets/images/bg-1.png";
-import bg2 from "../../assets/images/bg-2.png";
-import bg3 from "../../assets/images/bg-3.png";
-import bg4 from "../../assets/images/bg-4.png";
 import { AUTH_API_URL, FOLLOW_API_URL } from "../../security/axios";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
 import { toast } from "react-toastify";
@@ -102,18 +99,23 @@ const OtherProfilePage = () => {
   return (
     <div className="w-full bg-lightGray h-full min-h-screen !text-textPrimary font-popins ">
       <div className="container py-5">
-        <div className="container">
+        <div
+          className="flex items-center gap-2 !text-blueMain pb-3  container cursor-pointer"
+          onClick={() => navigate(-1)}
+        >
+          <ArrowLeft className="h-5 w-5 text-blueMain" /> Go Back
+        </div>
+
+        <div className="container py-3">
           <div className="rounded-lg overflow-hidden bg-backgroundv1 p-5 relative border border-backgroundv3">
             <div className="absolute h-[150px] md:h-[200px] start-0 top-0 w-full bg-blueMain overflow-hidden">
-              {/* <div className="h-full w-full flex justify-end items-end">
-                  <img
-                    src={bg4}
-                    // width={444}
-                    // height={444}
-                    alt="logo"
-                    className="h-full object-cover object-center "
-                  />
-                  </div> */}
+              <div className="h-full w-full flex justify-end items-end">
+                <img
+                  src={bg1}
+                  alt="logo"
+                  className="h-full w-full object-cover object-center "
+                />
+              </div>
               {/* ${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.backImage}  */}
             </div>
             <div className="flex justify-between flex-row items-end z-10 pt-12 md:pt-16 lg:pt-20">

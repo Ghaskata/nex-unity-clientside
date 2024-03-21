@@ -109,6 +109,19 @@ const FOLLOW_API_URL = {
 
 const ADMIN_DASHBORD_COUNTS = BASE_URL + "/admin-panel/get-all-counts";
 
+
+
+
+const ROOT_JOB_API = BASE_URL + "/job";
+const JOB_API_URL = {
+  create: path(ROOT_JOB_API, "/create-job"),
+  get: path(ROOT_JOB_API, "/get"),
+  update: path(ROOT_JOB_API, "/update-job"),
+  delete: path(ROOT_JOB_API, "/delete-job/:jobid"),
+  apply: path(ROOT_JOB_API, "/applyJob"),
+};
+
+
 export {
   axiosPrivate,
   FOLLOW_API_URL,
@@ -120,4 +133,5 @@ export {
   LIKE_API_URL,
   COMMENT_API_URL,
   ADMIN_DASHBORD_COUNTS,
+  JOB_API_URL
 };

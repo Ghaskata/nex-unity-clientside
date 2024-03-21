@@ -22,42 +22,44 @@ import { Button } from "../ui/Button";
 import Input from "../ui/Input";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { event_API_URL, EVENT_API_URL } from "../../security/axios";
 import DataLoadingCompo from "../common/DataLoadingCompo";
 import { VscEye } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
-import TimeFilter from "./eventTableFilter/TimeFilter";
 import { MdEditOff } from "react-icons/md";
 import { TbEdit, TbEditOff, TbTrash, TbTrashOff } from "react-icons/tb";
 import SuccessModal from "./modal/comman/SuccessModal";
-import EditEventModal from "./modal/comman/EditEventModal";
+import EditJobModal from "./modal/comman/EditJobModal";
+import { selectUserData } from "../../reducers/authSlice";
+import { useSelector } from "react-redux";
+import { JOB_API_URL } from "../../security/axios";
+import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
 
-const EventsTable = () => {
-  let toastId;
-  const queryClient = useQueryClient();
-  const [selectedStatus, setselectedStatus] = useState("All");
-  const [search, setsearch] = useState("");
+const JobsTable = () => {
   const navigate = useNavigate();
-  const [loading, setloading] = useState(true);
-  const [displayEvent, setdisplayEvent] = useState([]);
-  const [successModalOpen, setsuccessModalOpen] = useState(false);
-  const [editEventModalOpen, seteditEventModalOpen] = useState(false);
-  const [editEvent, seteditEvent] = useState({});
-
+  const userData = useSelector(selectUserData);
+  const currentUserId = userData._id;
   const axiosPrivate = useAxiosPrivate();
-  const queryKey = useMemo(() => ["events"], []);
+  const queryClient = useQueryClient();
 
+  const [search, setsearch] = useState("");
+  const [editJob, seteditJob] = useState("");
+  const [editJobModalOpen, seteditJobModalOpen] = useState(false);
+  const [successModalOpen, setsuccessModalOpen] = useState(false);
+  const [appyJob, setappyJob] = useState("");
+
+  const queryKey = useMemo(() => ["jobs"], []);
+  //get api
   const {
-    data: events,
+    data: jobs,
     isLoading,
     isError,
     error,
   } = useQuery(
     queryKey,
     async () => {
-      const response = await axiosPrivate.get(EVENT_API_URL.get);
+      const response = await axiosPrivate.get(JOB_API_URL.get);
       return response.data.data;
     },
     {
@@ -66,99 +68,61 @@ const EventsTable = () => {
     }
   );
 
-  // delete api
-  const { mutateAsync: deleteApi } = useMutation(
-    async (deleteId) => {
-      return await axiosPrivate.delete(
-        EVENT_API_URL.delete.replace(":id", deleteId)
-      );
+  //delete api
+  const { mutateAsync: deleteJob } = useMutation(
+    async (id) => {
+      if (id) {
+        return await axiosPrivate.delete(
+          JOB_API_URL.delete.replace(":jobid", id)
+        );
+      }
     },
     {
       onSuccess: (res) => {
-        toast.update(toastId, {
-          render: res.data.message,
-          type: toast.TYPE.SUCCESS,
-          isLoading: false,
-          autoClose: 2000,
-        });
         setsuccessModalOpen(true);
         setTimeout(() => {
-          queryClient.invalidateQueries("events");
-        }, 2000);
+          queryClient.invalidateQueries("jobs");
+        }, 2500);
       },
       onError: (error) => {
-        toast.dismiss(toastId);
-        console.log("error >>. ", error);
+        console.log("error >>> ", error);
       },
     }
   );
 
-  const handleDelete = (deleteId) => {
-    try {
-      swal({
-        title: "Are you sure?",
-        text: "You Want to delete this event ? Once deleted, you will not be able to recover this !!!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-      }).then(async (willDelete) => {
-        if (willDelete) {
-          toastId = toast.loading("Please wait...");
-          await deleteApi(deleteId);
-        }
-      });
-    } catch (error) {
-      console.log("error >> ", error);
-    }
-  };
-
-  const handleEdit = (event) => {
-    seteditEvent(event);
+  const handleEditJob = (job) => {
+    seteditJob(job);
     setTimeout(() => {
-      seteditEventModalOpen(true);
+      seteditJobModalOpen(true);
     }, 50);
   };
 
-  const currentDate = new Date();
+  const handleDeleteJob = (job) => {
+    swal({
+      title: "You Really want to Delete Job ? ",
+      text: "once you delete This Job You Can not get back again ",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      try {
+        if (willDelete) {
+          await deleteJob(job._id);
+        }
+      } catch (error) {
+        console.log("error >>> ", error);
+      }
+    });
+  };
 
-  const todayEvents = events?.filter((event) => {
-    const eventDate = new Date(event.time);
+  if (error || isError) {
     return (
-      eventDate.getDate() === currentDate.getDate() &&
-      eventDate.getMonth() === currentDate.getMonth() &&
-      eventDate.getFullYear() === currentDate.getFullYear()
-    );
-  });
-
-  const upcomingEvents = events?.filter((event) => {
-    const eventDate = new Date(event.time);
-    return eventDate > currentDate;
-  });
-
-  const pastEvents = events?.filter((event) => {
-    const eventDate = new Date(event.time);
-    return eventDate < currentDate;
-  });
-
-  useEffect(() => {
-    if (selectedStatus === "Today") {
-      setdisplayEvent(todayEvents);
-    } else if (selectedStatus === "Upcomming") {
-      setdisplayEvent(upcomingEvents);
-    } else if (selectedStatus === "Past") {
-      setdisplayEvent(pastEvents);
-    } else {
-      setdisplayEvent(events);
-    }
-  });
-
-  if (isError) {
-    return (
-      <div className="w-full h-[400px] flex justify-center items-center">
-        <DataLoadingCompo />
-        <h2 className="text-textPrimary text-center text-26">
-          Network Error !!!!
-        </h2>
+      <div className="w-full bg-lightGray h-[500px] !text-textPrimary font-popins ">
+        <div className="container w-full h-full flex text-center justify-center items-center">
+          <h2 className="text-20 text-textPrimary font-semibold">
+            No Job Found
+          </h2>
+        </div>
       </div>
     );
   }
@@ -167,7 +131,8 @@ const EventsTable = () => {
     return <DataLoadingCompo />;
   }
 
-  // console.log("events >>> ", events);
+  console.log("jobs >>> ", jobs);
+
   return (
     <div className="w-full">
       <div className="rounded-xl w-full  text-textPrimary text-center text-12  shadow bg-backgroundv1 border-2 border-backgroundv3">
@@ -180,14 +145,6 @@ const EventsTable = () => {
               onChange={(e) => setsearch(e.target.value)}
             />
           </div>
-          <div className="gap-5 hidden sm:flex">
-            <TimeFilter
-              selectedStatus={selectedStatus}
-              setselectedStatus={setselectedStatus}
-            />
-            {/* <StatusFilter selectedcategory={status} setselectedcategory={setselectedstatus}/>
-                        <CategoryFilter selectedcategory={category} setselectedcategory={setselectedCategory} /> */}
-          </div>
         </div>
         <div className="table-container p-5 xxl:p-8 text-textPrimary text-center text-12 border-t-2 border-backgroundv3">
           <Table className="border-none w-full min-w-[1000px] ">
@@ -197,19 +154,19 @@ const EventsTable = () => {
                   Id
                 </TableHead>
                 <TableHead className="text-start text-14 xl:text-16">
-                  Event Image
+                  Job Image
                 </TableHead>
                 <TableHead className="text-start text-14 xl:text-16">
-                  Name
+                  Company Name
+                </TableHead>
+                <TableHead className="text-start text-14 xl:text-16">
+                  Role
                 </TableHead>
                 <TableHead className="text-start text-14 xl:text-16">
                   Content
                 </TableHead>
                 <TableHead className="text-start text-14 xl:text-16">
-                  Location
-                </TableHead>
-                <TableHead className="text-start text-14 xl:text-16">
-                  Time
+                  Applicants
                 </TableHead>
                 <TableHead className="text-start text-14 xl:text-16 max-w-[100px] truncate">
                   created By
@@ -223,27 +180,30 @@ const EventsTable = () => {
               </TableRow>
             </TableHeader>
             <TableBody>
-              {displayEvent
+              {jobs
                 ?.slice()
                 .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
                 ?.filter((item) =>
                   search.trim() === ""
                     ? item
-                    : item.eventName.toLocaleLowerCase().includes(search.trim())
+                    : item.title.toLocaleLowerCase().includes(search.trim()) ||
+                      item.companyName
+                        .toLocaleLowerCase()
+                        .includes(search.trim())
                 )
-                ?.map((event, index) => (
+                ?.map((job, index) => (
                   <TableRow
                     key={index}
                     className="border-y-2 border-backgroundv3 first:border-t-0"
                   >
                     <TableCell className="max-w-[100px] truncate">
-                      {event._id}
+                      {job._id}
                     </TableCell>
                     <TableCell>
                       <div className="image_cntainer w-[100px] h-[100px] overflow-hidden bg-textGray/50 rounded-lg">
-                        {event.frontImage !== "" && (
+                        {job.jobImage !== "" && (
                           <img
-                            src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${event.eventImage}`}
+                            src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${job.jobImage}`}
                             alt="front_image"
                             className="!h-full !w-full object-cover object-center"
                           />
@@ -252,46 +212,37 @@ const EventsTable = () => {
                     </TableCell>
                     <TableCell>
                       <div className="text-start text-16 xl:text-18 font-semibold text-blueMain">
-                        {event.eventName}
+                        {job.companyName}
                       </div>
                     </TableCell>
+                    <TableCell>{job.title}</TableCell>
                     <TableCell>
                       <div className="text-start text-12 xl:text-14 text-textGray">
-                        {event.content}
+                        {job.content}
                       </div>
                     </TableCell>
-                    <TableCell>{event.location}</TableCell>
                     <TableCell>
-                      {`on ${new Date(event.time).toLocaleDateString(
-                        undefined,
-                        { year: "numeric", month: "long", day: "numeric" }
-                      )} at ${new Date(event.time).toLocaleTimeString([], {
-                        hour: "numeric",
-                        minute: "2-digit",
-                      })}`}
+                      {formatUserFriendlyCount(job.applicants)}
                     </TableCell>
                     <TableCell className="max-w-[100px] truncate">
-                      {event.createUserId}
+                      {job.createUserId}
                     </TableCell>
                     <TableCell>
-                      {new Date(event.createdAt).toLocaleDateString()}
+                      {new Date(job.createdAt).toLocaleDateString()}
                     </TableCell>
                     <TableCell>
                       <div className="flex w-full items-center justify-center gap-4 px-4">
                         <button
                           className="text-green-700"
-                          onClick={() =>
-                            navigate(`/dashboard/event/${event._id}`)
-                          }
+                          onClick={() => navigate(`/jobs`)}
                         >
                           <VscEye className="h-6 w-6" />
                         </button>
                         <button
                           className={`text-blue-700`}
-                          disabled={new Date() > new Date(event.time)}
-                          onClick={() => handleEdit(event)}
+                          onClick={() => handleEditJob(job)}
                         >
-                          {new Date() > new Date(event.time) ? (
+                          {job.createUserId !== currentUserId ? (
                             <TbEditOff className="h-6 w-6" />
                           ) : (
                             <TbEdit className="h-6 w-6" />
@@ -299,10 +250,9 @@ const EventsTable = () => {
                         </button>
                         <button
                           className={`text-red-700`}
-                          onClick={() => handleDelete(event._id)}
-                          disabled={new Date() > new Date(event.time)}
+                          onClick={() => handleDeleteJob(job)}
                         >
-                          {new Date() > new Date(event.time) ? (
+                          {new Date() > new Date(job.time) ? (
                             <TbTrashOff className="h-6 w-6 " />
                           ) : (
                             <TbTrash className="h-6 w-6 " />
@@ -320,14 +270,14 @@ const EventsTable = () => {
         setsuccessModalOpen={setsuccessModalOpen}
         successModalOpen={successModalOpen}
       />
-      <EditEventModal
-        editEvent={editEvent}
-        editEventModalOpen={editEventModalOpen}
-        seteditEventModalOpen={seteditEventModalOpen}
+      <EditJobModal
+        editJob={editJob}
+        editJobModalOpen={editJobModalOpen}
+        seteditJobModalOpen={seteditJobModalOpen}
         setsuccessModalOpen={setsuccessModalOpen}
       />
     </div>
   );
 };
 
-export default EventsTable;
+export default JobsTable;
