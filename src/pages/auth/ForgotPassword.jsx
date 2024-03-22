@@ -1,9 +1,7 @@
-import React from "react";
-import Input from "../../components/ui/Input";
-import { Button } from "../../components/ui/Button";
-import { Link } from "react-router-dom";
 import { Mail } from "lucide-react";
+import React from "react";
 import img from "../../assets/images/frontHero/home header3.jpg";
+import { Button } from "../../components/ui/Button";
 
 const ForgotPassword = () => {
   return (

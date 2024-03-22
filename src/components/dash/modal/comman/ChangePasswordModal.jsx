@@ -1,16 +1,12 @@
-import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Plus } from "lucide-react";
+import React, { Fragment, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { toast } from "react-toastify";
-import { useSelector } from "react-redux";
-import { selectToken, selectUserData } from "../../../../reducers/authSlice";
-import useAxiosPrivate from "../../../../security/useAxiosPrivate";
-import Input from "../../../ui/Input";
-import { Button } from "../../../ui/Button";
 import { AUTH_API_URL } from "../../../../security/axios";
-import swal from "sweetalert";
+import useAxiosPrivate from "../../../../security/useAxiosPrivate";
+import { Button } from "../../../ui/Button";
+import Input from "../../../ui/Input";
 
 const ChangePasswordModal = ({
   changePasswordModalOpen,

@@ -1,14 +1,12 @@
-import React, { useMemo, useState } from "react";
-import CommunityCard from "./CommunityCard";
 import { ArrowLeft, ArrowRight, Search } from "lucide-react";
-import { Button } from "../ui/Button";
-import { useEffect } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useQuery } from "react-query";
-import { getAllCommunity } from "../../utils/community";
-import DataLoadingCompo from "../common/DataLoadingCompo";
 import { toast } from "react-toastify";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { COMMUNITY_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import DataLoadingCompo from "../common/DataLoadingCompo";
+import { Button } from "../ui/Button";
+import CommunityCard from "./CommunityCard";
 
 const allCommunity = [
   {

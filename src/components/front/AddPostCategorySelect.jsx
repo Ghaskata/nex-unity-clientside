@@ -1,3 +1,8 @@
+import React, { useEffect, useMemo } from "react";
+import { useQuery } from "react-query";
+import { CATEGORY_API_URL } from "../../security/axios.js";
+import useAxiosPrivate from "../../security/useAxiosPrivate.js";
+import DataLoadingCompo from "../common/DataLoadingCompo.jsx";
 import {
   Select,
   SelectContent,
@@ -5,13 +10,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/Select.jsx";
-import React, { FC, SetStateAction, useMemo, useRef, useState } from "react";
-import { LayoutGrid } from "lucide-react";
-import { useQuery } from "react-query";
-import { CATEGORY_API_URL } from "../../security/axios.js";
-import useAxiosPrivate from "../../security/useAxiosPrivate.js";
-import DataLoadingCompo from "../common/DataLoadingCompo.jsx";
-import { useEffect } from "react";
 
 const AddPostCategorySelect = ({ selectedCategory, setselectedCategory }) => {
   const axiosPrivate = useAxiosPrivate();

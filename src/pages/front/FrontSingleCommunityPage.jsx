@@ -1,20 +1,19 @@
 import { ArrowLeft, Edit3, HeartHandshake, LogOut, Trash2 } from "lucide-react";
 import React, { useMemo, useState } from "react";
-import CommunityPostList from "../../components/dash/CommunityPostList";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { toast } from "react-toastify";
-import DataLoadingCompo from "../../components/common/DataLoadingCompo";
-import { COMMUNITY_API_URL } from "../../security/axios";
-import axios from "axios";
 import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import bg1 from "../../assets/images/bg-1.png";
+import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import swal from "sweetalert";
-import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
+import bg1 from "../../assets/images/bg-1.png";
+import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import CommunityPostList from "../../components/dash/CommunityPostList";
 import EditCommunityModal from "../../components/dash/modal/comman/EditCommunityModal";
 import FullImageShowModal from "../../components/dash/modal/comman/FullImageShowModal";
+import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
+import { selectUserData } from "../../reducers/authSlice";
+import { COMMUNITY_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const FrontSingleCommunityPage = () => {
   const navigate = useNavigate();

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import Input from "../../../../ui/Input";
-import { Button } from "../../../../ui/Button";
-import useAxiosPrivate from "../../../../../security/useAxiosPrivate";
 import { useMutation } from "react-query";
-import { AUTH_API_URL } from "../../../../../security/axios";
 import { toast } from "react-toastify";
+import { AUTH_API_URL } from "../../../../../security/axios";
+import useAxiosPrivate from "../../../../../security/useAxiosPrivate";
+import { Button } from "../../../../ui/Button";
+import Input from "../../../../ui/Input";
 
 const ThirdStep = ({ email,otp, setotp, setStep, isActiveStep, handleClose }) => {
   const [password, setpassword] = useState("");

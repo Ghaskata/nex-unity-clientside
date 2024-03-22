@@ -1,13 +1,13 @@
 import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
-import image from "../../assets/images/frontHero/home header3.jpg";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import DataLoadingCompo from "../common/DataLoadingCompo";
-import { COMMUNITY_API_URL } from "../../security/axios";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import image from "../../assets/images/frontHero/home header3.jpg";
+import { selectUserData } from "../../reducers/authSlice";
+import { COMMUNITY_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import DataLoadingCompo from "../common/DataLoadingCompo";
 
 const HomeCommunitySuggetion = () => {
   const userData = useSelector(selectUserData);

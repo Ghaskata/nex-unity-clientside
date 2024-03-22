@@ -1,13 +1,13 @@
-import React, { useMemo, useState } from "react";
-import "./css/SingleEvent.css";
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useQuery, useQueryClient } from "react-query";
-import { EVENT_API_URL } from "../../security/axios";
-import DataLoadingCompo from "../../components/common/DataLoadingCompo";
 import { MapPin } from "lucide-react";
+import React, { useMemo, useState } from "react";
+import { useQuery, useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import { selectUserData } from "../../reducers/authSlice";
+import { EVENT_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import "./css/SingleEvent.css";
 
 const FrontSingleEventPage = () => {
   const navigate = useNavigate();

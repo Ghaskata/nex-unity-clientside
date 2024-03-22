@@ -1,11 +1,5 @@
-import React, { Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import logoutLight from "../../../../assets/images/Logout.png";
-import { Button } from "../../../ui/Button";
-import swal from "sweetalert";
-import { useDispatch } from "react-redux";
-import { logout } from "../../../../reducers/authSlice";
-import { useNavigate } from "react-router-dom";
+import React, { Fragment, useEffect } from "react";
 import Lottie from "react-lottie-player";
 import chekck from "../../../../assets/lottie/check.json";
 

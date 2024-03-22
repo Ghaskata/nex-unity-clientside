@@ -1,16 +1,10 @@
-import React, { Fragment, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import logoutLight from "../../../../assets/images/Logout.png";
-import { Button } from "../../../ui/Button";
-import Input from "../../../ui/Input";
-import { Import } from "lucide-react";
-import IcnClose from "../../../svg/IcnClose";
-import { IconButton } from "../../../ui/IconButton";
+import React, { Fragment, useEffect, useState } from "react";
+import { IoCloseOutline } from "react-icons/io5";
 import FirstStep from "./steps/FirstStep";
 import SecoundStep from "./steps/SecoundStep";
-import { IoCloseOutline } from "react-icons/io5";
-import ThirdStep from "./steps/ThirdStep";
 import SuccessStep from "./steps/SuccessStep";
+import ThirdStep from "./steps/ThirdStep";
 
 const ForgotPasswordModal = ({ ForgotPasswordOpen, setForgotPasswordOpen }) => {
   const [step, setStep] = useState(1);

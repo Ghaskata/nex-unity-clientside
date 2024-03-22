@@ -1,6 +1,7 @@
 import {
+  Eye, EyeOff,
   Lock,
-  User2Icon, Eye,EyeOff
+  User2Icon
 } from "lucide-react";
 import React, { useState } from "react";
 import { useMutation } from "react-query";

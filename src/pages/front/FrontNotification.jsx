@@ -1,12 +1,12 @@
 import React, { useMemo } from "react";
-import customImg from "../../assets/images/customeProfile.png";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
 import { useQuery, useQueryClient } from "react-query";
-import { EVENT_API_URL, FOLLOW_API_URL } from "../../security/axios";
-import DataLoadingCompo from "../../components/common/DataLoadingCompo";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
+import customImg from "../../assets/images/customeProfile.png";
+import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import { selectUserData } from "../../reducers/authSlice";
+import { FOLLOW_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const FrontNotification = () => {
   const userData = useSelector(selectUserData);

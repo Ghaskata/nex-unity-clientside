@@ -1,13 +1,12 @@
+import { Fullscreen, Trash2 } from "lucide-react";
 import React, { useState } from "react";
-import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
-import { Link } from "react-router-dom";
-import { Delete, Edit2, Fullscreen, Trash2 } from "lucide-react";
-import SuccessModal from "./modal/comman/SuccessModal";
-import swal from "sweetalert";
 import { useMutation, useQueryClient } from "react-query";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
+import swal from "sweetalert";
+import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
 import { POST_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 import FullImageShowModal from "./modal/comman/FullImageShowModal";
+import SuccessModal from "./modal/comman/SuccessModal";
 
 const CommunityPost = ({ post, isCommunityAdmin }) => {
   const [successModalOpen, setsuccessModalOpen] = useState(false);

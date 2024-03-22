@@ -1,25 +1,15 @@
-import React, { useMemo, useRef, useState } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useRef, useState } from "react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { FreeMode, Navigation, Pagination } from "swiper/modules";
-import CommunityCard from "./CommunityCard";
 import { ArrowLeft, ArrowRight, Plus } from "lucide-react";
-import { Button } from "../ui/Button";
-import { Link } from "react-router-dom";
-import MyCommunityCard from "./MyCommunityCard";
-import MyCommunityCard1 from "./MyCommunityCard1";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useQuery } from "react-query";
-import { toast } from "react-toastify";
-import DataLoadingCompo from "../common/DataLoadingCompo";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import { COMMUNITY_API_URL } from "../../security/axios";
+import { FreeMode } from "swiper/modules";
 import AddCommunityModal from "../dash/modal/comman/AddCommunityModal";
 import SuccessModal from "../dash/modal/comman/SuccessModal";
+import { Button } from "../ui/Button";
+import MyCommunityCard1 from "./MyCommunityCard1";
 
 const MyJoinedcommunity = [
   {

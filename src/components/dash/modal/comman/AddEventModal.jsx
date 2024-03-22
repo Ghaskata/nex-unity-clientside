@@ -1,19 +1,18 @@
-import React, { Fragment, useCallback, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import swal from "sweetalert";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Button } from "../../../ui/Button";
-import { IoCloseOutline } from "react-icons/io5";
-import { AwardIcon, Image, Plus, UploadCloud } from "lucide-react";
-import { selectUserData } from "../../../../reducers/authSlice";
-import { useDropzone } from "react-dropzone";
-import { toast } from "react-toastify";
-import { useMutation, useQueryClient } from "react-query";
-import useAxiosPrivate from "../../../../security/useAxiosPrivate";
-import { COMMUNITY_API_URL, EVENT_API_URL } from "../../../../security/axios";
+import { Image, Plus } from "lucide-react";
+import React, { Fragment, useCallback, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { useDropzone } from "react-dropzone";
+import { IoCloseOutline } from "react-icons/io5";
+import { useMutation, useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { selectUserData } from "../../../../reducers/authSlice";
+import { EVENT_API_URL } from "../../../../security/axios";
+import useAxiosPrivate from "../../../../security/useAxiosPrivate";
+import { Button } from "../../../ui/Button";
 
 const AddEventModal = ({
   addEventModalOpen,

@@ -1,40 +1,29 @@
-import React, { useEffect, useMemo, useState } from "react";
-import {
-  ArrowLeft,
-  ArrowRight,
-  CheckCheckIcon,
-  Pen,
-  Trash2,
-} from "lucide-react";
+import React, { useMemo, useState } from "react";
+import { FaUserCheck, FaUserXmark } from "react-icons/fa6";
+import { VscEye } from "react-icons/vsc";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import boy from "../../assets/images/boy.png";
+import defaultimage from "../../assets/images/customeProfile.png";
+import girl from "../../assets/images/girl1.png";
+import { AUTH_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import DataLoadingCompo from "../common/DataLoadingCompo";
+import Input from "../ui/Input";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "../ui/Table";
-import { Button } from "../ui/Button";
-import Input from "../ui/Input";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { AUTH_API_URL, COMMUNITY_API_URL } from "../../security/axios";
-import DataLoadingCompo from "../common/DataLoadingCompo";
-import defaultimage from "../../assets/images/customeProfile.png";
-import girl from "../../assets/images/girl1.png";
-import boy from "../../assets/images/boy.png";
-import { CgBoy, CgGirl } from "react-icons/cg";
-import { FaUserXmark, FaUserCheck } from "react-icons/fa6";
 import { Switch } from "../ui/switch";
-import { VscEye } from "react-icons/vsc";
-import StatusFilter from "./userTableFilter/StatusFilter";
-import GenderFilter from "./userTableFilter/GenderFilter";
 import ActiveFilter from "./userTableFilter/ActiveFilter";
+import GenderFilter from "./userTableFilter/GenderFilter";
 import IsRoot from "./userTableFilter/IsRootFilter";
-import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import StatusFilter from "./userTableFilter/StatusFilter";
 
 const UserTable = () => {
   let toastId;

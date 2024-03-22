@@ -1,6 +1,6 @@
 import React from "react";
-import image from "../../assets/images/frontHero/home header3.jpg";
 import { Link } from "react-router-dom";
+import image from "../../assets/images/frontHero/home header3.jpg";
 
 const CommunityCard = ({ data }) => {
   return (

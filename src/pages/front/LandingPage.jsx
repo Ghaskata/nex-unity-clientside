@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import HeroSectionCompo from "../../components/front/HeroSectionCompo";
-import TopBestSectionCompo from "../../components/front/TopBestSectionCompo";
+import React from "react";
 import Posts from "../../components/front/Posts";
 
 const LandingPage = () => {

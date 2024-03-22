@@ -1,3 +1,6 @@
+import {
+  Eye, EyeOff
+} from "lucide-react";
 import React, { useState } from "react";
 import { FaLock } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi2";
@@ -11,9 +14,6 @@ import { AUTH_API_URL } from "../../security/axios";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import OtpVerifyEmailModal from "./OtpVerifyEmailModal";
 import "./css/Login.css";
-import {
-  Eye, EyeOff
-} from "lucide-react";
 const Register = ({ setregisterModalOpen }) => {
   // const navigate = useNavigate();
   // const [IsshowPassword, setIsshowPassword] = useState(false);

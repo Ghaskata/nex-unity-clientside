@@ -1,18 +1,16 @@
-import React, { useEffect, useMemo, useState } from "react";
-import HomeUpcommingEvent from "./HomeUpcommingEvent";
-import Post from "./Post";
+import React, { useMemo, useState } from "react";
+import InfiniteScroll from "react-infinite-scroll-component";
+import { useQuery } from "react-query";
+import { useLocation } from "react-router-dom";
+import { CATEGORY_API_URL, POST_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import DataLoadingCompo from "../common/DataLoadingCompo";
+import HomeCategoriesSec from "./HomeCategoriesSec";
 import HomeCommunitySuggetion from "./HomeCommunitySuggetion";
 import HomeFollowSuggestion from "./HomeFollowSuggestion";
-import HomeCategoriesSec from "./HomeCategoriesSec";
-import { useLocation } from "react-router-dom";
-import { getAllPost } from "../../utils/post";
-import DataLoadingCompo from "../common/DataLoadingCompo";
-import { useQuery } from "react-query";
-import { toast } from "react-toastify";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { CATEGORY_API_URL, POST_API_URL } from "../../security/axios";
 import HomeTodayEventSuggestion from "./HomeTodayEventSuggestion";
-import InfiniteScroll from "react-infinite-scroll-component";
+import HomeUpcommingEvent from "./HomeUpcommingEvent";
+import Post from "./Post";
 
 const Posts = () => {
   const [loading, setloading] = useState(true);

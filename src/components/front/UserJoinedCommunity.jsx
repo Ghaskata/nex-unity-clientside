@@ -1,23 +1,13 @@
-import React, { useMemo, useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React, { useRef } from "react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
+import { Swiper, SwiperSlide } from "swiper/react";
 
-import { FreeMode, Navigation, Pagination } from "swiper/modules";
-import CommunityCard from "./CommunityCard";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import { FreeMode } from "swiper/modules";
 import { Button } from "../ui/Button";
-import { Link } from "react-router-dom";
-import JoinedCommunityCard from "./JoinedCommunityCard";
 import JoinedCommunityCard1 from "./JoinedCommunityCard1";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useQuery } from "react-query";
-import { COMMUNITY_API_URL } from "../../security/axios";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import { toast } from "react-toastify";
-import DataLoadingCompo from "../common/DataLoadingCompo";
 
 
 

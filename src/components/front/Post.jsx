@@ -1,42 +1,32 @@
-import React, { useEffect, useMemo, useState } from "react";
-import image from "../../assets/images/frontHero/home header3.jpg";
+import EmojiPicker from "emoji-picker-react";
 import {
   Clock,
-  Edit2,
   Fullscreen,
   MessageSquareMore,
-  Smile,
-  ThumbsUp,
-  Trash2,
-  ViewIcon,
+  Smile
 } from "lucide-react";
-import { Button } from "../ui/Button";
-import axios, {
+import React, { useMemo, useState } from "react";
+import { RiThumbUpFill } from "react-icons/ri";
+import Lottie from "react-lottie-player";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import customeProfile from "../../assets/images/customeProfile.png";
+import image from "../../assets/images/frontHero/home header3.jpg";
+import likeLottie from "../../assets/lottie/like.json";
+import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
+import { selectUserData } from "../../reducers/authSlice";
+import {
   COMMENT_API_URL,
   COMMUNITY_API_URL,
   LIKE_API_URL,
   POST_API_URL,
 } from "../../security/axios";
-import { useMutation, useQuery, useQueryClient } from "react-query";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
-import Lottie from "react-lottie-player";
-import likeLottie from "../../assets/lottie/like.json";
-import customeProfile from "../../assets/images/customeProfile.png";
-import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
-import EmojiPicker from "emoji-picker-react";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import { CgEditFlipH } from "react-icons/cg";
-import CommentCard from "./CommentCard";
-import { RiThumbUpFill } from "react-icons/ri";
-import {
-  HoverCard,
-  HoverCardContent,
-  HoverCardTrigger,
-} from "../ui/hover-card";
-import { useNavigate } from "react-router-dom";
 import FullImageShowModal from "../dash/modal/comman/FullImageShowModal";
-import { toast } from "react-toastify";
+import { Button } from "../ui/Button";
+import CommentCard from "./CommentCard";
 
 const Post = ({ postData, index }) => {
   const navigate = useNavigate();

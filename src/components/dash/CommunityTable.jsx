@@ -1,26 +1,23 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { ArrowLeft, ArrowRight, Eye, Pen, Trash2, View } from "lucide-react";
-import {
-  Table,
-  TableBody,
-  TableCaption,
-  TableCell,
-  TableFooter,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "../ui/Table";
-import { Button } from "../ui/Button";
-import Input from "../ui/Input";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { COMMUNITY_API_URL } from "../../security/axios";
-import DataLoadingCompo from "../common/DataLoadingCompo";
-import StatusFilter from "./communityTableFilter/StatusFilter";
+import { Trash2 } from "lucide-react";
+import React, { useMemo, useState } from "react";
 import { VscEye } from "react-icons/vsc";
+import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
+import { COMMUNITY_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import DataLoadingCompo from "../common/DataLoadingCompo";
+import Input from "../ui/Input";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "../ui/Table";
+import StatusFilter from "./communityTableFilter/StatusFilter";
 
 const CommunityTable = () => {
   //   const [page, setpage] = useState(1);

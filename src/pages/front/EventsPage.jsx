@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState } from "react";
-import "./css/EventPage.css";
-import TodayEventSlider from "../../components/front/TodayEventSlider";
-import PastEventSlider from "../../components/front/PastEventSlider";
-import UpcommingEventSlider from "../../components/front/UpcommingEventSlider";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
+import React, { useMemo, useState } from "react";
 import { useQuery } from "react-query";
-import { EVENT_API_URL } from "../../security/axios";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import PastEventSlider from "../../components/front/PastEventSlider";
+import TodayEventSlider from "../../components/front/TodayEventSlider";
+import UpcommingEventSlider from "../../components/front/UpcommingEventSlider";
+import { EVENT_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import "./css/EventPage.css";
 
 const EventsPage = () => {
 

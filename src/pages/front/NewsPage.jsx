@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from "react";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
 import "./css/NewsPage.css";
-import React, { useState, useEffect } from "react";
 
 const NewsPage = () => {
   const [Jobs, setJobs] = useState([]);

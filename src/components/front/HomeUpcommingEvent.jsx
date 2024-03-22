@@ -1,8 +1,8 @@
 import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import { EVENT_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 import DataLoadingCompo from "../common/DataLoadingCompo";
 
 const HomeUpcommingEvent = () => {

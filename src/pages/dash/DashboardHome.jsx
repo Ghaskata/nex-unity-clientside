@@ -1,35 +1,24 @@
-import React, { useMemo } from "react";
-import ChartCompo from "../../components/dash/ChartCompo";
 import {
   Blocks,
-  Briefcase,
-  CalendarCheck2,
-  CalendarClock,
-  MapPinned,
-  ShieldPlus,
-  User2,
-  Users2,
+  MapPinned
 } from "lucide-react";
+import React, { useMemo } from "react";
+import { MdPeople } from "react-icons/md";
 import {
-  RiAdminFill,
   RiAdminLine,
   RiBriefcase2Fill,
   RiCalendarCheckFill,
-  RiCalendarEventFill,
-  RiUserFill,
-  RiUserSettingsFill,
+  RiCalendarEventFill
 } from "react-icons/ri";
-import { MdPeople } from "react-icons/md";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useQuery } from "react-query";
-import {
-  ADMIN_DASHBORD_COUNTS,
-  AUTH_API_URL,
-  CATEGORY_API_URL,
-} from "../../security/axios";
-import DataLoadingCompo from "../../components/common/DataLoadingCompo";
-import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
 import { useNavigate } from "react-router-dom";
+import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import ChartCompo from "../../components/dash/ChartCompo";
+import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
+import {
+  ADMIN_DASHBORD_COUNTS
+} from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const DashboardHome = () => {
   const navigate = useNavigate();

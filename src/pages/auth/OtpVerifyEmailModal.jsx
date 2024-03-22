@@ -1,12 +1,12 @@
-import React, { FC, Fragment, useState } from "react";
-import { Transition, Dialog } from "@headlessui/react";
-import OtpInput from "react-otp-input";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { Dialog, Transition } from "@headlessui/react";
+import React, { Fragment, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { Button } from "../../components/ui/Button";
+import OtpInput from "react-otp-input";
 import { useMutation } from "react-query";
-import { AUTH_API_URL } from "../../security/axios";
 import { toast } from "react-toastify";
+import { Button } from "../../components/ui/Button";
+import { AUTH_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const OtpVerifyEmailModal = ({
   otpVerifyEmailModalOpen,
