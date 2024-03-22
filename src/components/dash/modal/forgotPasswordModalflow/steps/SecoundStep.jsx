@@ -6,10 +6,9 @@ import useAxiosPrivate from "../../../../../security/useAxiosPrivate";
 import { useMutation } from "react-query";
 import { AUTH_API_URL } from "../../../../../security/axios";
 
-const SecoundStep = ({ otp,setotp,email, step, setStep, isActiveStep }) => {
-
+const SecoundStep = ({ otp, setotp, email, step, setStep, isActiveStep }) => {
   const handleVerifyOtp = async () => {
-    setStep(3)
+    setStep(3);
   };
   return (
     <div className={`${isActiveStep ? "block" : "hidden"}`}>
@@ -38,25 +37,27 @@ const SecoundStep = ({ otp,setotp,email, step, setStep, isActiveStep }) => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row gap-2">
-      <Button
-          variant={"blueV1"}
-          type="button"
-          className="w-full rounded-lg md:py-3.5 py-2.5 md:text-base text-sm border border-textPrimary hover:bg-transparent hover:text-textPrimary bg-textPrimary text-backgroundv1"
-          onClick={()=>{setStep(1)}}
-        >
-          back
-        </Button>
-    
-      {otp?.length >= 6 && (
         <Button
           variant={"blueV1"}
           type="button"
-          className="w-full rounded-lg md:py-3.5 py-2.5 md:text-base text-sm"
-          onClick={handleVerifyOtp}
+          className="w-full rounded-lg md:py-3.5 py-2.5 md:text-base text-sm border border-textPrimary hover:bg-transparent hover:text-textPrimary bg-textPrimary text-backgroundv1"
+          onClick={() => {
+            setStep(1);
+          }}
         >
-          next
+          back
         </Button>
-      )}
+
+        {otp?.length >= 6 && (
+          <Button
+            variant={"blueV1"}
+            type="button"
+            className="w-full rounded-lg md:py-3.5 py-2.5 md:text-base text-sm"
+            onClick={handleVerifyOtp}
+          >
+            next
+          </Button>
+        )}
       </div>
     </div>
   );

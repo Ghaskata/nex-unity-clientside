@@ -26,7 +26,7 @@ const AboutUsPage = () => {
             >
               <div className="inner">
                 <p> Our mission </p>
-                <span>Lorem ipsum</span>
+                <span>we believe in the power of connection </span>
               </div>
             </div>
             <div className="back">
@@ -48,7 +48,7 @@ const AboutUsPage = () => {
             >
               <div className="inner">
                 <p> What We Offer </p>
-                <span>Lorem ipsum</span>
+                <span>share experiences , and supports</span>
               </div>
             </div>
             <div className="back">
@@ -72,7 +72,7 @@ const AboutUsPage = () => {
             >
               <div className="inner">
                 <p>Our Team</p>
-                <span>Lorem ipsum</span>
+                <span>shared vision to create a space</span>
               </div>
             </div>
             <div className="back">
@@ -94,7 +94,7 @@ const AboutUsPage = () => {
             >
               <div className="inner">
                 <p> Privacy and Security </p>
-                <span>Lorem ipsum</span>
+                <span> Our platform was born out of a shared</span>
               </div>
             </div>
             <div className="back">
@@ -116,7 +116,7 @@ const AboutUsPage = () => {
             >
               <div className="inner">
                 <p>Future Goals</p>
-                <span>Lorem ipsum</span>
+                <span>Source of Knowdlege</span>
               </div>
             </div>
             <div className="back">
@@ -139,7 +139,7 @@ const AboutUsPage = () => {
             >
               <div className="inner">
                 <p>Social Media Integration</p>
-                <span>Lorem ipsum</span>
+                <span>you're seeking inspiration,</span>
               </div>
             </div>
             <div className="back">
@@ -161,7 +161,7 @@ const AboutUsPage = () => {
             >
               <div className="inner">
                 <p>Community Groups </p>
-                <span>Lorem ipsum</span>
+                <span>Source of  knowledge</span>
               </div>
             </div>
             <div className="back">
@@ -185,7 +185,7 @@ const AboutUsPage = () => {
             >
               <div className="inner">
                 <p>Get Involved</p>
-                <span>Lorem ipsum</span>
+                <span> simply a sense of belonging</span>
               </div>
             </div>
             <div className="back">
@@ -206,7 +206,7 @@ const AboutUsPage = () => {
             >
               <div className="inner">
                 <p>Get Involved</p>
-                <span>Lorem ipsum</span>
+                <span>we believe in the power of connection</span>
               </div>
             </div>
             <div className="back">

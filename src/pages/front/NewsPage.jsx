@@ -31,38 +31,40 @@ const NewsPage = () => {
         <h2 className="font-500 text-22 flex-shrink-0 md:text-24 lg:text-28 text-textPrimary">
           News Page
         </h2>{" "}
-        {(Jobs===undefined || Jobs.length === 0 ) && <DataLoadingCompo />}
-        {Jobs.length > 0 && (
+        {(Jobs === undefined || Jobs?.length === 0) && <DataLoadingCompo />}
+        {Jobs?.length > 0 && (
           <div class="grid grid-cols-1 lg:grid-cols-2 3xl:grid-cols-3">
-            {Jobs.map((article,index) => (
-              <div class="ct-blog" key={index}>
-                <div class="inner !bg-backgroundv2">
-                  <div class="fauxcrop">
-                    {/* <img alt="News Entry" src="../../assets/images/about/businessman-pointing.jpg" /> */}
-                    <img alt="News Entry" src={article.urlToImage} />
-                  </div>
-                  <div class="ct-blog-content !bg-backgroundv2">
-                    <div class="ct-blog-date !text-textPrimary">
-                      <span>{new Date(article.publishedAt).getDate()}</span>
-                      <strong>
-                        {new Date(article.publishedAt).toLocaleString(
-                          "default",
-                          {
-                            month: "long",
-                          }
-                        )}
-                      </strong>
+            {Jobs.filter((item) => item.urlToImage !== null).map(
+              (article, index) => (
+                <div class="ct-blog" key={index}>
+                  <div class="inner !bg-backgroundv2">
+                    <div class="fauxcrop">
+                      {/* <img alt="News Entry" src="../../assets/images/about/businessman-pointing.jpg" /> */}
+                      <img alt="News Entry" src={article.urlToImage} />
                     </div>
-                    <div class="ct-blog-header  !text-textPrimary">
-                      {article.title}
-                      <p class="ct-blog-description  !text-textPrimary">
-                        {article.description}
-                      </p>
+                    <div class="ct-blog-content !bg-backgroundv2">
+                      <div class="ct-blog-date !text-textPrimary">
+                        <span>{new Date(article.publishedAt).getDate()}</span>
+                        <strong>
+                          {new Date(article.publishedAt).toLocaleString(
+                            "default",
+                            {
+                              month: "long",
+                            }
+                          )}
+                        </strong>
+                      </div>
+                      <div class="ct-blog-header  !text-textPrimary">
+                        {article.title}
+                        <p class="ct-blog-description  !text-textPrimary">
+                          {article.description}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         )}
       </div>

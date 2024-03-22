@@ -184,7 +184,7 @@ const AddPostPage = () => {
                       createPostData.post_type === 2 && "bg-blueMain text-white"
                     }`}
                   >
-                    Commmuity
+                    Community
                   </label>
                   <input
                     type="radio"

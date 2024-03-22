@@ -192,7 +192,9 @@ function JobsPage() {
                         Company Name : <strong> {job.companyName} </strong>{" "}
                       </span>
                     </div>
-                    <div className="job-card-subtitle !font-400 !text-12">{job.content}</div>
+                    <div className="job-card-subtitle !font-400 !text-12">
+                      {job.content}
+                    </div>
                     <div className="job-detail-buttons">
                       <button className="search-buttons detail-button">
                         {" "}
@@ -223,7 +225,7 @@ function JobsPage() {
             <div className="searched-show">
               <h1 className="text-20 text-textPrimary font-semibold !text-primary">
                 {" "}
-                Showing Jobs{" "}
+                Available Jobs{" "}
               </h1>
             </div>
             {myJobs.length == 0 && (
@@ -279,7 +281,9 @@ function JobsPage() {
                       Company Name : <strong> {job.companyName} </strong>{" "}
                     </span>
                   </div>
-                  <div className="job-card-subtitle !font-400 !text-12">{job.content}</div>
+                  <div className="job-card-subtitle !font-400 !text-12">
+                    {job.content}
+                  </div>
                   <div className="job-detail-buttons">
                     <button className="search-buttons detail-button">
                       {" "}
@@ -288,7 +292,7 @@ function JobsPage() {
                   </div>
                   <div className="job-card-buttons">
                     <button
-                      className="search-buttons card-buttons"
+                      className="search-buttons card-buttons hover:!bg-backgroundv2"
                       onClick={() => handleApplyJob(job)}
                     >
                       Apply Now
