@@ -240,7 +240,7 @@ const JobsTable = () => {
                         </button>
                         <button
                           className={`text-blue-700`}
-                          onClick={() => handleEditJob(job)}
+                          onClick={() => job.createUserId === currentUserId ?handleEditJob(job):''}
                         >
                           {job.createUserId !== currentUserId ? (
                             <TbEditOff className="h-6 w-6" />

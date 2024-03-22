@@ -1,37 +1,20 @@
-import React, { useEffect, useState } from "react";
-import img from "../../assets/images/frontHero/home header3.jpg";
-import IcnClose from "../../components/svg/IcnClose";
+import {
+  Lock,
+  User2Icon, Eye,EyeOff
+} from "lucide-react";
+import React, { useState } from "react";
+import { useMutation } from "react-query";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import { Button } from "../../components/ui/Button";
-import { IconButton } from "../../components/ui/IconButton";
-import IcnCloseEye from "../../components/svg/IcnCloseEye";
-import IcnOpenEye from "../../components/svg/IcnOpenEye";
-import Input from "../../components/ui/Input";
 import { toast } from "react-toastify";
 import ForgotPasswordModal from "../../components/dash/modal/forgotPasswordModalflow/ForgotPasswordModal";
 import {
-  CircleUserRound,
-  Facebook,
-  Linkedin,
-  Lock,
-  Twitter,
-  User,
-  User2,
-  User2Icon,
-} from "lucide-react";
-import { authenticate } from "../../utils/authenticate";
-import { useMemo } from "react";
-import { useMutation } from "react-query";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { AUTH_API_URL } from "../../security/axios";
-import { useDispatch, useSelector } from "react-redux";
-import {
   login,
-  selectIsAuthenticated,
   selectRole,
-  selectUserData,
+  selectUserData
 } from "../../reducers/authSlice";
-import { FaGoogle } from "react-icons/fa";
+import { AUTH_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 import "./css/Login.css";
 
 const Login = () => {
@@ -45,7 +28,7 @@ const Login = () => {
   const role = useSelector(selectRole);
   const [loading, setloading] = useState(false);
   const navigate = useNavigate();
-
+  // const showPassword = false
   const { mutateAsync: loginApi } = useMutation(
     async (data) => {
       return await axiosPrivate.post(AUTH_API_URL.login, JSON.stringify(data));
@@ -110,7 +93,7 @@ const Login = () => {
     try {
       id = toast.loading("Please wait...");
       await loginApi(user);
-    } catch (error) {}
+    } catch (error) { }
 
     // authenticate(user);
     // console.log("session >>> ",JSON.parse(sessionStorage.getItem("user")))
@@ -197,7 +180,7 @@ const Login = () => {
           </div>
         </div>
       </div> */}
-      
+
       <div className="login-container">
         <div className="forms-container">
           <div className="signin-signup">
@@ -219,19 +202,29 @@ const Login = () => {
                 <i className="fas fa-lock">
                   <Lock className="mt-2 ps-1" />
                 </i>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={user.password}
-                  onChange={handleChange}
-                />
+                <div style={{ position: 'relative', display: 'inline-flex' }}>
+                  <input
+                    type={IsshowPassword ? "text" : "password"}
+                    placeholder="Password"
+                    name="password"
+                    value={user.password}
+                    onChange={handleChange}
+                    // className="h-12 bg-backgroundv2 font-400 !text-14 !text-textPrimary focus:outline-none border border-backgroundv3 w-full rounded-lg px-5"
+                    style={{ paddingRight: '2.5rem' }} // Add some padding on the right to accommodate the eye icon
+                  />
+                  <span style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)' }}>
+                    <i className="fas fa-lock">
+                      {IsshowPassword ?<Eye className="mt-2 ps-1" onClick={() => setIsshowPassword(!IsshowPassword)} />:<EyeOff className="mt-2 ps-1" onClick={() => setIsshowPassword(!IsshowPassword)} />}
+                    </i>
+                  </span>
+                </div>
+
               </div>
               <div className="w-full max-w-[380px] mt-3 flex justify-end items-end !text-end">
-                <div className="!text-end cursor-pointer text-blue-800" onClick={()=>setForgotPasswordOpen(true)}>forgot Password ?</div>
+                <div className="!text-end cursor-pointer text-blue-800" onClick={() => setForgotPasswordOpen(true)}>Forgot Password ?</div>
               </div>
               <input type="submit" value="Login" className="btn solid" />
-              <p className="social-text font-semibold" >Or Sign in with social platforms</p>
+              {/* <p className="social-text font-semibold" >Or Sign in with social platforms</p>
               <div className="social-media">
                 <Link to="#" className="social-icon">
                   <Facebook />
@@ -245,7 +238,7 @@ const Login = () => {
                 <a href="#" className="social-icon">
                   <Linkedin />
                 </a>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>

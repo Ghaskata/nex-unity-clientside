@@ -232,7 +232,9 @@ const EditCommunityModal = ({
                                   alt="Front Image Preview"
                                   width={247}
                                   height={247}
-                                  className="h-full w-full object-cover object-center"
+                                  className="h-full w-full object-cover object-center"  onError={(e) => {
+                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  }}
                                 />
                               ) : 
                               (
@@ -241,7 +243,9 @@ const EditCommunityModal = ({
                                   alt="Front Image Preview"
                                   width={247}
                                   height={247}
-                                  className="h-full w-full object-cover object-center"
+                                  className="h-full w-full object-cover object-center"  onError={(e) => {
+                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  }}
                                 />
                               )}
                             </div>
@@ -273,7 +277,9 @@ const EditCommunityModal = ({
                                   alt="Front Image Preview"
                                   width={247}
                                   height={247}
-                                  className="h-full w-full object-cover object-center"
+                                  className="h-full w-full object-cover object-center"  onError={(e) => {
+                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  }}
                                 />
                               )}
                             </div>

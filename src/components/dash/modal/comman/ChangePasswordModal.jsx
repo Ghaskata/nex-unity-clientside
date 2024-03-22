@@ -154,7 +154,7 @@ const ChangePasswordModal = ({
                             className="!text-end cursor-pointer text-blue-800"
                             onClick={handleForgotPassword}
                           >
-                            forgot Password ?
+                            Forgot Password  ?
                           </div>
                         </div>
                       </div>
