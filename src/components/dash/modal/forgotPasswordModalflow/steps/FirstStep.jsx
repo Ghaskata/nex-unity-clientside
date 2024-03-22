@@ -74,7 +74,7 @@ const FirstStep = ({ email, setemail, setStep, isActiveStep }) => {
         {loading ? (
           <div className="h-8 w-8 border-l-2 border-b-2 rounded-full animate-spin"></div>
         ) : (
-          "Send OPT"
+          "Send OTP"
         )}
       </Button>
     </div>

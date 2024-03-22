@@ -111,7 +111,7 @@ const UpcommingEventSlider = ({ upcomingEvents }) => {
           </div>
         </>
       ) : (
-        <div className="w-full h-[300px] flex justify-center items-center text-center">
+        <div className="w-full h-[200px] flex justify-center items-center text-center">
           <h2 className="text-textGray text-20 ">No Upcomming Events</h2>
         </div>
       )}

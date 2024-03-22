@@ -111,8 +111,8 @@ const TodayEventSlider = ({ todayEvents }) => {
           </div>
         </>
       ) : (
-        <div className="w-full h-[300px] flex justify-center items-center text-center">
-          <h2 className="text-textGray text-20 ">ToDay Has No Events</h2>
+        <div className="w-full h-[200px] flex justify-center items-center text-center">
+          <h2 className="text-textGray text-20 ">Today Has No Events</h2>
         </div>
       )}
     </div>

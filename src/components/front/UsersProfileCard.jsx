@@ -189,7 +189,7 @@ const UsersProfileCard = ({ user, status }) => {
             {status}
           </p>
           <p
-            onClick={() => navigate(`/users/${user.first_name}`)}
+            onClick={() => navigate(`/users/${user._id}`)}
             className="w-full  h-12 flex justify-center items-center text-white rounded-lg bg-blueMain hover:bg-transparent hover:!text-blueMain transition-all duration-300 ease-linear border border-blueMain"
           >
             View

@@ -40,7 +40,7 @@ const ContactUsPage = () => {
                     </div>
                 </div>
 
-                <div class="social-media">
+                {/* <div class="social-media">
                     <p className='!text-textPrimary'>Connect with us :</p>
                     <div class="social-icons">
                         <a href="#" className='flex justify-center items-center '>
@@ -56,7 +56,7 @@ const ContactUsPage = () => {
                             <FaLinkedin />
                         </a>
                     </div>
-                </div>
+                </div> */}
             </div>
 
             <div class="contact-circle ">

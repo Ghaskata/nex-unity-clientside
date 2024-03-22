@@ -480,10 +480,10 @@ const FrontSettingPage = () => {
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
                   <h3 className="text-textPrimary text-16 font-semibold">
-                    Forgot Passwod ??
+                    Forgot Password ??
                   </h3>
                   <h4>
-                    If You Forgot Your Password then then Update your Password
+                    If You Forgot Your Password then Update your Password
                   </h4>
                 </div>
                 <div className=" flex-shrink-0">
@@ -500,10 +500,10 @@ const FrontSettingPage = () => {
               <div className="w-full flex justify-between items-start">
                 <div className="flex-grow w-full">
                   <h3 className="text-textPrimary text-16 font-semibold">
-                    Dangor !!! Remove Account
+                    Danger !!! Remove Account
                   </h3>
                   <h4>
-                    Once you deelete Account , there is no any way to going back
+                    Once you delete Account , there is no any way to going back
                     your Account
                   </h4>
                 </div>

@@ -21,6 +21,7 @@ const ForgotPasswordModal = ({ ForgotPasswordOpen, setForgotPasswordOpen }) => {
     setForgotPasswordOpen(false);
     setTimeout(() => {
       setStep(1);
+      setotp("")
       setemail("");
     }, 500);
   };
