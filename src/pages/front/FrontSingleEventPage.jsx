@@ -82,9 +82,9 @@ const FrontSingleEventPage = () => {
               <h2 className="product-title !text-blueMain">
                 {event[0].eventName}
               </h2>
-              <a href="#" className="product-link">
+              {/* <a href="#" className="product-link">
                 visit event
-              </a>
+              </a> */}
 
               <div className="product-price">
                 <p className="last-price">

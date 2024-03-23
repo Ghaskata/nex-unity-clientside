@@ -71,8 +71,8 @@ const DashboardHome = () => {
 
   return (
     <div className="dash h-full min-h-screen container w-full bg-backgroundv2 p-8 transition-all duration-200 ease-in-out">
-      <h3 className="text-28 lg:text-32 text-textPrimary">Dashboard</h3>
-      <div className="dash_home py-5 lg:py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2  3xl:grid-cols-3 gap-5">
+      {/* <h3 className="text-28 lg:text-32 text-textPrimary">Dashboard</h3> */}
+      <div className="dash_home pb-5 lg:pb-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2  3xl:grid-cols-3 gap-5">
         <div
           onClick={() => navigate("/dashboard/users")}
           className="cursor-pointer dashbord-card shadow-md group/item hover:scale-105 transition-all duration-300 ease-linear rounded-2xl bg-backgroundv1 w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative"

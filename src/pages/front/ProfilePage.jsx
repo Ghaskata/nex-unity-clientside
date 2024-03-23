@@ -98,8 +98,8 @@ const ProfilePage = () => {
                 <div>
                   <h2 className="text-28  xl:text-30 xxl:text-32  hidden xl:block flex-shrink-0 font-semibold text-textPrimary">
                     {profileDetails?.userDetails?.first_name}{" "}
+                    {profileDetails?.userDetails?.middle_name}{" "}
                     {profileDetails?.userDetails?.surname}{" "}
-                    {profileDetails?.userDetails?.middle_name}
                   </h2>
                 </div>
               </div>
