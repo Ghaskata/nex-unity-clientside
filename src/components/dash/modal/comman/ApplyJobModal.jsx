@@ -35,7 +35,8 @@ const ApplyJobModal = ({
     setapplyJobData({ ...applyJobData, id: job._id });
   }, []);
 
-  
+  console.log("apply job data >> ",applyJobData);
+  console.log("apply -data >> ",job);
   //Job apply api
   const { mutateAsync: applyJobApi } = useMutation(
     async (data) => {

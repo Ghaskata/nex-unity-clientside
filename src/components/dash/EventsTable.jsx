@@ -62,12 +62,12 @@ const EventsTable = () => {
     },
     {
       onSuccess: (res) => {
-        toast.update(toastId, {
-          render: res.data.message,
-          type: toast.TYPE.SUCCESS,
-          isLoading: false,
-          autoClose: 2000,
-        });
+        // toast.update(toastId, {
+        //   render: res.data.message,
+        //   type: toast.TYPE.SUCCESS,
+        //   isLoading: false,
+        //   autoClose: 2000,
+        // });
         setsuccessModalOpen(true);
         setTimeout(() => {
           queryClient.invalidateQueries("events");
@@ -90,7 +90,7 @@ const EventsTable = () => {
         dangerMode: true,
       }).then(async (willDelete) => {
         if (willDelete) {
-          toastId = toast.loading("Please wait...");
+          // toastId = toast.loading("Please wait...");
           await deleteApi(deleteId);
         }
       });

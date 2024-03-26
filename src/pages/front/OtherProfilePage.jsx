@@ -139,34 +139,44 @@ const OtherProfilePage = () => {
                 </div>
               </div>
 
-              <div className=" h-full justify-end items-end flex-shrink-0">
-                {profileDetails?.isYouFollowThisPerson ? (
-                  <button
-                    className={`${"bg-blueMain flex gap-2 items-center justify-center text-white border-blueMain hover:bg-transparent hover:text-blueMain"} rounded-lg h-10 px-5 gap-2 flex justify-center font-semibold items-center border text-16 transition-all duration-300 ease-linear`}
-                  >
-                    following
-                  </button>
-                ) : profileDetails?.isYouRequested ? (
-                  <button
-                    className={`${"bg-red-700 flex gap-2 items-center justify-center text-white border-red-700 hover:bg-transparent hover:text-red-700"} rounded-lg h-10 px-5 gap-2 flex justify-center font-semibold items-center border text-16 transition-all duration-300 ease-linear`}
-                  >
-                    requested
-                  </button>
-                ) : (
-                  <button
-                    onClick={handleFollow}
-                    className={`${"bg-blue-700 flex gap-2 items-center justify-center text-white border-blue-700 hover:bg-transparent hover:text-blue-700"} rounded-lg h-10 px-5 gap-2 flex justify-center font-semibold items-center border text-16 transition-all duration-300 ease-linear`}
-                  >
-                    folllow
-                  </button>
-                )}
-              </div>
+              {profileDetails?.userDetails?._id === userData._id ? (
+                <button
+                  onClick={() => navigate("/settings")}
+                  className={`bg-blue-700 flex gap-2 items-center justify-center text-white border-blue-700 hover:bg-transparent hover:text-blue-700 rounded-lg h-12 px-5 font-semibold border text-16 transition-all duration-300 ease-linear`}
+                >
+                  <Edit2 className="h-5 w-5" />{" "}
+                  <span className="hidden md:block">Edit Profile</span>
+                </button>
+              ) : (
+                <div className=" h-full justify-end items-end flex-shrink-0">
+                  {profileDetails?.isYouFollowThisPerson ? (
+                    <button
+                      className={`${"bg-blueMain flex gap-2 items-center justify-center text-white border-blueMain hover:bg-transparent hover:text-blueMain"} rounded-lg h-10 px-5 gap-2 flex justify-center font-semibold items-center border text-16 transition-all duration-300 ease-linear`}
+                    >
+                      following
+                    </button>
+                  ) : profileDetails?.isYouRequested ? (
+                    <button
+                      className={`${"bg-red-700 flex gap-2 items-center justify-center text-white border-red-700 hover:bg-transparent hover:text-red-700"} rounded-lg h-10 px-5 gap-2 flex justify-center font-semibold items-center border text-16 transition-all duration-300 ease-linear`}
+                    >
+                      requested
+                    </button>
+                  ) : (
+                    <button
+                      onClick={handleFollow}
+                      className={`${"bg-blue-700 flex gap-2 items-center justify-center text-white border-blue-700 hover:bg-transparent hover:text-blue-700"} rounded-lg h-10 px-5 gap-2 flex justify-center font-semibold items-center border text-16 transition-all duration-300 ease-linear`}
+                    >
+                      folllow
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
             <div className="my-4">
               <h2 className="text-20 sm:text-22 md:text-24 block xl:hidden font-semibold text-textPrimary">
                 {profileDetails?.userDetails?.first_name}{" "}
+                {profileDetails?.userDetails?.middle_name}{" "}
                 {profileDetails?.userDetails?.surname}{" "}
-                {profileDetails?.userDetails?.middle_name}
               </h2>
             </div>
             <div className="h-[1px] w-full bg-backgroundv3"></div>

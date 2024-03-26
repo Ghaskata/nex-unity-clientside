@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useMemo, useState } from "react";
 import Logo from "../../assets/images/Logo";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ThemeToggler from "../../components/common/ThemeToggler";
 import { BellPlusIcon, MenuIcon } from "lucide-react";
 import { IconButton } from "../../components/ui/IconButton";
@@ -12,11 +12,36 @@ import logo from "../../assets/images/loho1.png";
 import { useSelector } from "react-redux";
 import { selectUserData } from "../../reducers/authSlice";
 import defaultimage from "../../assets/images/customeProfile.png";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import { useQuery } from "react-query";
+import { FOLLOW_API_URL } from "../../security/axios";
+import { Bell, Menu, Plus, Settings } from "lucide-react";
+
 
 const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
   const userData = useSelector(selectUserData);
   const { isDarkMode } = useContext(ThemeContext);
-  
+  const navigate = useNavigate();
+
+  const CurrentUserId=userData._id
+  const axiosPrivate = useAxiosPrivate();
+  const queryKey = useMemo(() => ["get_pending_request"], []);
+
+  const { data: pendingRequestes } = useQuery(
+    queryKey,
+    async () => {
+      const response = await axiosPrivate.get(
+        FOLLOW_API_URL.get_pending_request.replace(":user_id", CurrentUserId)
+      );
+      return response.data.data;
+    },
+    {
+      enabled: true,
+      refetchOnWindowFocus: false,
+    }
+  );
+
+
   return (
     <div className="dash_header bg-backgroundv1 border border-backgroundv3 text-textPrimary w-full fixed top-0 start-0 z-50 shadow h-[78px]">
       <div className="header_wrapper flex justify-between items-center px-5 h-full w-full">
@@ -49,9 +74,33 @@ const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
           </div>
         </div>
         <div className="group of functions flex justify-center items-center gap-1 xl:gap-3">
-          <IconButton>
+          <button onClick={() => navigate("/add-post")}>
+            <Plus
+              className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px] text-textPrimary"
+              strokeWidth={1.8}
+            />
+          </button>
+          <button
+            onClick={() => navigate("/notification")}
+            className="relative"
+          >
+            <Bell
+              className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px] text-textPrimary"
+              strokeWidth={1.8}
+            />
+            <div className="absolute -top-2 -end-2 w-5 h-5 rounded-full bg-blueMain text-white flex justify-center items-center text-10">
+              {pendingRequestes?.length}
+            </div>
+          </button>
+          <Link to={"/settings"}>
+            <Settings
+              className="h-[24px] w-[24px] xl:h-[32px] xl:w-[32px] text-textPrimary custom-spin"
+              strokeWidth={1.8}
+            />
+          </Link>
+          {/* <IconButton>
             <BellPlusIcon className=" h-[24px] w-[24px] xl:h-[32px] xl:w-[32px]" />
-          </IconButton>
+          </IconButton> */}
           <ThemeToggler />
           <button className="h-[42px] w-[42px] overflow-hidden rounded-full">
             <img
