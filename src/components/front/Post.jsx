@@ -180,9 +180,9 @@ const Post = ({ postData, index }) => {
   const handleAddcomment = async (e) => {
     if (e.key === "Enter") {
       setShowEmojiPicker(false);
-      if (addCommentData.trim()==="") {
-        toast.info("comment should not empty")
-      }else{
+      if (addCommentData.trim() === "") {
+        toast.info("comment should not empty");
+      } else {
         try {
           await addcomment({ postId: postId, content: addCommentData });
           setshowcomment(true);
@@ -209,8 +209,9 @@ const Post = ({ postData, index }) => {
               <div className="w-[50px] h-[50px] rounded-full overflow-hidden border-2 border-blueMain">
                 <img
                   src={
-                    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${postData?.user[0]?.profile_pic}` ||
-                    customeProfile
+                    postData?.user[0]?.profile_pic !== ""
+                      ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${postData?.user[0]?.profile_pic}`
+                      : customeProfile
                   }
                   alt="image"
                   className="w-full h-full object-cover object-center"
@@ -229,8 +230,9 @@ const Post = ({ postData, index }) => {
                 )}
                 <img
                   src={
-                    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${postData?.user[0]?.profile_pic}` ||
-                    customeProfile
+                    postData?.user[0]?.profile_pic !== ""
+                      ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${postData?.user[0]?.profile_pic}`
+                      : customeProfile
                   }
                   alt="image"
                   className="absolute start-0 bottom-0 w-[50px] h-[50px] rounded-full border-2 border-blueMain"
@@ -359,7 +361,8 @@ const Post = ({ postData, index }) => {
           <div className="w-[45px] h-[45px] flex-shrink-0 rounded-full overflow-hidden">
             <img
               src={
-                `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData?.profile_pic}` ||
+                userData?.profile_pic !=="" ?
+                `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData?.profile_pic}` :
                 customeProfile
               }
               alt="image"

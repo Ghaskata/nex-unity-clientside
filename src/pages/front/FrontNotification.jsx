@@ -90,7 +90,7 @@ const FrontNotification = () => {
           {pendingRequestes.map((pendingRequest, index) => (
             <div key={index} className=" !bg-backgroundv1 rounded-lg border-2 border-backgroundv3 flex gap-5 flex-col md:flex-row w-full justify-center items-center p-3">
               <div className="w-[80px] h-[80px] flex-shrink-0">
-                <img className=" w-fulll h-full" src={pendingRequest?.fromUserIdDetail?.profile_pic!==""?`${process.env.REACT_APP_SERVER_IMAGE_PATH}${pendingRequest?.fromUserIdDetail?.profile_pic}`:customImg} />
+                <img className=" w-full h-full" src={pendingRequest?.fromUserIdDetail?.profile_pic!==""?`${process.env.REACT_APP_SERVER_IMAGE_PATH}${pendingRequest?.fromUserIdDetail?.profile_pic}`:customImg} />
               </div>
               <div className="event-info flex-grow w-full text-center md:text-start">
                 <h3 className="event-name text-textPrimary">
