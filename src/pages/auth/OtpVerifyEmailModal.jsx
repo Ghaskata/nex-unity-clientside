@@ -96,7 +96,7 @@ const OtpVerifyEmailModal = ({
                       Verification Code
                     </h3>
                     <p className="text-sm font-400 text-textPrimary text-center">
-                      {`Please check your email ${emailValue} for the 4 digit
+                      {`Please check your email ${emailValue} for the 6 digit
                       OTP code and enter it below`}
                     </p>
                   </div>
