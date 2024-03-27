@@ -27,7 +27,7 @@ const EditEventModal = ({
   const navigate = useNavigate();
   const axiosPrivate = useAxiosPrivate();
 
-  debugger;
+  // debugger;
   const defaultValue = {
     eventName: editEvent.eventName,
     content: editEvent.content,
@@ -45,7 +45,7 @@ const EditEventModal = ({
       id: editEvent._id,
     });
     setStartDate(editEvent.time);
-  }, [editEvent, editEvent.time]);
+  }, [editEvent,editEvent.time]);
   const [imagePreview, setimagePreview] = useState("");
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -198,7 +198,8 @@ const EditEventModal = ({
                                 startDate ??
                                 (isValidDate(startDate)
                                   ? startDate
-                                  : new Date())
+                                  : new Date()
+                                  )
                               }
                               onChange={(date) => {
                                 setStartDate(date);
