@@ -1,13 +1,11 @@
-import React from "react";
-import img from "../../assets/images/frontHero/home header3.jpg";
+import React, { useEffect } from "react";
+import hero4Man from "../../assets/images/frontHero/angelica_Hot_Artist_3.2.png";
+import hero1Man from "../../assets/images/frontHero/hero-tomasz-Hot-Artist.png";
 import BlueLine from "../../assets/images/frontHero/home loader blue line.svg";
 import LightBlueLine from "../../assets/images/frontHero/home loader light blue line.svg";
 import OrangeLine from "../../assets/images/frontHero/home loader orange line.svg";
-import hero1Man from "../../assets/images/frontHero/hero-tomasz-Hot-Artist.png";
 import hero2Man from "../../assets/images/frontHero/home-hero-anna.jpg";
 import hero3Man from "../../assets/images/frontHero/home-robert-Hot-Artist.png";
-import hero4Man from "../../assets/images/frontHero/angelica_Hot_Artist_3.2.png";
-import { useEffect } from "react";
 
 const HeroSectionCompo = () => {
   let yscroll = window.scrollY;

@@ -1,10 +1,8 @@
-import React, { useRef } from "react";
-import Input from "../../../ui/Input";
-import { useState } from "react";
-import { Button } from "../../../ui/Button";
-import { toast } from "react-toastify";
+import React, { useState } from "react";
 import IcnCloseEye from "../../../svg/IcnCloseEye";
 import IcnOpenEye from "../../../svg/IcnOpenEye";
+import { Button } from "../../../ui/Button";
+import Input from "../../../ui/Input";
 
 const Step1 = ({ step, setstep, isActive }) => {
   const [user, setUser] = useState({

@@ -1,40 +1,26 @@
-import React, { useEffect, useMemo, useState } from "react";
-import {
-  ArrowLeft,
-  ArrowRight,
-  Eye,
-  Pen,
-  PenSquare,
-  Trash2,
-  View,
-} from "lucide-react";
+import React, { useMemo, useState } from "react";
+import { TbEdit, TbEditOff, TbTrash, TbTrashOff } from "react-icons/tb";
+import { VscEye } from "react-icons/vsc";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
+import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
+import { selectUserData } from "../../reducers/authSlice";
+import { JOB_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import DataLoadingCompo from "../common/DataLoadingCompo";
+import Input from "../ui/Input";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "../ui/Table";
-import { Button } from "../ui/Button";
-import Input from "../ui/Input";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import DataLoadingCompo from "../common/DataLoadingCompo";
-import { VscEye } from "react-icons/vsc";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import swal from "sweetalert";
-import { MdEditOff } from "react-icons/md";
-import { TbEdit, TbEditOff, TbTrash, TbTrashOff } from "react-icons/tb";
-import SuccessModal from "./modal/comman/SuccessModal";
 import EditJobModal from "./modal/comman/EditJobModal";
-import { selectUserData } from "../../reducers/authSlice";
-import { useSelector } from "react-redux";
-import { JOB_API_URL } from "../../security/axios";
-import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
+import SuccessModal from "./modal/comman/SuccessModal";
 
 const JobsTable = () => {
   const navigate = useNavigate();
@@ -240,7 +226,7 @@ const JobsTable = () => {
                         </button>
                         <button
                           className={`text-blue-700`}
-                          onClick={() => handleEditJob(job)}
+                          onClick={() => job.createUserId === currentUserId ?handleEditJob(job):''}
                         >
                           {job.createUserId !== currentUserId ? (
                             <TbEditOff className="h-6 w-6" />

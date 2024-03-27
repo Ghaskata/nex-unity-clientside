@@ -1,15 +1,8 @@
-import React, { useRef } from "react";
-import { Swiper, SwiperSlide } from "swiper/react";
+import React from "react";
 import "swiper/css";
 import "swiper/css/free-mode";
 import "swiper/css/pagination";
 
-import { FreeMode, Navigation, Pagination } from "swiper/modules";
-import CommunityCard from "./CommunityCard";
-import { ArrowLeft, ArrowRight } from "lucide-react";
-import { Button } from "../ui/Button";
-import { Link } from "react-router-dom";
-import MyCommunityCard from "./MyCommunityCard";
 import EventCard from "./EventCard";
 
 const PastEventSlider = ({ pastEvents }) => {

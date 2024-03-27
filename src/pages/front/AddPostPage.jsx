@@ -1,17 +1,16 @@
 import { Image, UploadCloud } from "lucide-react";
-import React, { useCallback, useState } from "react";
-import AddPostCategorySelect from "../../components/front/AddPostCategorySelect";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import UserCommunitySelect from "../../components/front/UserCommunitySelect";
-import { useMutation, useQueryClient } from "react-query";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { POST_API_URL } from "../../security/axios";
-import { toast } from "react-toastify";
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { useMutation, useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
+import { toast } from "react-toastify";
+import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
+import AddPostCategorySelect from "../../components/front/AddPostCategorySelect";
+import UserCommunitySelect from "../../components/front/UserCommunitySelect";
+import { selectUserData } from "../../reducers/authSlice";
+import { POST_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const AddPostPage = () => {
   let toastId;

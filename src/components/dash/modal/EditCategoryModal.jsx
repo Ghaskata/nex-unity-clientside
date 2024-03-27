@@ -1,14 +1,13 @@
-import React, { Fragment, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { Button } from "../../ui/Button";
 import { Plus } from "lucide-react";
-import Input from "../../ui/Input";
+import React, { Fragment, useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { useEffect } from "react";
 import { useMutation, useQueryClient } from "react-query";
-import useAxiosPrivate from "../../../security/useAxiosPrivate";
 import { toast } from "react-toastify";
 import { CATEGORY_API_URL } from "../../../security/axios";
+import useAxiosPrivate from "../../../security/useAxiosPrivate";
+import { Button } from "../../ui/Button";
+import Input from "../../ui/Input";
 
 const EditCategoryModal = ({
   editCategoryModalOpen,

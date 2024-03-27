@@ -1,6 +1,6 @@
+import React, { useEffect, useState } from "react";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
 import "./css/NewsPage.css";
-import React, { useState, useEffect } from "react";
 
 const NewsPage = () => {
   const [Jobs, setJobs] = useState([]);
@@ -12,7 +12,8 @@ const NewsPage = () => {
       .then((response) => response.json())
       .then((data) => {
         setTimeout(() => {
-          setJobs(data.articles);
+          data = data.articles.filter((data) => data.urlToImage)
+          setJobs(data);
         }, 2000);
       })
       .catch((error) => console.error("Error fetching job data:", error));

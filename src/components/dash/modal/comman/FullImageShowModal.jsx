@@ -1,7 +1,5 @@
-import React, { Fragment, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import Lottie from "react-lottie-player";
-import chekck from "../../../../assets/lottie/check.json";
+import React, { Fragment } from "react";
 import { cn } from "../../../../lib/utils";
 
 const FullImageShowModal = ({

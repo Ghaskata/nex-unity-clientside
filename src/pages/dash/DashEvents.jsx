@@ -1,16 +1,9 @@
-import React, { useMemo, useState } from "react";
-import { communityData } from "../../data/staticData";
-import { Plus, PlusIcon } from "lucide-react";
-import CommunityTable from "../../components/dash/CommunityTable";
-import { Button } from "../../components/ui/Button";
-import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
-import AddCommunityModal from "../../components/dash/modal/comman/AddCommunityModal";
+import { Plus } from "lucide-react";
+import React, { useState } from "react";
 import EventsTable from "../../components/dash/EventsTable";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { EVENT_API_URL } from "../../security/axios";
-import { useQuery } from "react-query";
-import DataLoadingCompo from "../../components/common/DataLoadingCompo";
 import AddEventModal from "../../components/dash/modal/comman/AddEventModal";
+import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
+import { Button } from "../../components/ui/Button";
 
 const DashEvents = () => {
   const [addEventModalOpen, setaddEventModalOpen] = useState(false);

@@ -1,23 +1,21 @@
 import { UploadCloud } from "lucide-react";
-import React, { useCallback, useEffect } from "react";
-import Input from "../../components/ui/Input";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  logout,
-  selectUserData,
-  updateUserData,
-} from "../../reducers/authSlice";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
+import React, { useCallback, useEffect, useState } from "react";
+import { useDropzone } from "react-dropzone";
 import { useMutation, useQueryClient } from "react-query";
-import { AUTH_API_URL } from "../../security/axios";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
-import ChangePasswordModal from "../../components/dash/modal/comman/ChangePasswordModal";
-import { useNavigate } from "react-router-dom";
 import customeProfile from "../../assets/images/customeProfile.png";
+import ChangePasswordModal from "../../components/dash/modal/comman/ChangePasswordModal";
 import ForgotPasswordModal from "../../components/dash/modal/forgotPasswordModalflow/ForgotPasswordModal";
-import { useDropzone } from "react-dropzone";
+import Input from "../../components/ui/Input";
+import {
+  selectUserData,
+  updateUserData
+} from "../../reducers/authSlice";
+import { AUTH_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const DashSettings = () => {
   let id;

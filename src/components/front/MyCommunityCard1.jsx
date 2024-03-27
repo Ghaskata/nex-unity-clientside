@@ -1,7 +1,7 @@
 import React from "react";
-import "../../pages/front/css/CommunityPageCss.css";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
+import "../../pages/front/css/CommunityPageCss.css";
 
 const MyCommunityCard1 = ({ data }) => {
   const navigate = useNavigate();

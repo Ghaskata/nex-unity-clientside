@@ -1,14 +1,13 @@
 import React, { useMemo, useState } from "react";
-import { json, useNavigate } from "react-router-dom";
-import FullImageShowModal from "../dash/modal/comman/FullImageShowModal";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import axios, { FOLLOW_API_URL } from "../../security/axios";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import DataLoadingCompo from "../common/DataLoadingCompo";
-import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
+import { selectUserData } from "../../reducers/authSlice";
+import { FOLLOW_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import FullImageShowModal from "../dash/modal/comman/FullImageShowModal";
 
 const UsersProfileCard = ({ user, status }) => {
   let toastId;

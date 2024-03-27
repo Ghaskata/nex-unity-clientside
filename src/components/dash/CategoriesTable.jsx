@@ -1,29 +1,24 @@
+import { Pen, Trash2 } from "lucide-react";
+import React, { useMemo, useState } from "react";
 import { useMutation, useQueries, useQuery, useQueryClient } from "react-query";
+import { toast } from "react-toastify";
+import swal from "sweetalert";
+import {
+  CATEGORY_API_URL,
+  POST_API_URL
+} from "../../security/axios";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { Button } from "../ui/Button";
+import DataLoadingCompo from "../common/DataLoadingCompo";
 import Input from "../ui/Input";
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
-  TableRow,
+  TableRow
 } from "../ui/Table";
-import { ArrowLeft, ArrowRight, Pen, Trash2 } from "lucide-react";
-import React, { useMemo, useState } from "react";
-import DataLoadingCompo from "../common/DataLoadingCompo";
-import {
-  CATEGORY_API_URL,
-  COMMUNITY_API_URL,
-  POST_API_URL,
-} from "../../security/axios";
-import { toast } from "react-toastify";
 import EditCategoryModal from "./modal/EditCategoryModal";
-import swal from "sweetalert";
-import { useEffect } from "react";
 
 export function CategoriesTable() {
   let id;

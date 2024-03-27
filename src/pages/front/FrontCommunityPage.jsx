@@ -1,15 +1,13 @@
-import React, { useMemo, useRef } from "react";
-import UserJoinedCommunity from "../../components/front/UserJoinedCommunity";
-import UserCreatedCommunity from "../../components/front/UserCreatedCommunity";
-import AllCommunity from "../../components/front/AllCommunity";
+import React, { useMemo } from "react";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import DataLoadingCompo from "../../components/common/DataLoadingCompo";
 import AllCommunity1 from "../../components/front/AllComunity1";
+import UserCreatedCommunity from "../../components/front/UserCreatedCommunity";
+import UserJoinedCommunity from "../../components/front/UserJoinedCommunity";
+import { selectUserData } from "../../reducers/authSlice";
 import { COMMUNITY_API_URL } from "../../security/axios";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import { useQuery } from "react-query";
-import DataLoadingCompo from "../../components/common/DataLoadingCompo";
-import { toast } from "react-toastify";
 
 const FrontCommunityPage = () => {
   const userData = useSelector(selectUserData);

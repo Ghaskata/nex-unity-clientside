@@ -1,31 +1,19 @@
+import {
+  Eye, EyeOff
+} from "lucide-react";
 import React, { useState } from "react";
-import img from "../../assets/images/frontHero/home header3.jpg";
-import IcnClose from "../../components/svg/IcnClose";
-import { Button } from "../../components/ui/Button";
-import { IconButton } from "../../components/ui/IconButton";
-import IcnCloseEye from "../../components/svg/IcnCloseEye";
-import IcnOpenEye from "../../components/svg/IcnOpenEye";
-import Input from "../../components/ui/Input";
-import { toast } from "react-toastify";
-import Step1 from "../../components/dash/modal/registerSteps/Step1";
-import Step2 from "../../components/dash/modal/registerSteps/Step2";
-import Step3 from "../../components/dash/modal/registerSteps/Step3";
-import { CheckCheck } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { FaLock } from "react-icons/fa";
 import { HiUsers } from "react-icons/hi2";
 import { IoIosMail } from "react-icons/io";
-import { FaFacebook, FaLock } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
-import "./css/Login.css";
-import OtpVerifyEmailModal from "./OtpVerifyEmailModal";
 import { useMutation } from "react-query";
+import { useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { selectUserData } from "../../reducers/authSlice";
 import { AUTH_API_URL } from "../../security/axios";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useSelector } from "react-redux";
-import { selectToken, selectUserData } from "../../reducers/authSlice";
-
+import OtpVerifyEmailModal from "./OtpVerifyEmailModal";
+import "./css/Login.css";
 const Register = ({ setregisterModalOpen }) => {
   // const navigate = useNavigate();
   // const [IsshowPassword, setIsshowPassword] = useState(false);
@@ -74,10 +62,10 @@ const Register = ({ setregisterModalOpen }) => {
   //   setUser({ ...user, [e.target.name]: e.target.value });
   // };
   // const [step, setstep] = useState(1);
-const storeuserData=useSelector(selectUserData)
-console.log("store user data >>> ",storeuserData)
+  const storeuserData = useSelector(selectUserData)
+  console.log("store user data >>> ", storeuserData)
 
-
+  const [IsshowPassword, setIsshowPassword] = useState(false);
   let toastId;
   const axiosPrivate = useAxiosPrivate();
 
@@ -238,8 +226,8 @@ console.log("store user data >>> ",storeuserData)
       try {
         console.log("Form Data:", registerUserData);
         verifyEmailStatus &&
-        verifiedEmail !== "" &&
-        verifiedEmail === registerUserData.email
+          verifiedEmail !== "" &&
+          verifiedEmail === registerUserData.email
           ? verifyEmailFun()
           : await generateOTP({ email: registerUserData.email });
       } catch (error) {
@@ -381,7 +369,7 @@ console.log("store user data >>> ",storeuserData)
               <div className="input-field">
                 <i className="flex justify-center items-center h-full">
                   {" "}
-                  <IoIosMail className="h-5 w-5"/>{" "}
+                  <IoIosMail className="h-5 w-5" />{" "}
                 </i>
                 <input
                   type="email"
@@ -394,15 +382,21 @@ console.log("store user data >>> ",storeuserData)
               <div className="input-field">
                 <i className="flex justify-center items-center h-full">
                   {" "}
-                  <FaLock className="h-5 w-5"/>{" "}
+                  <FaLock className="h-5 w-5" />{" "}
                 </i>
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={registerUserData.password}
-                  onChange={handleChange}
-                />
+                <div style={{ position: 'relative', display: 'inline-flex' }}>
+                  <input
+                    type={IsshowPassword ? "text" : "password"}
+                    placeholder="Password"
+                    name="password"
+                    value={registerUserData.password}
+                    onChange={handleChange}
+                  />       <span style={{ position: 'absolute', top: '50%', right: '10px', transform: 'translateY(-50%)' }}>
+                    <i className="fas fa-lock">
+                      {IsshowPassword ? <Eye className="mt-2 ps-1" onClick={() => setIsshowPassword(!IsshowPassword)} /> : <EyeOff className="mt-2 ps-1" onClick={() => setIsshowPassword(!IsshowPassword)} />}
+                    </i>
+                  </span>
+                </div>
               </div>
 
               {/* <label>
@@ -420,7 +414,7 @@ console.log("store user data >>> ",storeuserData)
                 value={verifyEmailStatus ? "Register" : "Send OTP"}
                 className="btn solid"
               />
-              <p className="social-text">Or Sign in with social platforms</p>
+              {/* <p className="social-text">Or Sign in with social platforms</p>
               <div className="social-media">
                 <Link to="#" className="social-icon">
                   <FaFacebook />
@@ -434,7 +428,7 @@ console.log("store user data >>> ",storeuserData)
                 <a href="#" className="social-icon">
                   <FaLinkedin />
                 </a>
-              </div>
+              </div> */}
             </form>
           </div>
         </div>

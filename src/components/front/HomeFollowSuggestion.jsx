@@ -1,10 +1,9 @@
 import React, { useMemo } from "react";
-import { Link } from "react-router-dom";
-import DefaultImg from "../../assets/images/frontHero/home header3.jpg";
-import image from "../../assets/images/customeProfile.png";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
+import image from "../../assets/images/customeProfile.png";
 import { AUTH_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 import DataLoadingCompo from "../common/DataLoadingCompo";
 
 const HomeFollowSuggestion = () => {

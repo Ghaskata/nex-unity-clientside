@@ -1,18 +1,15 @@
-import React, { useMemo, useState } from "react";
+import { Edit2 } from "lucide-react";
+import React, { useMemo } from "react";
+import { useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUserData } from "../../reducers/authSlice";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useQuery, useQueryClient } from "react-query";
-import CommunityPostList from "../../components/dash/CommunityPostList";
-import EditCommunityModal from "../../components/dash/modal/comman/EditCommunityModal";
-import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
-import { ArrowLeft, Edit2, HeartHandshake, LogOut } from "lucide-react";
-import UserProfileCommunityAndPost from "../../components/front/UserProfileCommunityAndPost";
-import customProfile from "../../assets/images/customeProfile.png";
 import bg1 from "../../assets/images/bg-1.png";
-import { AUTH_API_URL } from "../../security/axios";
+import customProfile from "../../assets/images/customeProfile.png";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import UserProfileCommunityAndPost from "../../components/front/UserProfileCommunityAndPost";
+import { selectUserData } from "../../reducers/authSlice";
+import { AUTH_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const ProfilePage = () => {
   const navigate = useNavigate();

@@ -1,13 +1,11 @@
-import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import logoutLight from "../../../../assets/images/Logout.png";
-import { Button } from "../../../ui/Button";
-import swal from "sweetalert";
-import { useDispatch } from "react-redux";
-import { logout } from "../../../../reducers/authSlice";
-import { useNavigate } from "react-router-dom";
+import React, { Fragment } from "react";
 import Lottie from "react-lottie-player";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import logoutImg from "../../../../assets/lottie/logout.json";
+import { logout } from "../../../../reducers/authSlice";
+import { Button } from "../../../ui/Button";
 
 const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
   const dispatch = useDispatch();
@@ -71,7 +69,7 @@ const LogoutModal = ({ logoutModalOpen, setLogoutModalOpen }) => {
                         Are you sure ? 
                       </h5>
                       <h5 className="mb-4 text-16 text-textGray text-center ">
-                      You are Really want to logout from NexGen ?
+                      Are you sure you want to logout from NexUnity ?
                       </h5>
                       {/* <p className='text-center text-base text-textPrimary mb-7'>Your Password has been Changed successfully.</p> */}
                       <Button

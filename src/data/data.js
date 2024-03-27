@@ -1,47 +1,32 @@
 import React from "react";
 
-import { AiFillHome, AiFillLike, AiOutlineFlag } from "react-icons/ai";
-import {
-  MdLocalFireDepartment,
-  MdLiveTv,
-  MdLibraryMusic,
-  MdSubscriptions,
-  MdAccountCircle,
-  MdSettings,
-} from "react-icons/md";
-import { CgMusicNote } from "react-icons/cg";
-import { FiFilm } from "react-icons/fi";
-import { IoGameControllerSharp } from "react-icons/io5";
-import { ImNewspaper } from "react-icons/im";
-import { GiDiamondTrophy, GiEclipse } from "react-icons/gi";
-import {
-  RiLightbulbLine,
-  RiFeedbackLine,
-  RiHistoryFill,
-  RiVidicon2Fill,
-  RiAccountCircleFill,
-  RiBriefcase2Fill,
-} from "react-icons/ri";
-import { FiSettings, FiHelpCircle } from "react-icons/fi";
 import {
   Blocks,
-  Briefcase,
   CalendarCheck2Icon,
   CalendarDays,
-  HelpingHand,
   LucidePlusSquare,
-  LucideUsers2,
-  MapPinnedIcon,
-  Newspaper,
-  Phone,
   ShieldPlusIcon,
-  User2,
   UserRoundCog,
-  Users2,
+  Users2
 } from "lucide-react";
-import { FaDonate, FaHome } from "react-icons/fa";
+import { CgMusicNote } from "react-icons/cg";
+import { FaHome } from "react-icons/fa";
+import { FiFilm, FiSettings } from "react-icons/fi";
+import { GiDiamondTrophy, GiEclipse } from "react-icons/gi";
 import { HiMiniInformationCircle, HiUserGroup } from "react-icons/hi2";
+import { ImNewspaper } from "react-icons/im";
+import { IoGameControllerSharp } from "react-icons/io5";
 import { LiaHeadsetSolid } from "react-icons/lia";
+import {
+  MdLiveTv,
+  MdLocalFireDepartment,
+  MdSettings
+} from "react-icons/md";
+import {
+  RiAccountCircleFill,
+  RiBriefcase2Fill,
+  RiLightbulbLine
+} from "react-icons/ri";
 
 export const FrontNavlinkList = [
   { name: "Home", icon: <FaHome className="w-[24px] h-[24px]" />, type: "Page", href: "" },
@@ -85,14 +70,14 @@ export const DashbordNavlinkList = [
   { name: "Categories", icon: <Blocks className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/categories" },
   { name: "Communites", icon: <HiUserGroup className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/community" },
   { name: "Jobs", icon: <RiBriefcase2Fill className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/jobs" },
-  {
-    name: "Roles / Permission",
-    icon: <ShieldPlusIcon className="w-[24px] h-[24px]" />,
-    type: "Page",
-    href: "/dashboard/roles",
-  },
+  // {
+  //   name: "Roles / Permission",
+  //   icon: <ShieldPlusIcon className="w-[24px] h-[24px]" />,
+  //   type: "Page",
+  //   href: "/dashboard/roles",
+  // },
   { name: "Events", icon: <CalendarCheck2Icon className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/events" },
-  { name: "Community Managers", icon: <UserRoundCog className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/subadmin" },
+  // { name: "Community Managers", icon: <UserRoundCog className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/subadmin" },
   // { name: "Trace Request", icon: <MapPinnedIcon className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/request" },
   { name: "Settings", icon: <MdSettings className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/settings" },
 ];

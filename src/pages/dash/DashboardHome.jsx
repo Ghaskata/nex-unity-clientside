@@ -1,35 +1,24 @@
-import React, { useMemo } from "react";
-import ChartCompo from "../../components/dash/ChartCompo";
 import {
   Blocks,
-  Briefcase,
-  CalendarCheck2,
-  CalendarClock,
-  MapPinned,
-  ShieldPlus,
-  User2,
-  Users2,
+  MapPinned
 } from "lucide-react";
+import React, { useMemo } from "react";
+import { MdPeople } from "react-icons/md";
 import {
-  RiAdminFill,
   RiAdminLine,
   RiBriefcase2Fill,
   RiCalendarCheckFill,
-  RiCalendarEventFill,
-  RiUserFill,
-  RiUserSettingsFill,
+  RiCalendarEventFill
 } from "react-icons/ri";
-import { MdPeople } from "react-icons/md";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useQuery } from "react-query";
-import {
-  ADMIN_DASHBORD_COUNTS,
-  AUTH_API_URL,
-  CATEGORY_API_URL,
-} from "../../security/axios";
-import DataLoadingCompo from "../../components/common/DataLoadingCompo";
-import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
 import { useNavigate } from "react-router-dom";
+import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import ChartCompo from "../../components/dash/ChartCompo";
+import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
+import {
+  ADMIN_DASHBORD_COUNTS
+} from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const DashboardHome = () => {
   const navigate = useNavigate();
@@ -74,7 +63,7 @@ const DashboardHome = () => {
       {/* <h3 className="text-28 lg:text-32 text-textPrimary">Dashboard</h3> */}
       <div className="dash_home pb-5 lg:pb-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2  3xl:grid-cols-3 gap-5">
         <div
-          onClick={() => navigate("/dashboard/users")}
+          onClick={() => navigate("/dashboard/events")}
           className="cursor-pointer dashbord-card shadow-md group/item hover:scale-105 transition-all duration-300 ease-linear rounded-2xl bg-backgroundv1 w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative"
         >
           <div className="flex gap-3 items-start">
@@ -142,7 +131,7 @@ const DashboardHome = () => {
           </div>
         </div>
         <div
-          onClick={() => navigate("/dashboard/users")}
+          onClick={() => navigate("/dashboard/community")}
           className="cursor-pointer dashbord-card shadow-md group/item hover:scale-105 transition-all duration-300 ease-linear rounded-2xl bg-backgroundv1 w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative"
         >
           <div className="flex gap-3 items-start">
@@ -165,7 +154,7 @@ const DashboardHome = () => {
         </div>
 
         <div
-          onClick={() => navigate("/dashboard/users")}
+          onClick={() => navigate("/dashboard/jobs")}
           className="cursor-pointer dashbord-card shadow-md group/item hover:scale-105 transition-all duration-300 ease-linear rounded-2xl bg-backgroundv1 w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative"
         >
           <div className="flex gap-3 items-start">
@@ -213,7 +202,7 @@ const DashboardHome = () => {
         </div>
 
         <div
-          onClick={() => navigate("/dashboard/users")}
+          onClick={() => navigate("/dashboard/events")}
           className="cursor-pointer dashbord-card shadow-md group/item hover:scale-105 transition-all duration-300 ease-linear rounded-2xl bg-backgroundv1 w-full h-[200px] xxl:h-[250px] overflow-hidden  p-5 relative"
         >
           <div className="flex gap-3 items-start">

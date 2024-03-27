@@ -1,10 +1,10 @@
 import React from "react";
-import "./css/About.css";
-import about1 from "../../assets/images/about/close-up-people-working-as-team.jpg";
-import about2 from "../../assets/images/about/pexels-fauxels-3228689.jpg";
 import about3 from "../../assets/images/about/businessman-pointing.jpg";
+import about1 from "../../assets/images/about/close-up-people-working-as-team.jpg";
 import about4 from "../../assets/images/about/friendly-caucasian-afro-american-business-people-shaking-hands.jpg";
+import about2 from "../../assets/images/about/pexels-fauxels-3228689.jpg";
 import about5 from "../../assets/images/about/team-unity-friends-meeting-partnership-concept.jpg";
+import "./css/About.css";
 
 const AboutUsPage = () => {
   return (

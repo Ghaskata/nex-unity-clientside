@@ -1,18 +1,16 @@
-import React from "react";
-import { Button } from "../ui/Button";
 import { Plus } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import { Fragment } from "react";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
-import { useState } from "react";
+import React, { useState } from "react";
+import { useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { selectUserData } from "../../reducers/authSlice";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { useQueryClient } from "react-query";
-import SuccessModal from "../dash/modal/comman/SuccessModal";
-import UserPost from "./UserPost";
-import UserCommunity from "./UserCommunity";
 import AddCommunityModal from "../dash/modal/comman/AddCommunityModal";
+import SuccessModal from "../dash/modal/comman/SuccessModal";
+import { Button } from "../ui/Button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "../ui/tabs";
+import UserCommunity from "./UserCommunity";
+import UserPost from "./UserPost";
 
 const UserProfileCommunityAndPost = ({ profileDetails }) => {
   const navigate = useNavigate();

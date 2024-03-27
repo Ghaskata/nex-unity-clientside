@@ -1,17 +1,6 @@
-import React, { useMemo, useState } from "react";
-import CommunityCard from "./CommunityCard";
-import { ArrowLeft, ArrowRight, Search } from "lucide-react";
-import { Button } from "../ui/Button";
-import { useEffect } from "react";
-import { useMutation, useQuery } from "react-query";
-import { getAllCommunity } from "../../utils/community";
-import DataLoadingCompo from "../common/DataLoadingCompo";
-import { toast } from "react-toastify";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { COMMUNITY_API_URL } from "../../security/axios";
+import { Search } from "lucide-react";
+import React, { useState } from "react";
 import CommunityPageCard from "./CommunityPageCard";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
 
 const AllCommunity1 = ({ communities }) => {
   const [search, setsearch] = useState("");

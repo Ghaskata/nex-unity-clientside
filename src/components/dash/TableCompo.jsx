@@ -1,6 +1,5 @@
 import React from 'react'
 import { cn } from '../../lib/utils'
-import IcnOpenEye from '../svg/IcnOpenEye'
 
 const TableCompo = ({ className, data, editButton, deleteButton, handleDelete, handleEdit, ...props }) => {
     if (!data || data.length == 0) {

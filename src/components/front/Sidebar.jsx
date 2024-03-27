@@ -1,13 +1,12 @@
+import { LogOutIcon } from "lucide-react";
 import React, { useState } from "react";
+import { MdSpaceDashboard } from "react-icons/md";
+import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 import { FrontNavlinkList } from "../../data/data.js";
 import { cn } from "../../lib/utils.js";
-import { Link, useLocation } from "react-router-dom";
-import { FaHome } from "react-icons/fa";
-import { LogOutIcon } from "lucide-react";
+import { selectUserData } from "../../reducers/authSlice.js";
 import LogoutModal from "../dash/modal/comman/LogoutModal.jsx";
-import { useSelector } from "react-redux";
-import { selectRole, selectUserData } from "../../reducers/authSlice.js";
-import { MdSpaceDashboard } from "react-icons/md";
 
 
 const Sidebar = ({ className }) => {

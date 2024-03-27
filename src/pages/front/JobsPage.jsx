@@ -1,21 +1,18 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import "./css/JobsPage.css";
-import Modal from "react-modal";
 
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import { useNavigate } from "react-router-dom";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import { JOB_API_URL } from "../../security/axios";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import swal from "sweetalert";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
 import AddJobModal from "../../components/dash/modal/comman/AddJobModal";
-import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
 import ApplyJobModal from "../../components/dash/modal/comman/ApplyJobModal";
-import swal from "sweetalert";
-import { FaTrash } from "react-icons/fa";
-import { MdModeEdit } from "react-icons/md";
 import EditJobModal from "../../components/dash/modal/comman/EditJobModal";
+import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
+import { selectUserData } from "../../reducers/authSlice";
+import { JOB_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 function JobsPage() {
   const navigate = useNavigate();

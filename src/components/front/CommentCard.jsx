@@ -1,15 +1,15 @@
 import { Edit2, Trash2 } from "lucide-react";
 import React, { useState } from "react";
-import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
-import customeProfile from "../../assets/images/customeProfile.png";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import { IoCloseOutline, IoCloseSharp } from "react-icons/io5";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { COMMENT_API_URL } from "../../security/axios";
-import { toast } from "react-toastify";
+import { IoCloseSharp } from "react-icons/io5";
 import { useMutation, useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import swal from "sweetalert";
+import customeProfile from "../../assets/images/customeProfile.png";
+import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
+import { selectUserData } from "../../reducers/authSlice";
+import { COMMENT_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const CommentCard = ({ comment }) => {
   const userData = useSelector(selectUserData);

@@ -1,17 +1,15 @@
-import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import swal from "sweetalert";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Button } from "../../../ui/Button";
+import { Plus } from "lucide-react";
+import React, { Fragment, useEffect, useState } from "react";
 import { IoCloseOutline } from "react-icons/io5";
-import { AwardIcon, Image, Plus, UploadCloud } from "lucide-react";
-import { selectUserData } from "../../../../reducers/authSlice";
-import { useDropzone } from "react-dropzone";
-import { toast } from "react-toastify";
 import { useMutation, useQueryClient } from "react-query";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { selectUserData } from "../../../../reducers/authSlice";
+import { JOB_API_URL } from "../../../../security/axios";
 import useAxiosPrivate from "../../../../security/useAxiosPrivate";
-import { COMMUNITY_API_URL, JOB_API_URL } from "../../../../security/axios";
+import { Button } from "../../../ui/Button";
 
 const ApplyJobModal = ({
   applyJobModalOpen,

@@ -1,10 +1,9 @@
+import { Plus } from "lucide-react";
 import React, { useState } from "react";
-import { communityData } from "../../data/staticData";
-import { Plus, PlusIcon } from "lucide-react";
 import CommunityTable from "../../components/dash/CommunityTable";
-import { Button } from "../../components/ui/Button";
-import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
 import AddCommunityModal from "../../components/dash/modal/comman/AddCommunityModal";
+import SuccessModal from "../../components/dash/modal/comman/SuccessModal";
+import { Button } from "../../components/ui/Button";
 
 const CommunityPage = () => {
   const [addCommunityModalOpen, setaddCommunityModalOpen] = useState(false);

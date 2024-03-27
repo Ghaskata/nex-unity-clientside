@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-import Input from "../../components/ui/Input";
-import { Button } from "../../components/ui/Button";
-import { CategoriesTable } from "../../components/dash/CategoriesTable";
 import { PlusIcon } from "lucide-react";
+import React, { useState } from "react";
+import { CategoriesTable } from "../../components/dash/CategoriesTable";
 import AddCategoryModal from "../../components/dash/modal/AddCategoryModal";
+import { Button } from "../../components/ui/Button";
 
 const DashCategoriesPage = () => {
   const [addCategoryModalOpen, setaddCategoryModalOpen] = useState(false)

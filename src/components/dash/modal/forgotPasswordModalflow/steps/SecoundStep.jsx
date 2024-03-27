@@ -1,10 +1,6 @@
-import React, { useRef, useState } from "react";
-import { Button } from "../../../../ui/Button";
-import { toast } from "react-toastify";
+import React from "react";
 import OtpInput from "react-otp-input";
-import useAxiosPrivate from "../../../../../security/useAxiosPrivate";
-import { useMutation } from "react-query";
-import { AUTH_API_URL } from "../../../../../security/axios";
+import { Button } from "../../../../ui/Button";
 
 const SecoundStep = ({ otp, setotp, email, step, setStep, isActiveStep }) => {
   const handleVerifyOtp = async () => {

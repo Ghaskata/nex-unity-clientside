@@ -1,24 +1,11 @@
+import {
+  LogOutIcon
+} from "lucide-react";
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import LogoutModal from "./modal/comman/LogoutModal";
-import { cn } from "../../lib/utils";
-import {
-  BriefcaseIcon,
-  CalendarCheck2Icon,
-  GroupIcon,
-  LogOutIcon,
-  MapPinnedIcon,
-  SettingsIcon,
-  ShieldPlusIcon,
-  UserRoundCog,
-  Users2,
-  UsersRoundIcon,
-} from "lucide-react";
-import { HiUserGroup } from "react-icons/hi2";
-import { FaHome, FaUsers } from "react-icons/fa";
-import { RiBriefcase2Fill } from "react-icons/ri";
-import { MdSettings } from "react-icons/md";
 import { DashbordNavlinkList } from "../../data/data";
+import { cn } from "../../lib/utils";
+import LogoutModal from "./modal/comman/LogoutModal";
 const Sidebar = ({ className, toggleSidebar, settoggleSidebar }) => {
   const [logoutModalOpen, setLogoutModalOpen] = useState(false);
 

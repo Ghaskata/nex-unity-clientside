@@ -1,10 +1,7 @@
-import React, { useState } from "react";
-import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
-import { Link, useNavigate } from "react-router-dom";
-import { Delete, Edit2, Trash2, ViewIcon } from "lucide-react";
-import swal from "sweetalert";
-import SuccessModal from "../dash/modal/comman/SuccessModal";
+import React from "react";
 import { MdOpenInNew } from "react-icons/md";
+import { useNavigate } from "react-router-dom";
+import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
 
 const UserCommunity = ({ community, isCommunityAdmin }) => {
   const navigate=useNavigate()

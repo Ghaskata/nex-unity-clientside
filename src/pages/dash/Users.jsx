@@ -1,10 +1,10 @@
-import React, { useMemo, useState } from "react";
-import UserTable from "../../components/dash/UserTable";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
+import React, { useMemo } from "react";
 import { useQuery } from "react-query";
-import { AUTH_API_URL } from "../../security/axios";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import UserTable from "../../components/dash/UserTable";
 import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
+import { AUTH_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const Users = () => {
   const axiosPrivate = useAxiosPrivate();

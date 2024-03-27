@@ -1,13 +1,12 @@
 import React, { useMemo } from "react";
-import "./css/Userspage.css";
-import DataLoadingCompo from "../../components/common/DataLoadingCompo";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
-import { AUTH_API_URL, FOLLOW_API_URL } from "../../security/axios";
 import { useQuery } from "react-query";
-import defaultImage from "../../assets/images/frontHero/home_header_top_3.jpg";
-import UsersProfileCard from "../../components/front/UsersProfileCard";
 import { useSelector } from "react-redux";
+import DataLoadingCompo from "../../components/common/DataLoadingCompo";
+import UsersProfileCard from "../../components/front/UsersProfileCard";
 import { selectUserData } from "../../reducers/authSlice";
+import { AUTH_API_URL, FOLLOW_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import "./css/Userspage.css";
 
 const FrontUserspagePage = () => {
   const axiosPrivate = useAxiosPrivate();

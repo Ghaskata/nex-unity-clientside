@@ -1,17 +1,16 @@
-import React, { Fragment, useCallback, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import swal from "sweetalert";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { Button } from "../../../ui/Button";
-import { IoCloseOutline } from "react-icons/io5";
-import { AwardIcon, Image, Pencil, Plus, UploadCloud } from "lucide-react";
-import { selectUserData } from "../../../../reducers/authSlice";
+import { Pencil } from "lucide-react";
+import React, { Fragment, useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
-import { toast } from "react-toastify";
+import { IoCloseOutline } from "react-icons/io5";
 import { useMutation, useQueryClient } from "react-query";
-import useAxiosPrivate from "../../../../security/useAxiosPrivate";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { selectUserData } from "../../../../reducers/authSlice";
 import { COMMUNITY_API_URL } from "../../../../security/axios";
+import useAxiosPrivate from "../../../../security/useAxiosPrivate";
+import { Button } from "../../../ui/Button";
 
 const EditCommunityModal = ({
   editCommunityModalOpen,
@@ -232,7 +231,9 @@ const EditCommunityModal = ({
                                   alt="Front Image Preview"
                                   width={247}
                                   height={247}
-                                  className="h-full w-full object-cover object-center"
+                                  className="h-full w-full object-cover object-center"  onError={(e) => {
+                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  }}
                                 />
                               ) : 
                               (
@@ -241,7 +242,9 @@ const EditCommunityModal = ({
                                   alt="Front Image Preview"
                                   width={247}
                                   height={247}
-                                  className="h-full w-full object-cover object-center"
+                                  className="h-full w-full object-cover object-center"  onError={(e) => {
+                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  }}
                                 />
                               )}
                             </div>
@@ -273,7 +276,9 @@ const EditCommunityModal = ({
                                   alt="Front Image Preview"
                                   width={247}
                                   height={247}
-                                  className="h-full w-full object-cover object-center"
+                                  className="h-full w-full object-cover object-center"  onError={(e) => {
+                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  }}
                                 />
                               )}
                             </div>

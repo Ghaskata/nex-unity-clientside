@@ -1,17 +1,13 @@
 import { ArrowLeft } from "lucide-react";
 import React, { useMemo } from "react";
-import CommunityPostList from "../../components/dash/CommunityPostList";
-import {
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useQuery } from "react-query";
-import { toast } from "react-toastify";
+import {
+  useNavigate,
+  useParams
+} from "react-router-dom";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
-import { COMMUNITY_API_URL, POST_API_URL } from "../../security/axios";
-import axios from "axios";
+import { POST_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const FrontSinglePostPage = () => {
   const navigate = useNavigate();

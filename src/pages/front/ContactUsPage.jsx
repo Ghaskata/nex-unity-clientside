@@ -1,13 +1,7 @@
-import React from 'react'
+import React from 'react';
 import './css/ContactUs.css';
 // import { EmailRounded, Facebook, FacebookSharp, Instagram, LinkedIn, LocationCity, LocationOn, Map, Phone, PhoneAndroid, Twitter } from '@mui/icons-material';
-import { InstagramIcon, MailIcon, MapPin, PhoneCallIcon } from 'lucide-react';
-import { HiUsers } from "react-icons/hi2";
-import { IoIosMail } from "react-icons/io";
-import { FaFacebook, FaInstagram, FaLocationArrow, FaLock, FaMailBulk, FaPhone } from "react-icons/fa";
-import { FaTwitter } from "react-icons/fa";
-import { FaLinkedin } from "react-icons/fa";
-import { FaGoogle } from "react-icons/fa";
+import { MailIcon, MapPin, PhoneCallIcon } from 'lucide-react';
 
 const ContactUsPage = () => {
   return (

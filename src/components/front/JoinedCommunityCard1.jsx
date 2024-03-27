@@ -1,13 +1,13 @@
 import React from "react";
-import "../../pages/front/css/CommunityPageCss.css";
-import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useMutation, useQueryClient } from "react-query";
-import { COMMUNITY_API_URL } from "../../security/axios";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
+import "../../pages/front/css/CommunityPageCss.css";
+import { selectUserData } from "../../reducers/authSlice";
+import { COMMUNITY_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
 
 const JoinedCommunityCard1 = ({ data }) => {
   const navigate = useNavigate();

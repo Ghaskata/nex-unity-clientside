@@ -1,9 +1,8 @@
 import React, { useMemo } from "react";
-import image from "../../assets/images/frontHero/home header3.jpg";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import useAxiosPrivate from "../../security/useAxiosPrivate.js";
 import { useQuery } from "react-query";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CATEGORY_API_URL } from "../../security/axios.js";
+import useAxiosPrivate from "../../security/useAxiosPrivate.js";
 import DataLoadingCompo from "../common/DataLoadingCompo.jsx";
 
 const HomeCategoriesSec = () => {

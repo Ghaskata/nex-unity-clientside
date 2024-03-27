@@ -54,7 +54,7 @@ const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
           </button>
           <div className="img_container flex justify-center items-center  h-[70px] w-[70px]">
             <Link
-              to={"/"}
+              to={"/dashboard"}
               className="flex items-center gap-2 lg:gap-3 h-full w-full"
             >
               {/* <Logo /> */}

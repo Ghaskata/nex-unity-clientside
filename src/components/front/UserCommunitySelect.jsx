@@ -1,3 +1,18 @@
+import { Plus } from "lucide-react";
+import React, {
+  useEffect,
+  useMemo,
+  useState
+} from "react";
+import { useQuery } from "react-query";
+import { useSelector } from "react-redux";
+import { selectUserData } from "../../reducers/authSlice.js";
+import { COMMUNITY_API_URL } from "../../security/axios.js";
+import useAxiosPrivate from "../../security/useAxiosPrivate.js";
+import DataLoadingCompo from "../common/DataLoadingCompo.jsx";
+import AddCommunityModal from "../dash/modal/comman/AddCommunityModal.jsx";
+import SuccessModal from "../dash/modal/comman/SuccessModal.jsx";
+import { Button } from "../ui/Button.jsx";
 import {
   Select,
   SelectContent,
@@ -5,24 +20,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/Select.jsx";
-import React, {
-  FC,
-  SetStateAction,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
-import { LayoutGrid, Plus } from "lucide-react";
-import { useQuery } from "react-query";
-import { CATEGORY_API_URL, COMMUNITY_API_URL } from "../../security/axios.js";
-import useAxiosPrivate from "../../security/useAxiosPrivate.js";
-import DataLoadingCompo from "../common/DataLoadingCompo.jsx";
-import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice.js";
-import { Button } from "../ui/Button.jsx";
-import AddCommunityModal from "../dash/modal/comman/AddCommunityModal.jsx";
-import SuccessModal from "../dash/modal/comman/SuccessModal.jsx";
 
 const UserCommunitySelect = ({ selectCommunity, setselectCommunity }) => {
   const userData = useSelector(selectUserData);

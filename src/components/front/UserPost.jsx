@@ -1,18 +1,16 @@
+import { Fullscreen } from "lucide-react";
 import React, { useState } from "react";
-import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
-import { Link } from "react-router-dom";
-import { Delete, Edit2, Fullscreen, Trash2 } from "lucide-react";
-import swal from "sweetalert";
-import SuccessModal from "../dash/modal/comman/SuccessModal";
 import { FaTrash } from "react-icons/fa";
-import { MdModeEdit } from "react-icons/md";
-import FullImageShowModal from "../dash/modal/comman/FullImageShowModal";
-import { POST_API_URL } from "../../security/axios";
 import { useMutation, useQueryClient } from "react-query";
-import useAxiosPrivate from "../../security/useAxiosPrivate";
 import { useSelector } from "react-redux";
-import { selectUserData } from "../../reducers/authSlice";
+import swal from "sweetalert";
 import { formatUserFriendlyCount } from "../../lib/userFriendlyCount";
+import { formatUserFriendlyTime } from "../../lib/userFriendlyTime";
+import { selectUserData } from "../../reducers/authSlice";
+import { POST_API_URL } from "../../security/axios";
+import useAxiosPrivate from "../../security/useAxiosPrivate";
+import FullImageShowModal from "../dash/modal/comman/FullImageShowModal";
+import SuccessModal from "../dash/modal/comman/SuccessModal";
 
 const UserPost = ({ post, isPostOwner }) => {
   const userData = useSelector(selectUserData);

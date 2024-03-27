@@ -1,8 +1,7 @@
+import { UserPlus2 } from "lucide-react";
 import React, { useCallback, useState } from "react";
-import { Button } from "../../../ui/Button";
-import Input from "../../../ui/Input";
 import { useDropzone } from "react-dropzone";
-import { Plus, User2, UserPlus2 } from "lucide-react";
+import { Button } from "../../../ui/Button";
 
 const Step2 = ({ step, setstep, isActive }) => {
   const [profile, setprofile] = useState(null);
