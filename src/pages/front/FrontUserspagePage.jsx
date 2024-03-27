@@ -101,18 +101,23 @@ const FrontUserspagePage = () => {
     return <DataLoadingCompo />;
   }
 
-
-
   return (
     <div className="w-full container my-5">
       <div className="w-full grid grid-cols-1 xl:grid-cols-2 gap-5 lg:gap-10">
-        {users?.map((user, index) => {
-          if(user._id===userId){
-            return null
-          }
-          let status=following.find((item)=>item.toUserId===user._id) ? "following":requested.find((item)=>item.toUserId===user._id) ?"requested":"follow"
-          return <UsersProfileCard user={user} key={index} status={status}/>;
-        })}
+        {users
+          ?.slice()
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          ?.map((user, index) => {
+            if (user._id === userId) {
+              return null;
+            }
+            let status = following.find((item) => item.toUserId === user._id)
+              ? "following"
+              : requested.find((item) => item.toUserId === user._id)
+              ? "requested"
+              : "follow";
+            return <UsersProfileCard user={user} key={index} status={status} />;
+          })}
       </div>
     </div>
   );
