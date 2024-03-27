@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Edit2 } from "lucide-react";
 import React, { useMemo } from "react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
@@ -144,7 +144,7 @@ const OtherProfilePage = () => {
                   onClick={() => navigate("/settings")}
                   className={`bg-blue-700 flex gap-2 items-center justify-center text-white border-blue-700 hover:bg-transparent hover:text-blue-700 rounded-lg h-12 px-5 font-semibold border text-16 transition-all duration-300 ease-linear`}
                 >
-                  <Edit2 className="h-5 w-5" />{" "}
+                  <Edit2     className="h-5 w-5" />{" "}
                   <span className="hidden md:block">Edit Profile</span>
                 </button>
               ) : (
