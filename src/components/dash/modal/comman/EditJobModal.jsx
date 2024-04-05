@@ -41,7 +41,7 @@ const EditJobModal = ({
       content: editJob.content,
       companyName: editJob.companyName,
     });
-  }, []);
+  }, [editJob, editJob._id]);
 
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {

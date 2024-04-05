@@ -42,6 +42,10 @@ const Step2 = ({ step, setstep, isActive }) => {
                     src={previewURL}
                     alt="File Preview"
                     className="w-full h-full object-cover object-center"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png";
+                    }}
                   />
                 </div>
               ) : (

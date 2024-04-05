@@ -90,6 +90,10 @@ const ProfilePage = () => {
                     height={247}
                     alt="logo"
                     className="h-full w-full object-cover object-center"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                    }}
                   />
                 </div>
                 <div>

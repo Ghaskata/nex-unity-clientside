@@ -128,6 +128,10 @@ const OtherProfilePage = () => {
                     height={247}
                     alt="logo"
                     className="h-full w-full object-cover object-center"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                    }}
                   />
                 </div>
                 <div>
@@ -144,7 +148,7 @@ const OtherProfilePage = () => {
                   onClick={() => navigate("/settings")}
                   className={`bg-blue-700 flex gap-2 items-center justify-center text-white border-blue-700 hover:bg-transparent hover:text-blue-700 rounded-lg h-12 px-5 font-semibold border text-16 transition-all duration-300 ease-linear`}
                 >
-                  <Edit2     className="h-5 w-5" />{" "}
+                  <Edit2 className="h-5 w-5" />{" "}
                   <span className="hidden md:block">Edit Profile</span>
                 </button>
               ) : (

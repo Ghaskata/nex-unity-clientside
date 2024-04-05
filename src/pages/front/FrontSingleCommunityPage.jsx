@@ -211,6 +211,10 @@ const FrontSingleCommunityPage = () => {
                       );
                       setfullImageShowModalOpen(true);
                     }}
+                    onError={(e) => {
+                      e.target.src =
+                        "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                    }}
                   />
                 ) : (
                   <img
@@ -239,10 +243,14 @@ const FrontSingleCommunityPage = () => {
                         );
                         setfullImageShowModalOpen(true);
                       }}
+                      onError={(e) => {
+                        e.target.src =
+                          "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                      }}
                     />
                   </div>
-                  <div>
-                    <h2 className="text-28  lg:text-30 xl:text-32  hidden md:block flex-shrink-0 font-semibold text-textPrimary">
+                  <div className="h-full flex justify-end items-end">
+                    <h2 className="text-28 mb-0  lg:text-30 xl:text-32  hidden md:block flex-shrink-0 font-semibold text-textPrimary">
                       {community.name}
                       {/* Nodeflffl Co. */}
                     </h2>

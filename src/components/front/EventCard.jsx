@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "../../pages/front/css/EventPage.css";
 
 const EventCard = ({ data }) => {
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   return (
     <div className="event-card-wrap ">
       <a
@@ -18,6 +18,10 @@ const EventCard = ({ data }) => {
           }
           title=""
           className="event-card-img !h-[150px]"
+          onError={(e) => {
+            e.target.src =
+              "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+          }}
         />
         <div className="event-header flex gap-2">
           <div className="event-date flex-shrink-0 p-2 border border-backgroundv3">
@@ -60,6 +64,10 @@ const EventCard = ({ data }) => {
               alt=""
               data-name="Calvin Graves"
               data-role="CEO"
+              onError={(e) => {
+                e.target.src =
+                  "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+              }}
             />
           </div>
 
@@ -69,6 +77,10 @@ const EventCard = ({ data }) => {
               alt="Jane Smith - Product Designer"
               data-name="Jane Smith"
               data-role="Product Designer"
+              onError={(e) => {
+                e.target.src =
+                  "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+              }}
             />
           </div>
           <div className="speaker-circle">
@@ -78,7 +90,13 @@ const EventCard = ({ data }) => {
           <div className="speaker-details">
             {/* <!-- <h3 className="speaker-name">Jane Smith</h3>
                 <p className="speaker-role">Product Designer</p> --> */}
-            <button className="!bg-blueMain" onClick={()=>navigate(`/events/${data.eventName}`)}> view </button>
+            <button
+              className="!bg-blueMain"
+              onClick={() => navigate(`/events/${data.eventName}`)}
+            >
+              {" "}
+              view{" "}
+            </button>
           </div>
         </div>
       </a>

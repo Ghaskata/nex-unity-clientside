@@ -70,12 +70,12 @@ export const DashbordNavlinkList = [
   { name: "Categories", icon: <Blocks className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/categories" },
   { name: "Communites", icon: <HiUserGroup className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/community" },
   { name: "Jobs", icon: <RiBriefcase2Fill className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/jobs" },
-  // {
-  //   name: "Roles / Permission",
-  //   icon: <ShieldPlusIcon className="w-[24px] h-[24px]" />,
-  //   type: "Page",
-  //   href: "/dashboard/roles",
-  // },
+  {
+    name: "Roles / Permission",
+    icon: <ShieldPlusIcon className="w-[24px] h-[24px]" />,
+    type: "Page",
+    href: "/dashboard/roles",
+  },
   { name: "Events", icon: <CalendarCheck2Icon className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/events" },
   // { name: "Community Managers", icon: <UserRoundCog className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/subadmin" },
   // { name: "Trace Request", icon: <MapPinnedIcon className="w-[24px] h-[24px]" />, type: "Page", href: "/dashboard/request" },

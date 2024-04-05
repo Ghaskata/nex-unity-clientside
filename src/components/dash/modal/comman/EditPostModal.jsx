@@ -232,6 +232,9 @@ const EditPostModal = ({
                                   width={247}
                                   height={247}
                                   className="h-full w-full object-cover object-center"
+                                  onError={(e) => {
+                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  }}
                                 />
                               ) : 
                               (
@@ -241,6 +244,9 @@ const EditPostModal = ({
                                   width={247}
                                   height={247}
                                   className="h-full w-full object-cover object-center"
+                                  onError={(e) => {
+                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  }}
                                 />
                               )}
                             </div>

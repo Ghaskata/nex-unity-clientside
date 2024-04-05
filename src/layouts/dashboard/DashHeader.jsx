@@ -17,13 +17,12 @@ import { useQuery } from "react-query";
 import { FOLLOW_API_URL } from "../../security/axios";
 import { Bell, Menu, Plus, Settings } from "lucide-react";
 
-
 const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
   const userData = useSelector(selectUserData);
   const { isDarkMode } = useContext(ThemeContext);
   const navigate = useNavigate();
 
-  const CurrentUserId=userData._id
+  const CurrentUserId = userData._id;
   const axiosPrivate = useAxiosPrivate();
   const queryKey = useMemo(() => ["get_pending_request"], []);
 
@@ -40,7 +39,6 @@ const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
       refetchOnWindowFocus: false,
     }
   );
-
 
   return (
     <div className="dash_header bg-backgroundv1 border border-backgroundv3 text-textPrimary w-full fixed top-0 start-0 z-50 shadow h-[78px]">
@@ -111,6 +109,10 @@ const DashHeader = ({ toggleSidebar, settoggleSidebar }) => {
               }
               alt="profile"
               className="w-full h-full object-cover"
+              onError={(e) => {
+                e.target.src =
+                  "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+              }}
             />
           </button>
         </div>

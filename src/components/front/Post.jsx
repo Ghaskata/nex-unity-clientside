@@ -1,10 +1,5 @@
 import EmojiPicker from "emoji-picker-react";
-import {
-  Clock,
-  Fullscreen,
-  MessageSquareMore,
-  Smile
-} from "lucide-react";
+import { Clock, Fullscreen, MessageSquareMore, Smile } from "lucide-react";
 import React, { useMemo, useState } from "react";
 import { RiThumbUpFill } from "react-icons/ri";
 import Lottie from "react-lottie-player";
@@ -205,6 +200,10 @@ const Post = ({ postData, index }) => {
                   }
                   alt="image"
                   className="w-full h-full object-cover object-center"
+                  onError={(e) => {
+                    e.target.src =
+                      "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                  }}
                 />
               </div>
             ) : (
@@ -216,6 +215,10 @@ const Post = ({ postData, index }) => {
                     src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${community?.frontImage}`}
                     alt="image"
                     className="w-full h-full object-cover object-center"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                    }}
                   />
                 )}
                 <img
@@ -226,6 +229,10 @@ const Post = ({ postData, index }) => {
                   }
                   alt="image"
                   className="absolute start-0 bottom-0 w-[50px] h-[50px] rounded-full border-2 border-blueMain"
+                  onError={(e) => {
+                    e.target.src =
+                      "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                  }}
                 />
               </div>
             )}
@@ -285,6 +292,10 @@ const Post = ({ postData, index }) => {
           }
           alt="post"
           className="!w-full !h-full object-cover object-center"
+          onError={(e) => {
+            e.target.src =
+              "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+          }}
         />
         <div
           onClick={() => {
@@ -351,12 +362,16 @@ const Post = ({ postData, index }) => {
           <div className="w-[45px] h-[45px] flex-shrink-0 rounded-full overflow-hidden">
             <img
               src={
-                userData?.profile_pic !=="" ?
-                `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData?.profile_pic}` :
-                customeProfile
+                userData?.profile_pic !== ""
+                  ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${userData?.profile_pic}`
+                  : customeProfile
               }
               alt="image"
               className="w-full h-full object-cover object-center"
+              onError={(e) => {
+                e.target.src =
+                  "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+              }}
             />
           </div>
           <div className={`relative h-[40px] w-full flex-grow`}>

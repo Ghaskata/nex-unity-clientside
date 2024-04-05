@@ -134,6 +134,10 @@ const UsersProfileCard = ({ user, status }) => {
           );
           setfullImageShowModalOpen(true);
         }}
+        onError={(e) => {
+          e.target.src =
+            "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+        }}
       />
       <div className="profile-info flex flex-col gap-2">
         <p className="text-32 font-semibold text-textPrimary truncate">

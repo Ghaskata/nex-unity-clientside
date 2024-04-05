@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import image from "../../assets/images/frontHero/home header3.jpg";
 
 const JoinedCommunityCard = ({ data }) => {
-
-
-
   return (
     <div className="w-full hover:scale-[0.98] group/card rounded-xl border-2 border-backgroundv3 cursor-pointer shadow h-[250px] bg-backgroundv1 hover:bg-backgroundv2 overflow-hidden transition-all duration-300 ease-linear">
       <div className="h-[80px]  w-full bg-blueMain/60 group-hover/card:bg-blueMain  transition-all duration-300 ease-linear"></div>
@@ -15,6 +12,10 @@ const JoinedCommunityCard = ({ data }) => {
             src={image}
             alt="image"
             className="w-full h-full object-cover object-center"
+            onError={(e) => {
+              e.target.src =
+                "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+            }}
           />
         </div>
       </div>
@@ -27,11 +28,12 @@ const JoinedCommunityCard = ({ data }) => {
         </div>
       </div>
       <div className="w-full h-[50px] flex flex-col justify-center items-center bg-backgroundv2 group-hover/card:bg-red-600 transition-all duration-300 ease-linear">
-        <Link className="text-red-600 group-hover/card:text-white transition-all duration-300 ease-linear">Leave</Link>
+        <Link className="text-red-600 group-hover/card:text-white transition-all duration-300 ease-linear">
+          Leave
+        </Link>
       </div>
     </div>
   );
 };
 
 export default JoinedCommunityCard;
-

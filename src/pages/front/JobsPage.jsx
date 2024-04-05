@@ -162,6 +162,10 @@ function JobsPage() {
                         <img
                           src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${job?.jobImage}`}
                           className="h-[80px] w-[80px] rounded-lg"
+                          onError={(e) => {
+                            e.target.src =
+                              "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                          }}
                         />
                       ) : (
                         <svg
