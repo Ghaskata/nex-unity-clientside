@@ -9,10 +9,7 @@ const EventCard = ({ data }) => {
   const navigate = useNavigate();
   return (
     <div className="event-card-wrap overflow-hidden">
-      <a
-        href={`/events/${data.eventName}`}
-        className="event-card !m-0 !bg-backgroundv1 border border-backgroundv3"
-      >
+      <div className="event-card !m-0 !bg-backgroundv1 border border-backgroundv3">
         <img
           src={
             data?.eventImage
@@ -103,7 +100,7 @@ const EventCard = ({ data }) => {
             </button>
           </div>
         </div>
-      </a>
+      </div>
 
       <EventShowModal
         eventShow={data}
