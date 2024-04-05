@@ -15,11 +15,12 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from "../ui/Table";
 import TimeFilter from "./eventTableFilter/TimeFilter";
 import EditEventModal from "./modal/comman/EditEventModal";
 import SuccessModal from "./modal/comman/SuccessModal";
+import EventShowModal from "./modal/comman/EventShowModal";
 
 const EventsTable = () => {
   let toastId;
@@ -32,6 +33,8 @@ const EventsTable = () => {
   const [successModalOpen, setsuccessModalOpen] = useState(false);
   const [editEventModalOpen, seteditEventModalOpen] = useState(false);
   const [editEvent, seteditEvent] = useState({});
+  const [eventShowModalOpen, seteventShowModalOpen] = useState(false);
+  const [eventShow, seteventShow] = useState(false);
 
   const axiosPrivate = useAxiosPrivate();
   const queryKey = useMemo(() => ["events"], []);
@@ -189,7 +192,7 @@ const EventsTable = () => {
                 <TableHead className="text-start text-14 xl:text-16">
                   Name
                 </TableHead>
-                <TableHead className="text-start text-14 xl:text-16">
+                <TableHead className="text-start text-14 xl:text-16 w-full flex-grow">
                   Content
                 </TableHead>
                 <TableHead className="text-start text-14 xl:text-16">
@@ -233,7 +236,10 @@ const EventsTable = () => {
                             src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${event.eventImage}`}
                             alt="front_image"
                             className="!h-full !w-full object-cover object-center"
-                            onError={(e)=>e.target.src="https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg"}
+                            onError={(e) =>
+                              (e.target.src =
+                                "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg")
+                            }
                           />
                         )}
                       </div>
@@ -243,7 +249,7 @@ const EventsTable = () => {
                         {event.eventName}
                       </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="w-full flex-grow">
                       <div className="text-start text-12 xl:text-14 text-textGray">
                         {event.content}
                       </div>
@@ -268,9 +274,11 @@ const EventsTable = () => {
                       <div className="flex w-full items-center justify-center gap-4 px-4">
                         <button
                           className="text-green-700"
-                          onClick={() =>
-                            navigate(`/dashboard/event/${event._id}`)
-                          }
+                          // onClick={() => navigate(`/events/${event.eventName}`)}
+                          onClick={() => {
+                            seteventShow(event);
+                            seteventShowModalOpen(true);
+                          }}
                         >
                           <VscEye className="h-6 w-6" />
                         </button>
@@ -313,6 +321,11 @@ const EventsTable = () => {
         editEventModalOpen={editEventModalOpen}
         seteditEventModalOpen={seteditEventModalOpen}
         setsuccessModalOpen={setsuccessModalOpen}
+      />
+      <EventShowModal
+        eventShow={eventShow}
+        eventShowModalOpen={eventShowModalOpen}
+        seteventShowModalOpen={seteventShowModalOpen}
       />
     </div>
   );

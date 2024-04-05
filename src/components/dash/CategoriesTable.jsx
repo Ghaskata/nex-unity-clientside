@@ -3,10 +3,7 @@ import React, { useMemo, useState } from "react";
 import { useMutation, useQueries, useQuery, useQueryClient } from "react-query";
 import { toast } from "react-toastify";
 import swal from "sweetalert";
-import {
-  CATEGORY_API_URL,
-  POST_API_URL
-} from "../../security/axios";
+import { CATEGORY_API_URL, POST_API_URL } from "../../security/axios";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import DataLoadingCompo from "../common/DataLoadingCompo";
 import Input from "../ui/Input";
@@ -16,7 +13,7 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
 } from "../ui/Table";
 import EditCategoryModal from "./modal/EditCategoryModal";
 
@@ -48,26 +45,6 @@ export function CategoriesTable() {
     }
   );
 
-  // get posts for each category
-  const categoryIds = categories
-    ? categories.map((category) => category._id)
-    : [];
-  // console.log("categorie ids >>> ", categoryIds);
-  const queryResult = useQueries(
-    categoryIds.map((categoryId) => ({
-      queryKey: ["getAllPostByCid", categoryId],
-      queryFn: async () => {
-        const response = await axiosPrivate.get(
-          POST_API_URL.getAllPostByCid.replace(":cid", categoryId)
-        );
-        return response.data.data;
-      },
-      config: {
-        enabled: true,
-        refetchOnWindowFocus: false,
-      },
-    }))
-  );
 
   //delete api
   const { mutateAsync: deleteApi } = useMutation(
@@ -111,7 +88,7 @@ export function CategoriesTable() {
     }
   );
   // console.log("All categories >>", categories);
-  // console.log("search >>", search);
+  
 
   const handleEditCategory = (category) => {
     seteditCategory(category);
@@ -137,9 +114,8 @@ export function CategoriesTable() {
     }
   };
 
-  const isLoadingPosts = queryResult.some((query) => query.isLoading);
 
-  if (isLoadingCategories || isLoadingPosts) {
+  if (isLoadingCategories) {
     return <DataLoadingCompo />;
   }
 
@@ -154,15 +130,7 @@ export function CategoriesTable() {
     );
   }
 
-  let postsByCid = [];
-  if (queryResult) {
-    postsByCid = categoryIds.map((cid, index) => ({
-      cid: categoryIds[index],
-      posts: queryResult[index].data,
-    }));
-  }
-
-  // console.log("postsByCid >>> ", postsByCid);
+  
   return (
     <div className="w-full">
       <div className="rounded-xl w-full  text-textPrimary text-center text-12  shadow bg-backgroundv1 border-2 border-backgroundv3">
@@ -227,10 +195,7 @@ export function CategoriesTable() {
                       </div>
                     </TableCell>
                     <TableCell className="text-center">
-                      {
-                        postsByCid.find((item) => item.cid === category._id)
-                          ?.posts?.length
-                      }
+                      {category.postCount}
                     </TableCell>
                     <TableCell className="text-center">
                       {new Date(category.createdAt).toLocaleDateString()}

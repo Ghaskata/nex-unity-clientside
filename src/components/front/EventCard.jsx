@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../pages/front/css/EventPage.css";
+import EventShowModal from "../dash/modal/comman/EventShowModal";
 
 const EventCard = ({ data }) => {
+  const [eventShowModalOpen, seteventShowModalOpen] = useState(false);
+
   const navigate = useNavigate();
   return (
-    <div className="event-card-wrap ">
+    <div className="event-card-wrap overflow-hidden">
       <a
         href={`/events/${data.eventName}`}
         className="event-card !m-0 !bg-backgroundv1 border border-backgroundv3"
@@ -23,7 +26,7 @@ const EventCard = ({ data }) => {
               "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
           }}
         />
-        <div className="event-header flex gap-2">
+        <div className="event-header w-full flex gap-2">
           <div className="event-date flex-shrink-0 p-2 border border-backgroundv3">
             <span className="event-month">
               {new Date(data.time).toLocaleString("default", {
@@ -36,11 +39,11 @@ const EventCard = ({ data }) => {
               </h4>
             </div>
           </div>
-          <div className="h-full flex flex-col justify-center">
-            <h3 className="text-textPrimary font-semibold text-24 truncate">
+          <div className="h-full flex flex-col flex-grow truncate justify-center">
+            <h3 className="text-textPrimary font-semibold text-24 !truncate">
               {data.eventName}
             </h3>
-            <h3 className="text-textGray text-12  truncate">{data.content}</h3>
+            <h3 className="text-textGray text-12  !truncate">{data.content}</h3>
             <h3 className="text-textPrimary text-14 font-400 truncate mt-1">
               {data.location}
             </h3>
@@ -92,7 +95,8 @@ const EventCard = ({ data }) => {
                 <p className="speaker-role">Product Designer</p> --> */}
             <button
               className="!bg-blueMain"
-              onClick={() => navigate(`/events/${data.eventName}`)}
+              // onClick={() => navigate(`/events/${data.eventName}`)}
+              onClick={() => seteventShowModalOpen(true)}
             >
               {" "}
               view{" "}
@@ -100,6 +104,12 @@ const EventCard = ({ data }) => {
           </div>
         </div>
       </a>
+
+      <EventShowModal
+        eventShow={data}
+        eventShowModalOpen={eventShowModalOpen}
+        seteventShowModalOpen={seteventShowModalOpen}
+      />
     </div>
   );
 };

@@ -3,10 +3,13 @@ import { useQuery, useQueryClient } from "react-query";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import customImg from "../../assets/images/customeProfile.png";
+import notification1 from "../../assets/lottie/notification (1).json";
+import notification2 from "../../assets/lottie/notification (2).json";
 import DataLoadingCompo from "../../components/common/DataLoadingCompo";
 import { selectUserData } from "../../reducers/authSlice";
 import { FOLLOW_API_URL } from "../../security/axios";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
+import Lottie from "react-lottie-player";
 
 const FrontNotification = () => {
   const userData = useSelector(selectUserData);
@@ -134,6 +137,20 @@ const FrontNotification = () => {
           ))}
         </div>
       </div>
+      {pendingRequestes.length === 0 && (
+        <div className="w-full max-h-[600px] h-screen flex flex-col justify-center items-center">
+          <Lottie
+            loop
+            animationData={notification1}
+            play
+            style={{ width: "60%", height: "60%" }}
+          />
+
+          <h3 className=" text-20 md:text-28 lg:text-32 font-500">
+            Request Not Found
+          </h3>
+        </div>
+      )}
     </div>
   );
 };

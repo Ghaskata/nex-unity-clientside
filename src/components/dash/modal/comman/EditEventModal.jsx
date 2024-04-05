@@ -44,8 +44,8 @@ const EditEventModal = ({
       location: editEvent.location,
       id: editEvent._id,
     });
-    setStartDate(editEvent.time);
-  }, [editEvent,editEvent.time]);
+    // setStartDate(editEvent.time);
+  }, [editEvent._id]);
   const [imagePreview, setimagePreview] = useState("");
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -118,7 +118,12 @@ const EditEventModal = ({
   const handleClose = () => {
     setTimeout(() => {
       setimagePreview("");
-      setnewEditEvent(defaultValue);
+      setnewEditEvent({
+        eventName: "",
+        content: "",
+        location: "",
+        id: "",
+      });
       seteditEventModalOpen(false);
     }, 500);
   };
@@ -198,8 +203,7 @@ const EditEventModal = ({
                                 startDate ??
                                 (isValidDate(startDate)
                                   ? startDate
-                                  : new Date()
-                                  )
+                                  : new Date())
                               }
                               onChange={(date) => {
                                 setStartDate(date);
@@ -269,8 +273,10 @@ const EditEventModal = ({
                                   alt="Front Image Preview"
                                   width={247}
                                   height={247}
-                                  className="h-full w-full object-cover object-center"  onError={(e) => {
-                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  className="h-full w-full object-cover object-center"
+                                  onError={(e) => {
+                                    e.target.src =
+                                      "https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png";
                                   }}
                                 />
                               ) : editEvent.eventImage != "" ? (
@@ -279,8 +285,10 @@ const EditEventModal = ({
                                   alt="Front Image Preview"
                                   width={247}
                                   height={247}
-                                  className="h-full w-full object-cover object-center"  onError={(e) => {
-                                    e.target.src = 'https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png';
+                                  className="h-full w-full object-cover object-center"
+                                  onError={(e) => {
+                                    e.target.src =
+                                      "https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png";
                                   }}
                                 />
                               ) : (

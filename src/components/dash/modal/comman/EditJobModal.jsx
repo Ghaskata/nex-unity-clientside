@@ -110,7 +110,12 @@ const EditJobModal = ({
 
   const handleClose = () => {
     setImagePreview("");
-    setnewEditedJob(defaultValue);
+    setnewEditedJob({
+      id: "",
+      title: "",
+      content: "",
+      companyName: "",
+    });
     seteditJobModalOpen(false);
   };
   return (
