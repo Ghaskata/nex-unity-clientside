@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { useQuery } from "react-query";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { CATEGORY_API_URL, POST_API_URL } from "../../security/axios";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 import DataLoadingCompo from "../common/DataLoadingCompo";
@@ -11,9 +11,13 @@ import HomeFollowSuggestion from "./HomeFollowSuggestion";
 import HomeTodayEventSuggestion from "./HomeTodayEventSuggestion";
 import HomeUpcommingEvent from "./HomeUpcommingEvent";
 import Post from "./Post";
+import addPostImg from "../../assets/lottie/add post.json";
+import Lottie from "react-lottie-player";
+import { useEffect } from "react";
 
 const Posts = () => {
   const [loading, setloading] = useState(true);
+  const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const encodedCategory = queryParams.get("category");
@@ -35,7 +39,7 @@ const Posts = () => {
   //         block: "start",
   //       });
   //     }
-      
+
   //   }
   // }, [location]);
 
@@ -148,6 +152,33 @@ const Posts = () => {
                 .map((post, index) => (
                   <Post key={index} postData={post} index={index} />
                 ))}
+              {posts
+                ?.slice()
+                .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                .filter((item) =>
+                  searchCategory
+                    ? searchCategoryData._id === item.category_id
+                    : item
+                )
+                ?.slice(0, visiblePosts).length === 0 && (
+                <div className="w-full max-h-[600px] h-screen flex flex-col justify-center items-center">
+                  <Lottie
+                    loop={false}
+                    animationData={addPostImg}
+                    play
+                    style={{ width: "40%", height: "40%" }}
+                    className={"cursor-pointer "}
+                    onClick={() => navigate("/add-post")}
+                  />
+                  <h3 className=" text-20 md:text-28 text-textPrimary lg:text-32 font-500">
+                    Add{" "}
+                    <Link to={"/add-post"} className="text-blueMain">
+                      A New Post
+                    </Link>{" "}
+                    of This Category
+                  </h3>
+                </div>
+              )}
             </div>
           </div>
         </InfiniteScroll>

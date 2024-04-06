@@ -73,7 +73,6 @@ const HomeCategoriesSec = () => {
             </div>
           </li>
           {categories
-            ?.filter((item) => item.postCount > 0)
             ?.map((category, index) => (
               <li
                 className={`cursor-pointer border  rounded-lg py-3 px-5 h-full w-full flex justify-center items-center text-center group/item 

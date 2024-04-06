@@ -146,7 +146,7 @@ const FrontNotification = () => {
             style={{ width: "60%", height: "60%" }}
           />
 
-          <h3 className=" text-20 md:text-28 lg:text-32 font-500">
+          <h3 className=" text-20 md:text-28 text-textPrimary lg:text-32 font-500">
             Request Not Found
           </h3>
         </div>
