@@ -72,12 +72,7 @@ const AddPostPage = () => {
     {
       onSuccess: (res) => {
         console.log("res >>> ", res.data.message);
-        toast.update(toastId, {
-          render: res.data.message,
-          type: toast.TYPE.SUCCESS,
-          isLoading: false,
-          autoClose: 2000,
-        });
+        toast.success("post created succesfully");
         setsuccessModalOpen(true);
         setimagePreview("");
         setselectedCategory("");
@@ -85,11 +80,11 @@ const AddPostPage = () => {
         setcreatePostData(createPostDefaultValue);
         queryClient.invalidateQueries("communities");
         queryClient.invalidateQueries("publicAndFollowingPosts");
-        queryClient.invalidateQueries( ["profileDetails", userData._id]);
+        queryClient.invalidateQueries(["profileDetails", userData._id]);
       },
       onError: (error) => {
         console.log("error >>> ", error);
-        toast.dismiss(toastId);
+        // toast.dismiss(toastId);
       },
     }
   );
@@ -106,7 +101,7 @@ const AddPostPage = () => {
       } else if (imagePreview === "") {
         toast.error("post image is empty !!! ");
       } else {
-        toastId = toast.loading("Processing, Please wait...");
+        // toastId = toast.loading("Processing, Please wait...");
         const formData = new FormData();
         formData.append("createUserId", createPostData.createUserId);
         formData.append("content", createPostData.content);

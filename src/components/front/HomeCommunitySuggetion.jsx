@@ -90,11 +90,6 @@ const HomeCommunitySuggetion = () => {
     }
   );
 
-
-
-
-
-
   const { mutateAsync: joinCommunity } = useMutation(
     async (data) => {
       return await axiosPrivate.post(
@@ -121,8 +116,6 @@ const HomeCommunitySuggetion = () => {
       console.log("error >>> ", error);
     }
   };
-
-
 
   if (error || communitiesError || getCommunityCreatedByUserError) {
     return (
@@ -155,7 +148,7 @@ const HomeCommunitySuggetion = () => {
       );
     });
   }
-  console.log("community >>> ",filteredCommunities)
+  console.log("community >>> ", filteredCommunities);
   return (
     <div className="w-full rounded-xl flex flex-col gap-3 justify-center items-center border-2 border-backgroundv3 bg-backgroundv1 text-textPrimary p-3 xl:p-5">
       <div className="flex justify-between items-center w-full">
@@ -164,38 +157,49 @@ const HomeCommunitySuggetion = () => {
       <hr className="border border-backgroundv3 w-full " />
 
       <ul className="flex flex-col gap-3 w-[100%] xl:w-[95%]">
-        {filteredCommunities && 
-          filteredCommunities?.slice()
-          ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
-          ?.slice(0, 5)
-          ?.map((item, index) => (
-            <li className="flex  justify-between items-center w-[100%] gap-1 xl:gap-2" key={index}>
-              <div className="flex items-center flex-grow overflow-hidden gap-1">
-                <div className="w-[40px] h-[40px] flex-shrink-0 rounded-full overflow-hidden">
-                  <img
-                    src={
-                      item.frontImage !== ""
-                        ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${item.frontImage}`
-                        : image
-                    }
-                    alt="image"
-                    className="w-full h-full object-cover object-center"
-                  />
+        {filteredCommunities &&
+          filteredCommunities
+            ?.slice()
+            ?.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+            ?.slice(0, 5)
+            ?.map((item, index) => (
+              <li
+                className="flex  justify-between items-center w-[100%] gap-1 xl:gap-2"
+                key={index}
+              >
+                <div className="flex items-center flex-grow overflow-hidden gap-1">
+                  <div className="w-[40px] h-[40px] flex-shrink-0 rounded-full overflow-hidden">
+                    <img
+                      src={
+                        item.frontImage !== ""
+                          ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${item.frontImage}`
+                          : image
+                      }
+                      alt="image"
+                      className="w-full h-full object-cover object-center"
+                      onError={(e) =>
+                        (e.target.src =
+                          "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg")
+                      }
+                    />
+                  </div>
+                  <div className="">
+                    <h3 className="text-14 font-500 truncate">{item.name}</h3>
+                    <h5 className="text-[8px] text-textGray flex gap-1 items-center truncate">
+                      {item.description}
+                    </h5>
+                  </div>
                 </div>
-                <div className="">
-                  <h3 className="text-14 font-500 truncate">{item.name}</h3>
-                  <h5 className="text-[8px] text-textGray flex gap-1 items-center truncate">
-                    {item.description}
-                  </h5>
+                <div className="flex-shrink-0 ">
+                  <button
+                    onClick={() => handleJoin(item._id)}
+                    className="rounded-full py-1 px-2 border text-10 border-blueMain bg-blueMain text-white hover:text-blueMain hover:bg-backgroundv1 transition-all duration-300 ease-linear "
+                  >
+                    Join
+                  </button>
                 </div>
-              </div>
-              <div className="flex-shrink-0 ">
-                <button onClick={()=>handleJoin(item._id)} className="rounded-full py-1 px-2 border text-10 border-blueMain bg-blueMain text-white hover:text-blueMain hover:bg-backgroundv1 transition-all duration-300 ease-linear ">
-                  Join
-                </button>
-              </div>
-            </li>
-          ))}
+              </li>
+            ))}
         {/* <li className="flex  justify-between items-center w-[100%] gap-1 xl:gap-2">
           <div className="flex items-center flex-grow overflow-hidden gap-1">
             <div className="w-[40px] h-[40px] flex-shrink-0 rounded-full overflow-hidden">
@@ -280,7 +284,9 @@ const HomeCommunitySuggetion = () => {
       <hr className="border border-backgroundv3 w-full " />
 
       <div className="w-full flex justify-center items-center ">
-        <Link to={"/community"} className="text-blueMain text-14">See All</Link>
+        <Link to={"/community"} className="text-blueMain text-14">
+          See All
+        </Link>
       </div>
     </div>
   );

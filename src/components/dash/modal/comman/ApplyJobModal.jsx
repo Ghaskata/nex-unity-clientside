@@ -74,7 +74,10 @@ const ApplyJobModal = ({
         toast.error("All fields are required");
       } else if (applyJobData.fullName.length < 6) {
         toast.error("full name min 6 character require");
-      } else {
+      } else if (applyJobData.description.length < 50) {
+        toast.error("description needs minimun 50 words");
+      } 
+      else {
         console.log("apply job  addeddd >>>", applyJobData);
         toastId = toast.loading("Processing, Please wait...");
 
