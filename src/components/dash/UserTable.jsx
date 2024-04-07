@@ -113,7 +113,7 @@ const UserTable = () => {
   console.log("users >>>> ", users);
   console.log(
     "image >>>> ",
-    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${users[1].profile_pic}`
+    `${process.env.REACT_APP_SERVER_IMAGE_PATH}${users[1]?.profile_pic}`
   );
 
   return (
@@ -297,8 +297,8 @@ const UserTable = () => {
                       <div className="image_cntainer w-[60px] h-[60px] overflow-hidden bg-blueMain rounded-full">
                         <img
                           src={
-                            user.profile_pic !== ""
-                              ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${user.profile_pic}`
+                            user?.profile_pic !== ""
+                              ? `${process.env.REACT_APP_SERVER_IMAGE_PATH}${user?.profile_pic}`
                               : defaultimage
                           }
                           alt="front_image"
