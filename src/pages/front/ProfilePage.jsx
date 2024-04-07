@@ -78,7 +78,7 @@ const ProfilePage = () => {
               {/* ${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.backImage}  */}
             </div>
             <div className="flex justify-between flex-row items-end z-10 pt-12 md:pt-16 lg:pt-20">
-              <div className="logo flex flex-row gap-4 items-start md:items-end">
+              <div className="logo flex flex-row gap-4 !items-start md:!items-end">
                 <div className="w-[150px] h-[150px] md:w-[180px] md:h-[180px] flex-shrink-0 lg:w-[200px] lg:h-[200px] bg-black rounded-full border-8 border-blueMain overflow-hidden z-10 shadow">
                   <img
                     src={

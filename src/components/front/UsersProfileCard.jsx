@@ -181,7 +181,7 @@ const UsersProfileCard = ({ user, status }) => {
         <div className="profile-btns flex gap-3">
           <p
             onClick={handleFollow}
-            className={`w-full  h-12 flex justify-center items-center text-white rounded-lg ${
+            className={`w-full  h-12 flex justify-center items-center text-white cursor-pointer rounded-lg ${
               status === "following"
                 ? "bg-blueMain border-blueMain hover:!text-blueMain"
                 : status === "requested"
@@ -193,7 +193,7 @@ const UsersProfileCard = ({ user, status }) => {
           </p>
           <p
             onClick={() => navigate(`/users/${user._id}`)}
-            className="w-full  h-12 flex justify-center items-center text-white rounded-lg bg-blueMain hover:bg-transparent hover:!text-blueMain transition-all duration-300 ease-linear border border-blueMain"
+            className="w-full  h-12 flex cursor-pointer justify-center items-center text-white rounded-lg bg-blueMain hover:bg-transparent hover:!text-blueMain transition-all duration-300 ease-linear border border-blueMain"
           >
             View
           </p>
