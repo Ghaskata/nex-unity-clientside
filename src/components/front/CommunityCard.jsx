@@ -12,6 +12,10 @@ const CommunityCard = ({ data }) => {
             src={image}
             alt="image"
             className="w-full h-full object-cover object-center"
+            onError={(e) => {
+              e.target.src =
+                "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+            }}
           />
         </div>
       </div>
@@ -24,7 +28,9 @@ const CommunityCard = ({ data }) => {
         </div>
       </div>
       <div className="w-full h-[50px] flex flex-col justify-center items-center bg-backgroundv2 group-hover/card:bg-blueMain transition-all duration-300 ease-linear">
-        <Link className="text-blueMain group-hover/card:text-white transition-all duration-300 ease-linear">Join</Link>
+        <Link className="text-blueMain group-hover/card:text-white transition-all duration-300 ease-linear">
+          Join
+        </Link>
       </div>
     </div>
   );

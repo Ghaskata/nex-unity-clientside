@@ -47,7 +47,7 @@ const HomeCategoriesSec = () => {
     ? [matchingCategory, ...nonMatchingCategories]
     : nonMatchingCategories;
 
-  // console.log("all category >> ", categories);
+  console.log("all category >> ", categories);
 
   if (isError) {
     return <DataLoadingCompo />;
@@ -72,9 +72,10 @@ const HomeCategoriesSec = () => {
               <h2 className="font-500 text-18"> All </h2>
             </div>
           </li>
-          {categories?.map((category, index) => (
-            <li
-              className={`cursor-pointer border  rounded-lg py-3 px-5 h-full w-full flex justify-center items-center text-center group/item 
+          {categories
+            ?.map((category, index) => (
+              <li
+                className={`cursor-pointer border  rounded-lg py-3 px-5 h-full w-full flex justify-center items-center text-center group/item 
               ${
                 paramCategory !== null &&
                 paramCategory === category.category_name
@@ -82,14 +83,14 @@ const HomeCategoriesSec = () => {
                   : "border-textPrimary bg-backgroundv1 text-textPrimary"
               }
               `}
-              key={index}
-              onClick={() => navigate(`?category=${category.category_name}`)}
-            >
-              <div className="w-full h-full text-center">
-                <h2 className="font-500 text-18">{category.category_name}</h2>
-              </div>
-            </li>
-          ))}
+                key={index}
+                onClick={() => navigate(`?category=${category.category_name}`)}
+              >
+                <div className="w-full h-full text-center">
+                  <h2 className="font-500 text-18">{category.category_name}</h2>
+                </div>
+              </li>
+            ))}
         </ul>
       </div>
     </>

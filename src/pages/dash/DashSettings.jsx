@@ -10,10 +10,7 @@ import customeProfile from "../../assets/images/customeProfile.png";
 import ChangePasswordModal from "../../components/dash/modal/comman/ChangePasswordModal";
 import ForgotPasswordModal from "../../components/dash/modal/forgotPasswordModalflow/ForgotPasswordModal";
 import Input from "../../components/ui/Input";
-import {
-  selectUserData,
-  updateUserData
-} from "../../reducers/authSlice";
+import { selectUserData, updateUserData } from "../../reducers/authSlice";
 import { AUTH_API_URL } from "../../security/axios";
 import useAxiosPrivate from "../../security/useAxiosPrivate";
 
@@ -415,6 +412,10 @@ const DashSettings = () => {
                     width={247}
                     height={247}
                     className="h-full w-full object-cover object-center"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                    }}
                   />
                 )}
               </div>

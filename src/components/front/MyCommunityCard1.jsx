@@ -20,6 +20,10 @@ const MyCommunityCard1 = ({ data }) => {
         }
         alt="sample74"
         className="!h-[200px] w-full"
+        onError={(e) => {
+          e.target.src =
+            "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+        }}
       />
       <figcaption>
         <img
@@ -30,15 +34,23 @@ const MyCommunityCard1 = ({ data }) => {
           }
           alt="profile-sample2"
           className="profile !h-[90px] !w-[90px]"
+          onError={(e) => {
+            e.target.src =
+              "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+          }}
         />
         <h2>
           {data?.name}
           <span>{formatUserFriendlyTime(data.createdAt)}</span>
         </h2>
         <div className="h-[50px] overflow-hidden">
-        <p>{data?.description}</p>
-        </div>        <div className="flex gap-3 h-11">
-          <div onClick={() => navigate(`/community/${data._id}`)} className="cursor-pointer flex rounded justify-center items-center h-full border border-blueMain bg-blueMain w-full text-white hover:text-blueMain hover:bg-transparent transition-all duration-300 ease-linear">
+          <p>{data?.description}</p>
+        </div>{" "}
+        <div className="flex gap-3 h-11">
+          <div
+            onClick={() => navigate(`/community/${data._id}`)}
+            className="cursor-pointer flex rounded justify-center items-center h-full border border-blueMain bg-blueMain w-full text-white hover:text-blueMain hover:bg-transparent transition-all duration-300 ease-linear"
+          >
             Manage
           </div>
           <div

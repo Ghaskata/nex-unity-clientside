@@ -68,6 +68,10 @@ const HomeFollowSuggestion = () => {
                     }
                     alt="image"
                     className="w-full h-full object-cover object-center"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                    }}
                   />
                 </div>
                 <div className="">
@@ -136,7 +140,9 @@ const HomeFollowSuggestion = () => {
       </ul>
       <hr className="border border-backgroundv3 w-full " />
       <div className="w-full flex justify-center items-center ">
-        <Link to={"/users"} className="text-blueMain text-14">See All</Link>
+        <Link to={"/users"} className="text-blueMain text-14">
+          See All
+        </Link>
       </div>
     </div>
   );

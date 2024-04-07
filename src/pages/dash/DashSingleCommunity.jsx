@@ -212,6 +212,10 @@ const DashSingleCommunity = () => {
                       );
                       setfullImageShowModalOpen(true);
                     }}
+                    onError={(e) => {
+                      e.target.src =
+                        "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                    }}
                   />
                 ) : (
                   <img
@@ -239,6 +243,10 @@ const DashSingleCommunity = () => {
                           `${process.env.REACT_APP_SERVER_IMAGE_PATH}${community.frontImage}`
                         );
                         setfullImageShowModalOpen(true);
+                      }}
+                      onError={(e) => {
+                        e.target.src =
+                          "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
                       }}
                     />
                   </div>

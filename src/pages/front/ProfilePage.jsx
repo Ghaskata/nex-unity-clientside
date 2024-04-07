@@ -90,6 +90,10 @@ const ProfilePage = () => {
                     height={247}
                     alt="logo"
                     className="h-full w-full object-cover object-center"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                    }}
                   />
                 </div>
                 <div>
@@ -127,8 +131,8 @@ const ProfilePage = () => {
             <div className="my-4">
               <h2 className="text-20 sm:text-22 md:text-24 block xl:hidden font-semibold text-textPrimary">
                 {profileDetails?.userDetails?.first_name}{" "}
+                {profileDetails?.userDetails?.middle_name}{" "}
                 {profileDetails?.userDetails?.surname}{" "}
-                {profileDetails?.userDetails?.middle_name}
               </h2>
             </div>
             <div className="h-[1px] w-full bg-backgroundv3"></div>

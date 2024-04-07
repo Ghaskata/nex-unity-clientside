@@ -41,7 +41,7 @@ const EditJobModal = ({
       content: editJob.content,
       companyName: editJob.companyName,
     });
-  }, []);
+  }, [editJob, editJob._id]);
 
   const onDrop = useCallback((acceptedFiles) => {
     if (acceptedFiles.length > 0) {
@@ -110,7 +110,12 @@ const EditJobModal = ({
 
   const handleClose = () => {
     setImagePreview("");
-    setnewEditedJob(defaultValue);
+    setnewEditedJob({
+      id: "",
+      title: "",
+      content: "",
+      companyName: "",
+    });
     seteditJobModalOpen(false);
   };
   return (

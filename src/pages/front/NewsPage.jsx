@@ -12,7 +12,7 @@ const NewsPage = () => {
       .then((response) => response.json())
       .then((data) => {
         setTimeout(() => {
-          data = data.articles.filter((data) => data.urlToImage)
+          data = data.articles.filter((data) => data.urlToImage);
           setJobs(data);
         }, 2000);
       })
@@ -40,7 +40,14 @@ const NewsPage = () => {
                   <div class="inner !bg-backgroundv2">
                     <div class="fauxcrop">
                       {/* <img alt="News Entry" src="../../assets/images/about/businessman-pointing.jpg" /> */}
-                      <img alt="News Entry" src={article.urlToImage} />
+                      <img
+                        alt="News Entry"
+                        src={article.urlToImage}
+                        onError={(e) => {
+                          e.target.src =
+                            "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                        }}
+                      />
                     </div>
                     <div class="ct-blog-content !bg-backgroundv2">
                       <div class="ct-blog-date !text-textPrimary">

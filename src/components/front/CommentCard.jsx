@@ -81,18 +81,18 @@ const CommentCard = ({ comment }) => {
       console.log("error >> ", error);
     }
   };
-  const handleDeleteComment =  (e) => {
+  const handleDeleteComment = (e) => {
     swal({
-        title: "Are you sure?",
-        text: "You Really want to delete your comment !!!",
-        icon: "warning",
-        buttons: true,
-        dangerMode: true,
-        }).then(async (willDelete) => {
-            if (willDelete) {
-                await deleteComment({ commentId: comment._id });
-            }
-        })
+      title: "Are you sure?",
+      text: "You Really want to delete your comment !!!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true,
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        await deleteComment({ commentId: comment._id });
+      }
+    });
   };
 
   return (
@@ -106,6 +106,10 @@ const CommentCard = ({ comment }) => {
           }
           alt="image"
           className="w-full h-full object-cover object-center"
+          onError={(e) => {
+            e.target.src =
+              "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+          }}
         />
       </div>
       <div className="h-full flex w-full justify-start items-start gap-2">

@@ -16,7 +16,7 @@ const PastEventSlider = ({ pastEvents }) => {
           Hover over a speaker's image
         </h4>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 3xl:grid-cols-4  gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2  xl:grid-cols-3 3xl:grid-cols-4  gap-5">
         {pastEvents?.map((item, itemIndex) => (
           <EventCard data={item} key={itemIndex} />
         ))}

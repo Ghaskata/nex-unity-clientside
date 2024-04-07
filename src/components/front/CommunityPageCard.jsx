@@ -58,6 +58,10 @@ const CommunityPageCard = ({ data }) => {
         }
         alt="sample74"
         className="!h-[200px] w-full"
+        onError={(e) => {
+          e.target.src =
+            "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+        }}
       />
       <figcaption>
         <img
@@ -68,6 +72,10 @@ const CommunityPageCard = ({ data }) => {
           }
           alt="profile-sample2"
           className="profile !h-[90px] !w-[90px]"
+          onError={(e) => {
+            e.target.src =
+              "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+          }}
         />
         <h2>
           {data?.name}

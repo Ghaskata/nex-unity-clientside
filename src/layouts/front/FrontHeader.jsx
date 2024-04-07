@@ -47,7 +47,7 @@ const FrontHeader = () => {
   // });
 
   const userData = useSelector(selectUserData);
-  const CurrentUserId=userData._id
+  const CurrentUserId = userData._id;
   const axiosPrivate = useAxiosPrivate();
   const queryKey = useMemo(() => ["get_pending_request"], []);
 
@@ -64,7 +64,6 @@ const FrontHeader = () => {
       refetchOnWindowFocus: false,
     }
   );
-
 
   // console.log("get_pending_request header>>> ",pendingRequestes)
 
@@ -134,6 +133,10 @@ const FrontHeader = () => {
                 }
                 alt="profile"
                 className="w-full h-full object-cover"
+                onError={(e) => {
+                  e.target.src =
+                    "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                }}
               />
             </Link>
           </div>

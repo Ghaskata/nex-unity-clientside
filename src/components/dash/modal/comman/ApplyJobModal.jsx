@@ -33,7 +33,7 @@ const ApplyJobModal = ({
   const [applyJobData, setapplyJobData] = useState(defaultValue);
   useEffect(() => {
     setapplyJobData({ ...applyJobData, id: job._id });
-  }, []);
+  }, [job, job._id]);
 
   console.log("apply job data >> ",applyJobData);
   console.log("apply -data >> ",job);

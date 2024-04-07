@@ -74,6 +74,10 @@ const FrontSingleEventPage = () => {
                   <img
                     src={`${process.env.REACT_APP_SERVER_IMAGE_PATH}${event[0].eventImage}`}
                     alt="shoe image"
+                    onError={(e) => {
+                      e.target.src =
+                        "https://i.pinimg.com/originals/83/ed/5e/83ed5edc241c05f8b8510945e86a425d.jpg";
+                    }}
                   />
                 </div>
               </div>
@@ -103,7 +107,7 @@ const FrontSingleEventPage = () => {
                 <p>
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Consequatur, perferendis eius. Dignissimos, labore suscipit.
-                  Unde. 
+                  Unde.
                 </p>
               </div>
 

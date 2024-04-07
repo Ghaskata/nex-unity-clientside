@@ -59,14 +59,14 @@ const GoToTop = () => {
         <img
           src={roket}
           alt="roket"
-          className=" object-cover hover:scale-150 transition-all duration-300 ease-linear"
+          className=" object-cover hover:scale-150 transition-all duration-300 ease-linear z-50"
         />
       </div>
       <div className="hoverImg cursor-pointer fixed animate-bounce transition-all duration-1000 ease-linear top-[110%] end-8 h-[20px] w-[20px] z-50">
         <img
           src={roket}
           alt="roket"
-          className=" object-cover transition-all duration-300 ease-linear"
+          className=" object-cover transition-all duration-300 ease-linear z-50"
         />
       </div> 
     </>

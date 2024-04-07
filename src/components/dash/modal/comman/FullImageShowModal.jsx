@@ -45,7 +45,7 @@ const FullImageShowModal = ({
             >
               <Dialog.Panel className="w-full  flex justify-center items-center  h-full transform rounded-2xl bg-transparent  transition-all">
                 <div
-                  className={cn( className)}
+                  className={cn(className)}
                   onClick={() => {
                     setfullImageShowModalOpen(false);
                     setTimeout(() => {
@@ -57,6 +57,10 @@ const FullImageShowModal = ({
                     src={imageUrl}
                     alt={"image"}
                     className={"cursor-pointer"}
+                    onError={(e) => {
+                      e.target.src =
+                        "https://cdn4.iconfinder.com/data/icons/ui-beast-4/32/Ui-12-512.png";
+                    }}
                   />
                 </div>
               </Dialog.Panel>
