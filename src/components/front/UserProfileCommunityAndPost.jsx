@@ -24,9 +24,11 @@ const UserProfileCommunityAndPost = ({ profileDetails }) => {
   const [addCommunityModalOpen, setaddCommunityModalOpen] = useState(false);
 
   return (
-
     <div className="bg-backgroundv1 text-textPrimary rounded-lg border p-5 font-popins border-backgroundv3">
-      {(profileDetails?.userDetails.isPrivate && profileDetails?.isYouFollowThisPerson)  || !profileDetails?.userDetails.isPrivate ? (
+      {(profileDetails?.userDetails.isPrivate &&
+        profileDetails?.isYouFollowThisPerson) ||
+      !profileDetails?.userDetails.isPrivate ||
+      profileDetails?.userDetails._id === currentUserId ? (
         <>
           <Tabs defaultValue="posts">
             <div className="flex justify-between items-center">
@@ -111,7 +113,9 @@ const UserProfileCommunityAndPost = ({ profileDetails }) => {
                 {profileDetails?.postDetails?.length > 0 ? (
                   profileDetails?.postDetails
                     ?.slice()
-                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                    .sort(
+                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    )
                     .map((post, index) => (
                       <UserPost
                         post={post}
@@ -137,7 +141,9 @@ const UserProfileCommunityAndPost = ({ profileDetails }) => {
                 {profileDetails?.createdCommunityDetails?.length > 0 ? (
                   profileDetails?.createdCommunityDetails
                     ?.slice()
-                    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+                    .sort(
+                      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+                    )
                     .map((community, index) => (
                       <UserCommunity
                         community={community}
@@ -159,12 +165,14 @@ const UserProfileCommunityAndPost = ({ profileDetails }) => {
             </div>
           </Tabs>
         </>
-      ):<>
-        <div>
-          <h3>This account is private</h3>
-          <p>Follow this account to see their posts and communities.</p>
-        </div>
-      </>}
+      ) : (
+        <>
+          <div>
+            <h3>This account is private</h3>
+            <p>Follow this account to see their posts and communities.</p>
+          </div>
+        </>
+      )}
 
       <AddCommunityModal
         addCommunityModalOpen={addCommunityModalOpen}
