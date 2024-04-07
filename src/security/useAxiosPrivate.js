@@ -34,24 +34,27 @@ const useAxiosPrivate = () => {
         return response;
       },
       (error) => {
-        if (error.response) {
-          // The request was made and the server responded with a status code
-          if (error.response.data && error.response.data.message) {
-            // Server sent a specific error message
-            toast.error(error.response.data.message);
+        if (!error.isSHow) {
+          if (error.response) {
+            error.isSHow = true;
+            // The request was made and the server responded with a status code
+            if (error.response.data && error.response.data.message) {
+              // Server sent a specific error message
+              toast.error(error.response.data.message);
+            } else {
+              // Server did not send a specific error message
+              toast.error(`Request failed with status ${error.response.status}`);
+            }
+          } else if (error.request) {
+            // The request was made but no response was received
+            toast.error("No response received from the server");
           } else {
-            // Server did not send a specific error message
-            toast.error(`Request failed with status ${error.response.status}`);
+            // Something happened in setting up the request
+            toast.error("Request setup failed");
           }
-        } else if (error.request) {
-          // The request was made but no response was received
-          toast.error("No response received from the server");
-        } else {
-          // Something happened in setting up the request
-          toast.error("Request setup failed");
-        }
 
-        console.log("request intercept >>> ",requestIntercept)
+        }
+        console.log("request intercept >>> ", requestIntercept)
         return Promise.reject(error);
       }
     );
