@@ -36,23 +36,43 @@ const EventsPage = () => {
 
   const currentDate = new Date();
 
-  const todayEvents = events?.filter((event) => {
-    const eventDate = new Date(event.time);
-    return (
-      eventDate.getDate() === currentDate.getDate() &&
-      eventDate.getMonth() === currentDate.getMonth() &&
-      eventDate.getFullYear() === currentDate.getFullYear()
-    );
-  });
+  // const todayEvents = events?.filter((event) => {
+  //   const eventDate = new Date(event.time);
+  //   return (
+  //     eventDate.getDate() === currentDate.getDate() &&
+  //     eventDate.getMonth() === currentDate.getMonth() &&
+  //     eventDate.getFullYear() === currentDate.getFullYear()
+  //   );
+  // });
 
-  const upcomingEvents = events?.filter((event) => {
-    const eventDate = new Date(event.time);
-    return eventDate > currentDate;
-  });
+  // const upcomingEvents = events?.filter((event) => {
+  //   const eventDate = new Date(event.time);
+  //   return eventDate > currentDate;
+  // });
 
-  const pastEvents = events?.filter((event) => {
+  // const pastEvents = events?.filter((event) => {
+  //   const eventDate = new Date(event.time);
+  //   return eventDate < currentDate;
+  // });
+  const todayEvents = [];
+  const upcomingEvents = [];
+  const pastEvents = [];
+  
+  const now = new Date(); // Current date and time
+  
+  events?.forEach(event => {
     const eventDate = new Date(event.time);
-    return eventDate < currentDate;
+    // Remove time component for comparison
+    const eventDateWithoutTime = new Date(eventDate.getFullYear(), eventDate.getMonth(), eventDate.getDate());
+    const currentDateWithoutTime = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  
+    if (eventDateWithoutTime.getTime() === currentDateWithoutTime.getTime()) {
+      todayEvents.push(event);
+    } else if (eventDateWithoutTime > currentDateWithoutTime) {
+      upcomingEvents.push(event);
+    } else {
+      pastEvents.push(event);
+    }
   });
 
 
